@@ -1,6 +1,7 @@
 using Empresa.Projeto.RestAPI.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,26 +21,28 @@ namespace Empresa.Projeto.RestAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddJwtTConfiguration(Configuration);
+            services.AddFluentValidationConfiguration();
+            services.AddAutoMapperConfiguration();
             services.AddDatabaseConfiguration(Configuration);
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Empresa.Projeto.RestAPI", Version = "v1" });
-            });
+            services.AddDependencyInjectionConfiguration();
+            services.AddSwaggerConfig();
+            services.AddCorsConfiguration(Configuration);
+            services.AddVersionConfiguration();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Empresa.Projeto.RestAPI v1"));
+                app.UseDeveloperExceptionPage();              
             }
 
             app.UseDatabaseConfiguration();
+            app.UseSwaggerConfig(provider, env);
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseAuthorization();
+            app.UseCors("CorsPolicy");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

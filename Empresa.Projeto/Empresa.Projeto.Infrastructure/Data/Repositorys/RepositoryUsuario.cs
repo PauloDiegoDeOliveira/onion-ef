@@ -5,9 +5,9 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
 {
     public class RepositoryUsuario : RepositoryBase<Usuario>, IRepositoryUsuario
     {
-        private readonly AppContext appContext;
+        private readonly AppDbContext appContext;
 
-        public RepositoryUsuario(AppContext appContext) : base(appContext)
+        public RepositoryUsuario(AppDbContext appContext) : base(appContext)
         {
             this.appContext = appContext;
         }
