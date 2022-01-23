@@ -36,12 +36,10 @@ namespace Empresa.Projeto.RestAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Empresa.Projeto.RestAPI v1"));
             }
 
+            app.UseDatabaseConfiguration();
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

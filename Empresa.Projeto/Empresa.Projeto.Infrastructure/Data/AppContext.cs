@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Infrastructure.Data
 {
-    public class DbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class AppContext : DbContext
     {
-        public DbContext(DbContextOptions<DbContext> options) : base(options) { }
+        public AppContext(DbContextOptions<AppContext> options) : base(options) { }
 
         public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppContext).Assembly);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

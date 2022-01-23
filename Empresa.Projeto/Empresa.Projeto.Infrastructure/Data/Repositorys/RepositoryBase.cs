@@ -7,9 +7,9 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
 {
     public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
-        private readonly DbContext appContext;
+        private readonly AppContext appContext;
 
-        public RepositoryBase(DbContext appContext)
+        public RepositoryBase(AppContext appContext)
         {
             this.appContext = appContext;
         }
