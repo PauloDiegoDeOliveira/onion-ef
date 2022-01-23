@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Domain.Entitys;
+using System;
 
 namespace Empresa.Projeto.Application.Mappers
 {
@@ -12,7 +13,9 @@ namespace Empresa.Projeto.Application.Mappers
         }
 
         private void Map()
-        {           
+        {
+            CreateMap<PostUsuarioDto, Usuario>();
+            CreateMap<PutUsuarioDto, Usuario>().ForMember(d => d.AlteradoEm, o => o.MapFrom(x => DateTime.Now));
             CreateMap<Usuario, ViewUsuarioDto>();           
         }
     }

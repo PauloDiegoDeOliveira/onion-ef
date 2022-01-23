@@ -97,7 +97,7 @@ namespace Empresa.Projeto.RestAPI.Configuration
         {
             var info = new OpenApiInfo()
             {
-                Title = "RestAPI",
+                Title = "Empresa.Projeto.APIRest",
                 Version = description.ApiVersion.ToString(),
                 Description = "Esta API faz parte do projeto.",
             };

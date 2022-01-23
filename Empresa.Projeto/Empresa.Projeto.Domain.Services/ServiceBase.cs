@@ -18,5 +18,25 @@ namespace Empresa.Projeto.Domain.Services
         {
             return await repository.GetAllAsync();
         }
+
+        public async Task<TEntity> GetByIdAsync(long id)
+        {
+            return await repository.GetByIdAsync(id);
+        }
+
+        public virtual async Task<TEntity> PostAsync(TEntity obj)
+        {
+            return await repository.PostAsync(obj);
+        }
+
+        public virtual async Task<TEntity> PutAsync(TEntity obj)
+        {
+            return await repository.PutAsync(obj); 
+        }
+
+        public async Task<TEntity> DeleteAsync(long id) 
+        {
+            return await repository.DeleteAsync(id); 
+        }
     }
 }
