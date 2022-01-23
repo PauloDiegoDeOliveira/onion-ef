@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 namespace Empresa.Projeto.RestAPI
 {
@@ -35,7 +34,7 @@ namespace Empresa.Projeto.RestAPI
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();              
+                app.UseDeveloperExceptionPage();
             }
 
             app.UseDatabaseConfiguration();
