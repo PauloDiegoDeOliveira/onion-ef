@@ -21,6 +21,7 @@ namespace Empresa.Projeto.RestAPI.Configuration
             services.AddSwaggerGen(c =>
             {
                 c.OperationFilter<SwaggerDefaultValues>();
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {

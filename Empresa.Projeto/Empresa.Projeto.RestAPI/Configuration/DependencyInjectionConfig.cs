@@ -5,6 +5,8 @@ using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Services;
 using Empresa.Projeto.Infrastructure.Data.Repositorys;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Empresa.Projeto.RestAPI.Configuration
 {
@@ -14,7 +16,9 @@ namespace Empresa.Projeto.RestAPI.Configuration
         {
             services.AddScoped<IRepositoryUsuario, RepositoryUsuario>();
             services.AddScoped<IApplicationServiceUsuario, ApplicationServiceUsuario>();
-            services.AddScoped<IServiceUsuario, ServiceUsuario>();           
+            services.AddScoped<IServiceUsuario, ServiceUsuario>();
+
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         }
     }
 }
