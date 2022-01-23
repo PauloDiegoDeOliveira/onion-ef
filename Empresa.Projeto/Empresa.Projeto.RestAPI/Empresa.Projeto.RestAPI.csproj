@@ -19,13 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configuration\" />
     <Folder Include="Controllers\" />
     <Folder Include="V2\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Empresa.Projeto.Application\Empresa.Projeto.Application.csproj" />
+    <ProjectReference Include="..\Empresa.Projeto.Infrastructure\Empresa.Projeto.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
