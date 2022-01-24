@@ -21,10 +21,10 @@ namespace Empresa.Projeto.Application
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<ViewUsuarioDto>> GetAllAsync()
+        public async Task<IList<ViewUsuarioDto>> GetAllAsync()
         {
             var consulta = await serviceUsuario.GetAllAsync();
-            return mapper.Map<IEnumerable<ViewUsuarioDto>>(consulta);
+            return mapper.Map<IList<ViewUsuarioDto>>(consulta);
         }
 
         public async Task<ViewUsuarioDto> GetByIdAsync(long id)
@@ -67,6 +67,16 @@ namespace Empresa.Projeto.Application
         {
             var consulta = await serviceUsuario.DeleteAsync(id);
             return mapper.Map<ViewUsuarioDto>(consulta);
+        }
+
+        public async Task<IList<ViewUsuarioDto>> GetNomeAsync(string nome)
+        {
+            IList<Usuario> consulta = await serviceUsuario.GetNomeAsync(nome);
+            //if (consulta == null)
+            //{
+            //    return null;
+            //}
+            return mapper.Map<IList<ViewUsuarioDto>>(consulta);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -91,6 +92,22 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
             }
             return Ok(new { mensagem = "Usuário removido com sucesso!" });
+        }
+
+        /// <summary>
+        /// Consultar nome.
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns></returns>
+        [HttpGet("nome")]
+        public async Task<IActionResult> GetNomeAsync(string nome)
+        {
+            var consulta = await serviceUsuario.GetNomeAsync(nome);
+            if (consulta == null)
+            {
+                return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o nome informado." });
+            };
+            return Ok(consulta);
         }
     }
 }

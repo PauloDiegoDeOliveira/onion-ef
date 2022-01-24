@@ -7,36 +7,36 @@ namespace Empresa.Projeto.Domain.Services
 {
     public class ServiceBase<TEntity> : IServiceBase<TEntity> where TEntity : class
     {
-        private readonly IRepositoryBase<TEntity> repository;
+        private readonly IRepositoryBase<TEntity> repositoryBase;
 
-        public ServiceBase(IRepositoryBase<TEntity> repository)
+        public ServiceBase(IRepositoryBase<TEntity> repositoryBase)
         {
-            this.repository = repository;
+            this.repositoryBase = repositoryBase;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IList<TEntity>> GetAllAsync()
         {
-            return await repository.GetAllAsync();
+            return await repositoryBase.GetAllAsync();
         }
 
         public async Task<TEntity> GetByIdAsync(long id)
         {
-            return await repository.GetByIdAsync(id);
+            return await repositoryBase.GetByIdAsync(id);
         }
 
         public virtual async Task<TEntity> PostAsync(TEntity obj)
         {
-            return await repository.PostAsync(obj);
+            return await repositoryBase.PostAsync(obj);
         }
 
         public virtual async Task<TEntity> PutAsync(TEntity obj)
         {
-            return await repository.PutAsync(obj); 
+            return await repositoryBase.PutAsync(obj); 
         }
 
         public async Task<TEntity> DeleteAsync(long id) 
         {
-            return await repository.DeleteAsync(id); 
+            return await repositoryBase.DeleteAsync(id); 
         }
     }
 }

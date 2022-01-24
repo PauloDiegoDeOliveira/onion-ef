@@ -1,6 +1,5 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,7 +14,7 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             this.appDbContext = appContext;
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
+        public virtual async Task<IList<TEntity>> GetAllAsync()
         {
             return await appDbContext.Set<TEntity>().AsNoTracking().ToListAsync();
         }
@@ -37,7 +36,7 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             appDbContext.Entry(obj).State = EntityState.Modified;
             await appDbContext.SaveChangesAsync();
             return obj;
-        } 
+        }
 
         public virtual async Task<TEntity> DeleteAsync(long id)
         {
@@ -47,7 +46,7 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
                 appDbContext.Remove(obj);
                 await appDbContext.SaveChangesAsync();
             }
-            return obj;           
+            return obj;
         }
     }
 }
