@@ -1,20 +1,19 @@
 ﻿using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.RestAPI.V1.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/usuario")]
+    [Route("api/v{version:apiVersion}/usuarios")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class UsuariosController : ControllerBase
     {
         private readonly IApplicationServiceUsuario serviceUsuario;
 
-        public UsuarioController(IApplicationServiceUsuario serviceUsuario)
+        public UsuariosController(IApplicationServiceUsuario serviceUsuario)
         {
             this.serviceUsuario = serviceUsuario;
         }
