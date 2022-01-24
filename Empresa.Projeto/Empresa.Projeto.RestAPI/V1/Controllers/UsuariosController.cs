@@ -1,5 +1,6 @@
 ﻿using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Application.Interfaces;
+using Empresa.Projeto.Application.Validations.Usuario;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,6 +60,19 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         {
             var inserido = await serviceUsuario.PostAsync(post);
             return Ok(new { mensagem = "Usuário criado com sucesso!" });
+
+            //// Teste
+            //PostUsuarioValidator validations = new PostUsuarioValidator();
+            //var validation = validations.Validate(post);
+            //if (validation.IsValid)
+            //{
+            //    var inserido = await serviceUsuario.PostAsync(post);
+            //    return Ok(new { mensagem = "Usuário criado com sucesso!" });
+            //}
+            //else
+            //{
+            //    return BadRequest(validation.ToString());
+            //}
         }
 
         /// <summary>

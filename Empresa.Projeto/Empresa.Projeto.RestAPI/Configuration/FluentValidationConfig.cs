@@ -24,6 +24,7 @@ namespace Empresa.Projeto.RestAPI.Configuration
                 })
                 .AddFluentValidation(p =>
                 {
+                    //p.RegisterValidatorsFromAssemblyContaining<Startup>();
                     p.RegisterValidatorsFromAssemblyContaining<PostUsuarioValidator>();
                     p.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
                 });
