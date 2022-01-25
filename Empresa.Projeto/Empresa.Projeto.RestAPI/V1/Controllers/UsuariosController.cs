@@ -1,6 +1,5 @@
 ﻿using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Application.Interfaces;
-using Empresa.Projeto.Application.Validations.Usuario;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,21 +57,11 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] PostUsuarioDto post)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var inserido = await serviceUsuario.PostAsync(post);
             return Ok(new { mensagem = "Usuário criado com sucesso!" });
-
-            //// Teste
-            //PostUsuarioValidator validations = new PostUsuarioValidator();
-            //var validation = validations.Validate(post);
-            //if (validation.IsValid)
-            //{
-            //    var inserido = await serviceUsuario.PostAsync(post);
-            //    return Ok(new { mensagem = "Usuário criado com sucesso!" });
-            //}
-            //else
-            //{
-            //    return BadRequest(validation.ToString());
-            //}
         }
 
         /// <summary>
@@ -83,6 +72,9 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpPut]
         public async Task<IActionResult> PutAsync([FromBody] PutUsuarioDto put)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var atualizado = await serviceUsuario.PutAsync(put);
             if (atualizado == null)
             {
