@@ -19,5 +19,10 @@ namespace Empresa.Projeto.Domain.Services
         {
             return await repositoryUsuario.GetNomeAsync(nome);
         }
+
+        public async Task<Usuario> GetEmailAsync(string email)
+        {
+            return await repositoryUsuario.GetEmailAsync(email);
+        }      
     }
 }

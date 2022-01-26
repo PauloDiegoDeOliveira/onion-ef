@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Empresa.Projeto.Domain.Core.Interfaces.Services;
+using Empresa.Projeto.Domain.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +13,7 @@ namespace Empresa.Projeto.RestAPI.Configuration
     {
         public static void AddJwtTConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddSingleton<IJWTService, JWTService>();
+            services.AddSingleton<IServiceJWT, ServiceJWT>();
 
             var chave = Encoding.ASCII.GetBytes(configuration.GetSection("JWT:Secret").Value);
 

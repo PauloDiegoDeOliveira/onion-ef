@@ -7,5 +7,6 @@ namespace Empresa.Projeto.Domain.Core.Interfaces.Repositorys
     public interface IRepositoryUsuario : IRepositoryBase<Usuario> 
     {
         Task<IList<Usuario>> GetNomeAsync(string nome);
+        Task<Usuario> GetEmailAsync(string email);     
     }
 }

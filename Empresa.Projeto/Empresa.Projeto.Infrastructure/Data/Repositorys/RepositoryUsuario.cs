@@ -24,5 +24,14 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
                                         .ToListAsync();
             return obj;
         }
+
+        public async Task<Usuario> GetEmailAsync(string email) 
+        {
+            var obj = await appDbContext.Usuarios
+                                   .Where(x => x.Email.ToLower() == email.ToLower())
+                                   .AsNoTracking()
+                                   .FirstOrDefaultAsync();
+            return obj;
+        }
     }
 }

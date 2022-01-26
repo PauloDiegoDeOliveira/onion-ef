@@ -12,5 +12,6 @@ namespace Empresa.Projeto.Application.Interfaces
         Task<ViewUsuarioDto> PutAsync(PutUsuarioDto put);
         Task<ViewUsuarioDto> DeleteAsync(long id);
         Task<IList<ViewUsuarioDto>> GetNomeAsync(string nome); 
+        Task<ViewAposAutenticacaoDto> AutenticacaoAsync(ViewPreAutenticacaoDto viewPreAutenticacao);
     }
 }

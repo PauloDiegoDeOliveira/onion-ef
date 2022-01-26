@@ -6,6 +6,7 @@ namespace Empresa.Projeto.Domain.Core.Interfaces.Services
 {
     public interface IServiceUsuario : IServiceBase<Usuario>
     {
-        Task<IList<Usuario>> GetNomeAsync(string nome);  
+        Task<IList<Usuario>> GetNomeAsync(string nome);
+        Task<Usuario> GetEmailAsync(string email);      
     }
 }

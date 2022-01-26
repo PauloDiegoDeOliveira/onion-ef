@@ -4,8 +4,10 @@ using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace Empresa.Projeto.Application
 {
@@ -13,12 +15,18 @@ namespace Empresa.Projeto.Application
     {
         private readonly IServiceUsuario serviceUsuario;
         private readonly IMapper mapper;
+        private readonly IConfiguration configuration;
+        private readonly IServiceJWT serviceJWT;
 
         public ApplicationServiceUsuario(IServiceUsuario serviceUsuario,
-                                         IMapper mapper)
+                                         IMapper mapper, 
+                                         IConfiguration configuration, 
+                                         IServiceJWT serviceJWT)
         {
             this.serviceUsuario = serviceUsuario;
             this.mapper = mapper;
+            this.configuration = configuration;
+            this.serviceJWT = serviceJWT;
         }
 
         public async Task<IList<ViewUsuarioDto>> GetAllAsync()
@@ -71,8 +79,46 @@ namespace Empresa.Projeto.Application
 
         public async Task<IList<ViewUsuarioDto>> GetNomeAsync(string nome)
         {
-            IList<Usuario> consulta = await serviceUsuario.GetNomeAsync(nome);           
+            IList<Usuario> consulta = await serviceUsuario.GetNomeAsync(nome);
             return mapper.Map<IList<ViewUsuarioDto>>(consulta);
+        }
+
+        public async Task<ViewAposAutenticacaoDto> AutenticacaoAsync(ViewPreAutenticacaoDto viewPreAutenticacao)
+        {
+            var consulta = await serviceUsuario.GetEmailAsync(viewPreAutenticacao.Email);
+            //await usuarioRepository.UltimoAcessoAsync(usuarioConsultado);
+
+            if (await ValidaEAtualizaHashAsync(viewPreAutenticacao, consulta.Senha))
+            {
+                var usuarioLogado = mapper.Map<ViewAposAutenticacaoDto>(consulta);
+
+                usuarioLogado.Token.Token = serviceJWT.GerarToken(consulta);
+                usuarioLogado.Token.Mensagem = "Usuário autenticado com sucesso!";
+                usuarioLogado.Token.TokenExpira = DateTime.Now.AddMinutes(Convert.ToInt32(configuration.GetSection("JWT:ExpiraEmMinutos").Value)).ToString();
+                return usuarioLogado;
+            }
+            return null;
+        }
+
+        private static async Task<bool> ValidaEAtualizaHashAsync(ViewPreAutenticacaoDto viewAutenticacao, string hash)
+        {
+            await Task.CompletedTask;
+            var passwordHasher = new PasswordHasher<ViewPreAutenticacaoDto>();
+            var status = passwordHasher.VerifyHashedPassword(viewAutenticacao, hash, viewAutenticacao.Senha);
+            switch (status)
+            {
+                case PasswordVerificationResult.Failed:
+                    return false;
+
+                case PasswordVerificationResult.Success:
+                    return true;
+
+                case PasswordVerificationResult.SuccessRehashNeeded:
+                    return true;
+
+                default:
+                    throw new InvalidOperationException();
+            }
         }
     }
 }
