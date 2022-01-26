@@ -41,14 +41,14 @@ namespace Empresa.Projeto.Domain.Entitys
         }
 
         // Metodos
-        public void PutStatus(int status)  
-        { 
-            Status = status; 
+        public void ChangeStatusValue(int status)
+        {
+            Status = status;
         }
 
-        public void PutAlteradoEm(DateTime data)   
+        public void ChangeAlteradoEmValue(DateTime data)
         {
-            AlteradoEm = data; 
+            AlteradoEm = data;
         }
     }
 }

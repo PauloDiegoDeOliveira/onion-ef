@@ -126,8 +126,8 @@ namespace Empresa.Projeto.Application
         {
             Usuario consulta = await serviceUsuario.GetByIdUsuarioAsync(id); 
            
-            consulta.PutStatus((int)Status.Excluido);
-            consulta.PutAlteradoEm(DateTime.Now);
+            consulta.ChangeStatusValue((int)Status.Excluido);
+            consulta.ChangeAlteradoEmValue(DateTime.Now);
 
             Usuario obj = await serviceUsuario.PutStatusAsync(consulta);
             return mapper.Map<ViewUsuarioDto>(obj);
