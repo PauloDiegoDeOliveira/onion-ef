@@ -125,6 +125,10 @@ namespace Empresa.Projeto.Application
         public async Task<ViewUsuarioDto> PutStatusAsync(long id)
         {
             Usuario consulta = await serviceUsuario.GetByIdUsuarioAsync(id); 
+            if(consulta is null)
+            {   
+                return null;
+            }
            
             consulta.ChangeStatusValue((int)Status.Excluido);
             consulta.ChangeAlteradoEmValue(DateTime.Now);
