@@ -1,11 +1,12 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
+using Empresa.Projeto.Domain.Entitys;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Infrastructure.Data.Repositorys
 {
-    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : Base
     {
         private readonly AppDbContext appDbContext;
 

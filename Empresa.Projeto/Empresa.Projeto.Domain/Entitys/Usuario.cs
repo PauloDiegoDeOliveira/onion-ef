@@ -3,7 +3,7 @@
 namespace Empresa.Projeto.Domain.Entitys
 {
     public class Usuario : Base
-    { 
+    {
         // Propriedades
         public string Nome { get; private set; }
         public string Sobrenome { get; private set; }
@@ -12,7 +12,7 @@ namespace Empresa.Projeto.Domain.Entitys
         public string Senha { get; private set; }
         public int Status { get; private set; }
         public DateTime? CriadoEm { get; private set; }
-        public DateTime? AlteradoEm { get; private set; }     
+        public DateTime? AlteradoEm { get; private set; }
 
         // Propriedades de navegação
         //public IList<Permissao> Permissoes { get; private set; } 
@@ -41,5 +41,14 @@ namespace Empresa.Projeto.Domain.Entitys
         }
 
         // Metodos
+        public void PutStatus(int status)  
+        { 
+            Status = status; 
+        }
+
+        public void PutAlteradoEm(DateTime data)   
+        {
+            AlteradoEm = data; 
+        }
     }
 }

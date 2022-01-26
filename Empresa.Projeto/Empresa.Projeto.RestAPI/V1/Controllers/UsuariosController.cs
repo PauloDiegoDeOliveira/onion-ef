@@ -28,7 +28,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(IList<ViewUsuarioDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
-            var result = await serviceUsuario.GetAllAsync();
+            IList<ViewUsuarioDto> result = await serviceUsuario.GetAllAsync();
             if (result.Any())
             {
                 return Ok(result);
@@ -45,7 +45,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(ViewUsuarioDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
-            var result = await serviceUsuario.GetByIdAsync(id);
+            ViewUsuarioDto result = await serviceUsuario.GetByIdAsync(id);
             if (result == null)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
@@ -64,7 +64,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await serviceUsuario.PostAsync(post); 
+            ViewUsuarioDto result = await serviceUsuario.PostAsync(post);
             return Ok(new { mensagem = "Usuário criado com sucesso!" });
         }
 
@@ -79,7 +79,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await serviceUsuario.PutAsync(put);
+            ViewUsuarioDto result = await serviceUsuario.PutAsync(put);
             if (result == null)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
@@ -95,7 +95,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeleteAsync(long id)
         {
-            var result = await serviceUsuario.DeleteAsync(id);
+            ViewUsuarioDto result = await serviceUsuario.DeleteAsync(id);
             if (result == null)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
@@ -112,12 +112,28 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(ViewUsuarioDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetNomeAsync(string nome)
         {
-            var result = await serviceUsuario.GetNomeAsync(nome);
+            IList<ViewUsuarioDto> result = await serviceUsuario.GetNomeAsync(nome);
             if (result.Count == 0)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o nome informado." });
             }
             return Ok(result);
+        }
+
+        /// <summary>
+        /// Atualiza o status para 3 excluído.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPut("status-exluido")]
+        public async Task<IActionResult> PutStatusAsync(long id)
+        {
+            ViewUsuarioDto consulta = await serviceUsuario.PutStatusAsync(id);
+            if (consulta == null)
+            {
+                return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
+            }
+            return Ok(new { mensagem = "Usuário removido com sucesso!" });
         }
     }
 }

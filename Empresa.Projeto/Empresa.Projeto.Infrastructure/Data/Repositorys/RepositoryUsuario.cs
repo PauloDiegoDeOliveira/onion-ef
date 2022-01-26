@@ -1,6 +1,8 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
 using Empresa.Projeto.Domain.Entitys;
+using Empresa.Projeto.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,19 +20,32 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
 
         public async Task<IList<Usuario>> GetNomeAsync(string nome)
         {
-            var obj = await appDbContext.Usuarios
+            IList<Usuario> obj = await appDbContext.Usuarios
                                         .Where(ns => EF.Functions.Like(ns.Nome, $"%{nome}%"))
                                         .AsNoTracking()
                                         .ToListAsync();
             return obj;
         }
 
-        public async Task<Usuario> GetEmailAsync(string email) 
+        public async Task<Usuario> GetEmailAsync(string email)
         {
-            var obj = await appDbContext.Usuarios
+            Usuario obj = await appDbContext.Usuarios
                                    .Where(x => x.Email.ToLower() == email.ToLower())
                                    .AsNoTracking()
                                    .FirstOrDefaultAsync();
+            return obj;
+        }
+
+        public async Task<Usuario> PutStatusAsync(Usuario usuario)
+        {
+            appDbContext.Usuarios.Update(usuario);
+            await appDbContext.SaveChangesAsync();
+            return usuario;
+        }
+
+        public async Task<Usuario> GetByIdUsuarioAsync(long id) 
+        {
+            Usuario obj = await GetByIdAsync(id);            
             return obj;
         }
     }

@@ -3,6 +3,7 @@ using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
+using Empresa.Projeto.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,8 @@ namespace Empresa.Projeto.Application
         private readonly IServiceJWT serviceJWT;
 
         public ApplicationServiceUsuario(IServiceUsuario serviceUsuario,
-                                         IMapper mapper, 
-                                         IConfiguration configuration, 
+                                         IMapper mapper,
+                                         IConfiguration configuration,
                                          IServiceJWT serviceJWT)
         {
             this.serviceUsuario = serviceUsuario;
@@ -31,13 +32,13 @@ namespace Empresa.Projeto.Application
 
         public async Task<IList<ViewUsuarioDto>> GetAllAsync()
         {
-            var consulta = await serviceUsuario.GetAllAsync();
+            IList<Usuario> consulta = await serviceUsuario.GetAllAsync();
             return mapper.Map<IList<ViewUsuarioDto>>(consulta);
         }
 
         public async Task<ViewUsuarioDto> GetByIdAsync(long id)
         {
-            var consulta = await serviceUsuario.GetByIdAsync(id);
+            Usuario consulta = await serviceUsuario.GetByIdAsync(id);
             return mapper.Map<ViewUsuarioDto>(consulta);
         }
 
@@ -45,7 +46,7 @@ namespace Empresa.Projeto.Application
         {
             ConverteSenhaEmHash(post);
 
-            var consulta = mapper.Map<Usuario>(post);
+            Usuario consulta = mapper.Map<Usuario>(post);
             consulta = await serviceUsuario.PostAsync(consulta);
             return mapper.Map<ViewUsuarioDto>(consulta);
         }
@@ -60,7 +61,7 @@ namespace Empresa.Projeto.Application
         {
             ConverteSenhaEmHash(put);
 
-            var consulta = mapper.Map<Usuario>(put);
+            Usuario consulta = mapper.Map<Usuario>(put);
             consulta = await serviceUsuario.PutAsync(consulta);
             return mapper.Map<ViewUsuarioDto>(consulta);
         }
@@ -73,7 +74,7 @@ namespace Empresa.Projeto.Application
 
         public async Task<ViewUsuarioDto> DeleteAsync(long id)
         {
-            var consulta = await serviceUsuario.DeleteAsync(id);
+            Usuario consulta = await serviceUsuario.DeleteAsync(id);
             return mapper.Map<ViewUsuarioDto>(consulta);
         }
 
@@ -85,12 +86,12 @@ namespace Empresa.Projeto.Application
 
         public async Task<ViewAposAutenticacaoDto> AutenticacaoAsync(ViewPreAutenticacaoDto viewPreAutenticacao)
         {
-            var consulta = await serviceUsuario.GetEmailAsync(viewPreAutenticacao.Email);
+            Usuario consulta = await serviceUsuario.GetEmailAsync(viewPreAutenticacao.Email);
             //await usuarioRepository.UltimoAcessoAsync(usuarioConsultado);
 
             if (await ValidaEAtualizaHashAsync(viewPreAutenticacao, consulta.Senha))
             {
-                var usuarioLogado = mapper.Map<ViewAposAutenticacaoDto>(consulta);
+                ViewAposAutenticacaoDto usuarioLogado = mapper.Map<ViewAposAutenticacaoDto>(consulta);
 
                 usuarioLogado.Token.Token = serviceJWT.GerarToken(consulta);
                 usuarioLogado.Token.Mensagem = "Usuário autenticado com sucesso!";
@@ -119,6 +120,17 @@ namespace Empresa.Projeto.Application
                 default:
                     throw new InvalidOperationException();
             }
+        }
+
+        public async Task<ViewUsuarioDto> PutStatusAsync(long id)
+        {
+            Usuario consulta = await serviceUsuario.GetByIdUsuarioAsync(id); 
+           
+            consulta.PutStatus((int)Status.Excluido);
+            consulta.PutAlteradoEm(DateTime.Now);
+
+            Usuario obj = await serviceUsuario.PutStatusAsync(consulta);
+            return mapper.Map<ViewUsuarioDto>(obj);
         }
     }
 }

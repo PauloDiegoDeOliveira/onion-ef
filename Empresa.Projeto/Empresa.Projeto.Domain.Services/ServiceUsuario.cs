@@ -23,6 +23,16 @@ namespace Empresa.Projeto.Domain.Services
         public async Task<Usuario> GetEmailAsync(string email)
         {
             return await repositoryUsuario.GetEmailAsync(email);
-        }      
+        }
+
+        public async Task<Usuario> PutStatusAsync(Usuario usuario)
+        {
+            return await repositoryUsuario.PutStatusAsync(usuario);
+        }
+
+        public async Task<Usuario> GetByIdUsuarioAsync(long id) 
+        { 
+            return await repositoryUsuario.GetByIdUsuarioAsync(id);
+        }
     }
 }
