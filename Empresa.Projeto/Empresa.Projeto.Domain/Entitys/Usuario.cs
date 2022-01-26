@@ -2,7 +2,7 @@
 
 namespace Empresa.Projeto.Domain.Entitys
 {
-    public class Usuario : Base
+    public class Usuario : EntityBase
     {
         // Propriedades
         public string Nome { get; private set; }

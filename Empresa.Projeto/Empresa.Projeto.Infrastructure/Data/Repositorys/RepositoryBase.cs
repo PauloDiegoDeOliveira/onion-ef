@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Infrastructure.Data.Repositorys
 {
-    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : Base
+    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : EntityBase
     {
         private readonly AppDbContext appDbContext;
 
