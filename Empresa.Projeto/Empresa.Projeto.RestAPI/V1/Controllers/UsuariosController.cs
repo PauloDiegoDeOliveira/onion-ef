@@ -1,6 +1,8 @@
 ﻿using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Application.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,6 +25,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(typeof(IList<ViewUsuarioDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
             var result = await serviceUsuario.GetAllAsync();
@@ -39,6 +42,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id:long}")]
+        [ProducesResponseType(typeof(ViewUsuarioDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
             var result = await serviceUsuario.GetByIdAsync(id);
@@ -105,6 +109,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// <param name="nome"></param>
         /// <returns></returns>
         [HttpGet("nome")]
+        [ProducesResponseType(typeof(ViewUsuarioDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetNomeAsync(string nome)
         {
             var result = await serviceUsuario.GetNomeAsync(nome);

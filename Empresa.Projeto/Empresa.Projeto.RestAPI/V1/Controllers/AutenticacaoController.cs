@@ -1,5 +1,6 @@
 ﻿using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Application.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -23,6 +24,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// <param name="viewPreAutenticacao"></param>
         /// <returns></returns>
         [HttpPost("entrar")]
+        [ProducesResponseType(typeof(ViewAposAutenticacaoDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> AutenticacaoAsync([FromBody] ViewPreAutenticacaoDto viewPreAutenticacao)
         {
             var consultado = await serviceUsuario.AutenticacaoAsync(viewPreAutenticacao);
