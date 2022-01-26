@@ -25,10 +25,10 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var consulta = await serviceUsuario.GetAllAsync();
-            if (consulta.Any())
+            var result = await serviceUsuario.GetAllAsync();
+            if (result.Any())
             {
-                return Ok(consulta);
+                return Ok(result);
             }
             return NotFound(new { mensagem = "Nenhum usuário foi encontrado." });
         }
@@ -41,12 +41,12 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpGet("{id:long}")]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
-            var consultado = await serviceUsuario.GetByIdAsync(id);
-            if (consultado == null)
+            var result = await serviceUsuario.GetByIdAsync(id);
+            if (result == null)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
             }
-            return Ok(consultado);
+            return Ok(result);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var inserido = await serviceUsuario.PostAsync(post);
+            var result = await serviceUsuario.PostAsync(post); 
             return Ok(new { mensagem = "Usuário criado com sucesso!" });
         }
 
@@ -75,8 +75,8 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var atualizado = await serviceUsuario.PutAsync(put);
-            if (atualizado == null)
+            var result = await serviceUsuario.PutAsync(put);
+            if (result == null)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
             }
@@ -91,8 +91,8 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeleteAsync(long id)
         {
-            var removido = await serviceUsuario.DeleteAsync(id);
-            if (removido == null)
+            var result = await serviceUsuario.DeleteAsync(id);
+            if (result == null)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
             }
@@ -107,12 +107,12 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpGet("nome")]
         public async Task<IActionResult> GetNomeAsync(string nome)
         {
-            var consulta = await serviceUsuario.GetNomeAsync(nome);
-            if (consulta.Count == 0)
+            var result = await serviceUsuario.GetNomeAsync(nome);
+            if (result.Count == 0)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o nome informado." });
-            };
-            return Ok(consulta);
+            }
+            return Ok(result);
         }
     }
 }

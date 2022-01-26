@@ -12,7 +12,7 @@ namespace Empresa.Projeto.Domain.Entitys
         public string Senha { get; private set; }
         public int Status { get; private set; }
         public DateTime? CriadoEm { get; private set; }
-        public DateTime? AlteradoEm { get; private set; }
+        public DateTime? AlteradoEm { get; private set; }     
 
         // Propriedades de navegação
         //public IList<Permissao> Permissoes { get; private set; } 
