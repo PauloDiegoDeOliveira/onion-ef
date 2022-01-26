@@ -108,7 +108,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         public async Task<IActionResult> GetNomeAsync(string nome)
         {
             var consulta = await serviceUsuario.GetNomeAsync(nome);
-            if (consulta == null)
+            if (consulta.Count == 0)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o nome informado." });
             };

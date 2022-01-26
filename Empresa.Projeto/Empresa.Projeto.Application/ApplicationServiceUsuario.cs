@@ -71,11 +71,7 @@ namespace Empresa.Projeto.Application
 
         public async Task<IList<ViewUsuarioDto>> GetNomeAsync(string nome)
         {
-            IList<Usuario> consulta = await serviceUsuario.GetNomeAsync(nome);
-            //if (consulta == null)
-            //{
-            //    return null;
-            //}
+            IList<Usuario> consulta = await serviceUsuario.GetNomeAsync(nome);           
             return mapper.Map<IList<ViewUsuarioDto>>(consulta);
         }
     }

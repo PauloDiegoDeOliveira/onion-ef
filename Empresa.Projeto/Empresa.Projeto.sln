@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Services", "1 - Services", "{E2115574-7461-4660-8845-4E778E839D8D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Presentation", "1 - Presentation", "{E2115574-7461-4660-8845-4E778E839D8D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2- Application", "2- Application", "{57336A0F-0A4E-4C52-8889-9D82B37D4A96}"
 EndProject
@@ -13,17 +13,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infrastructure", "4 - I
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Tests", "5 - Tests", "{FB08E6B6-AA04-4E4E-BE40-64792C54E0AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Empresa.Projeto.RestAPI", "Empresa.Projeto.RestAPI\Empresa.Projeto.RestAPI.csproj", "{1770FB3D-9CA5-44B2-8207-A001D343AA6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Empresa.Projeto.RestAPI", "Empresa.Projeto.RestAPI\Empresa.Projeto.RestAPI.csproj", "{1770FB3D-9CA5-44B2-8207-A001D343AA6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Empresa.Projeto.Application", "Empresa.Projeto.Application\Empresa.Projeto.Application.csproj", "{6AD2DF2F-A3C7-4B56-B133-EB30646D1554}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Empresa.Projeto.Application", "Empresa.Projeto.Application\Empresa.Projeto.Application.csproj", "{6AD2DF2F-A3C7-4B56-B133-EB30646D1554}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Empresa.Projeto.Domain", "Empresa.Projeto.Domain\Empresa.Projeto.Domain.csproj", "{906BA784-68BE-48CE-B120-E70A680E121B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Empresa.Projeto.Domain", "Empresa.Projeto.Domain\Empresa.Projeto.Domain.csproj", "{906BA784-68BE-48CE-B120-E70A680E121B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Empresa.Projeto.Domain.Core", "Empresa.Projeto.Domain.Core\Empresa.Projeto.Domain.Core.csproj", "{A8725373-B1CE-422F-B429-AF00A4B28EBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Empresa.Projeto.Domain.Core", "Empresa.Projeto.Domain.Core\Empresa.Projeto.Domain.Core.csproj", "{A8725373-B1CE-422F-B429-AF00A4B28EBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Empresa.Projeto.Domain.Services", "Empresa.Projeto.Domain.Services\Empresa.Projeto.Domain.Services.csproj", "{E247A215-A751-459E-9CD3-F5303FF1C3A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Empresa.Projeto.Domain.Services", "Empresa.Projeto.Domain.Services\Empresa.Projeto.Domain.Services.csproj", "{E247A215-A751-459E-9CD3-F5303FF1C3A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Empresa.Projeto.Infrastructure", "Empresa.Projeto.Infrastructure\Empresa.Projeto.Infrastructure.csproj", "{91B556B9-F85E-4A09-B33A-8D046C7E9797}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Empresa.Projeto.Infrastructure", "Empresa.Projeto.Infrastructure\Empresa.Projeto.Infrastructure.csproj", "{91B556B9-F85E-4A09-B33A-8D046C7E9797}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
