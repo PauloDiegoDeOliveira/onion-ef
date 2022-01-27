@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Domain.Services
 {
-    public class ServiceBase<TEntity> : IServiceBase<TEntity> where TEntity : class
+    public class ServiceBase<TEntity> : Core.Interfaces.Services.IServiceBase<TEntity> where TEntity : class
     {
-        private readonly IRepositoryBase<TEntity> repositoryBase;
+        private readonly Core.Interfaces.Repositorys.IServiceBase<TEntity> repositoryBase;
 
-        public ServiceBase(IRepositoryBase<TEntity> repositoryBase)
+        public ServiceBase(Core.Interfaces.Repositorys.IServiceBase<TEntity> repositoryBase)
         {
             this.repositoryBase = repositoryBase;
         }

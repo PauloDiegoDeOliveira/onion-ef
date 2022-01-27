@@ -5,6 +5,7 @@ namespace Empresa.Projeto.Application.Dtos.Usuario
     public class ViewUsuarioDto
     {
         public long Id { get; set; }
+        public long PermissaoId { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         public string Apelido { get; set; }

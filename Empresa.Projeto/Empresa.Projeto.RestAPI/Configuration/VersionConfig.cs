@@ -22,7 +22,7 @@ namespace Empresa.Projeto.RestAPI.Configuration
 
             services.AddVersionedApiExplorer(options =>
             {
-                options.GroupNameFormat = "'v'VVV";
+                options.GroupNameFormat = "'V'VVV";
                 options.SubstituteApiVersionInUrl = true;
             });
 

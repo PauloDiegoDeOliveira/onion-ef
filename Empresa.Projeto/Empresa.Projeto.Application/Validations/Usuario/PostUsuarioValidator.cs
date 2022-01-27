@@ -23,6 +23,13 @@ namespace Empresa.Projeto.Application.Validations.Usuario
             RuleFor(x => x.Email)
                 .EmailAddress()
                 .WithMessage("O e-mail informado não é válido.");
+
+            RuleFor(x => x.Status)
+                .NotNull()
+                .WithMessage("O status não pode ser nulo.")
+
+                .NotEmpty()
+                .WithMessage("O status não pode ser vazio.");
         }
     }
 }

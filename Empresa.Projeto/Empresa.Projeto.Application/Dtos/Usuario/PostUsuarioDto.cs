@@ -4,6 +4,7 @@ namespace Empresa.Projeto.Application.Dtos.Usuario
 {
     public class PostUsuarioDto
     {
+        public long PermissaoId { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         public string Apelido { get; set; }

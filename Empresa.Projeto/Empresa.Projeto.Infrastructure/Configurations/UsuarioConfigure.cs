@@ -16,6 +16,11 @@ namespace Empresa.Projeto.Infrastructure.Configurations
                    .UseIdentityColumn()
                    .HasColumnType("bigint");
 
+            builder.Property(x => x.PermissaoId)
+                   .IsRequired()
+                   .HasColumnName("PermissaoId")
+                   .HasColumnType("bigint");
+
             builder.Property(p => p.Nome)
                    .HasMaxLength(100)
                    .IsRequired()
@@ -41,6 +46,13 @@ namespace Empresa.Projeto.Infrastructure.Configurations
                    .HasMaxLength(500)
                    .HasColumnName("Senha")
                    .HasColumnType("varchar(500)");
+
+            builder.Property(p => p.Status)
+                   .IsRequired()
+                   .HasMaxLength(50)
+                   .HasColumnName("Status")
+                   .HasColumnType("int")
+                   .HasDefaultValue(1);
         }
     }
 }

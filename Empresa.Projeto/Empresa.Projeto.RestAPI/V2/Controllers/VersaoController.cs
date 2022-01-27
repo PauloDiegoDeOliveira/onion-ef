@@ -14,7 +14,7 @@ namespace Empresa.Projeto.RestAPI.V2.Controllers
         [HttpGet]
         public string Valor()
         {
-            return "Sou a V2";
+            return "Esta é a versão V2";
         }
     }
 }

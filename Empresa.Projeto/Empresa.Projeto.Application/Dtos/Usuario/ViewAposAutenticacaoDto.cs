@@ -4,7 +4,8 @@ namespace Empresa.Projeto.Application.Dtos.Usuario
 {
     public class ViewAposAutenticacaoDto
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
+        public long PermissaoId { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         public string Apelido { get; set; }

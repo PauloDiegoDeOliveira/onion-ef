@@ -4,13 +4,9 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application.Interfaces
 {
-    public interface IApplicationServiceUsuario
+    public interface IApplicationServiceUsuario :
+        IApplicationServiceBase<ViewUsuarioDto, PostUsuarioDto, PutUsuarioDto>
     {
-        Task<IList<ViewUsuarioDto>> GetAllAsync();
-        Task<ViewUsuarioDto> GetByIdAsync(long id);
-        Task<ViewUsuarioDto> PostAsync(PostUsuarioDto post);
-        Task<ViewUsuarioDto> PutAsync(PutUsuarioDto put);
-        Task<ViewUsuarioDto> DeleteAsync(long id);
         Task<IList<ViewUsuarioDto>> GetNomeAsync(string nome); 
         Task<ViewAposAutenticacaoDto> AutenticacaoAsync(ViewPreAutenticacaoDto viewPreAutenticacao);
         Task<ViewUsuarioDto> PutStatusAsync(long id);

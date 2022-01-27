@@ -69,7 +69,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Altera um novo usuário.
+        /// Altera um usuário.
         /// </summary>
         /// <param name="put"></param>
         /// <returns></returns>

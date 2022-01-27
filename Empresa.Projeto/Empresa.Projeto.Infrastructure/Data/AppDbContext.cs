@@ -13,6 +13,16 @@ namespace Empresa.Projeto.Infrastructure.Data
 
         public DbSet<Usuario> Usuarios { get; set; }
 
+        public DbSet<Permissao> Permissoes { get; set; }
+
+        //Migration
+        public AppDbContext() { }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Data Source=HENRIQUENOTE;Initial Catalog=DDD;Integrated Security=SSPI;"); //Server=192.168.103.12;Database=APITeste;User Id=u111575;Password=SenhaAqui;
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

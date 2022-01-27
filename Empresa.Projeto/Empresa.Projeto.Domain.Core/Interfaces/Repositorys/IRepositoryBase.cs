@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Domain.Core.Interfaces.Repositorys
 {
-    public interface IRepositoryBase<TEntity> where TEntity : class
+    public interface IServiceBase<TEntity> where TEntity : class
     {        
         Task<IList<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(long id);

@@ -18,6 +18,10 @@ namespace Empresa.Projeto.RestAPI.Configuration
             services.AddScoped<IApplicationServiceUsuario, ApplicationServiceUsuario>();
             services.AddScoped<IServiceUsuario, ServiceUsuario>();
 
+            services.AddScoped<IRepositoryPermissao, RepositoryPermissao>();
+            services.AddScoped<IApplicationServicePermissao, ApplicationServicePermissao>();
+            services.AddScoped<IServicePermissao, ServicePermissao>();
+
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         }
     }

@@ -1,11 +1,11 @@
 ﻿namespace Empresa.Projeto.Domain.Entitys
 {
-    public abstract class Base
+    public abstract class EntityBase
     {
         public long Id { get; private set; }
 
-        protected Base() { }
-        protected Base(long id)
+        protected EntityBase() { }
+        protected EntityBase(long id)
         {
             Id = id;
         }

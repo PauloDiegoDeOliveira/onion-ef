@@ -1,4 +1,5 @@
-﻿using Empresa.Projeto.Application.Validations.Usuario;
+﻿using Empresa.Projeto.Application.Validations.Permissao;
+using Empresa.Projeto.Application.Validations.Usuario;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -26,6 +27,7 @@ namespace Empresa.Projeto.RestAPI.Configuration
                 {
                     //p.RegisterValidatorsFromAssemblyContaining<Startup>();
                     p.RegisterValidatorsFromAssemblyContaining<PostUsuarioValidator>();
+                    p.RegisterValidatorsFromAssemblyContaining<PostPermissaoValidator>();
                     p.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
                 });
         }

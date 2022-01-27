@@ -12,70 +12,46 @@ using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace Empresa.Projeto.Application
 {
-    public class ApplicationServiceUsuario : IApplicationServiceUsuario
+    public class ApplicationServiceUsuario:
+        ApplicationServiceBase<Usuario, ViewUsuarioDto, PostUsuarioDto, PutUsuarioDto>, 
+        IApplicationServiceUsuario
     {
         private readonly IServiceUsuario serviceUsuario;
-        private readonly IMapper mapper;
         private readonly IConfiguration configuration;
         private readonly IServiceJWT serviceJWT;
 
         public ApplicationServiceUsuario(IServiceUsuario serviceUsuario,
                                          IMapper mapper,
                                          IConfiguration configuration,
-                                         IServiceJWT serviceJWT)
+                                         IServiceJWT serviceJWT) : base(serviceUsuario, mapper)
         {
             this.serviceUsuario = serviceUsuario;
-            this.mapper = mapper;
             this.configuration = configuration;
             this.serviceJWT = serviceJWT;
         }
 
-        public async Task<IList<ViewUsuarioDto>> GetAllAsync()
+        public override Task<ViewUsuarioDto> PostAsync(PostUsuarioDto obj)
         {
-            IList<Usuario> consulta = await serviceUsuario.GetAllAsync();
-            return mapper.Map<IList<ViewUsuarioDto>>(consulta);
+            ConverteSenhaEmHash(obj);
+            return base.PostAsync(obj);
         }
 
-        public async Task<ViewUsuarioDto> GetByIdAsync(long id)
+        public override Task<ViewUsuarioDto> PutAsync(PutUsuarioDto obj)
         {
-            Usuario consulta = await serviceUsuario.GetByIdAsync(id);
-            return mapper.Map<ViewUsuarioDto>(consulta);
+            ConverteSenhaEmHash(obj);
+            return base.PutAsync(obj);
         }
 
-        public async Task<ViewUsuarioDto> PostAsync(PostUsuarioDto post)
-        {
-            ConverteSenhaEmHash(post);
-
-            Usuario consulta = mapper.Map<Usuario>(post);
-            consulta = await serviceUsuario.PostAsync(consulta);
-            return mapper.Map<ViewUsuarioDto>(consulta);
-        }
-
-        private static void ConverteSenhaEmHash(PostUsuarioDto post)
+        private void ConverteSenhaEmHash(PostUsuarioDto post)
         {
             var passwordHasher = new PasswordHasher<PostUsuarioDto>();
             post.Senha = passwordHasher.HashPassword(post, post.Senha);
         }
 
-        public async Task<ViewUsuarioDto> PutAsync(PutUsuarioDto put)
-        {
-            ConverteSenhaEmHash(put);
-
-            Usuario consulta = mapper.Map<Usuario>(put);
-            consulta = await serviceUsuario.PutAsync(consulta);
-            return mapper.Map<ViewUsuarioDto>(consulta);
-        }
-
-        private static void ConverteSenhaEmHash(PutUsuarioDto put)
+        private void ConverteSenhaEmHash(PutUsuarioDto put)
         {
             var passwordHasher = new PasswordHasher<PutUsuarioDto>();
             put.Senha = passwordHasher.HashPassword(put, put.Senha);
-        }
-
-        public async Task<ViewUsuarioDto> DeleteAsync(long id)
-        {
-            Usuario consulta = await serviceUsuario.DeleteAsync(id);
-            return mapper.Map<ViewUsuarioDto>(consulta);
         }
 
         public async Task<IList<ViewUsuarioDto>> GetNomeAsync(string nome)
