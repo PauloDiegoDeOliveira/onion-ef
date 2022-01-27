@@ -15,16 +15,27 @@ namespace Empresa.Projeto.Application
     {
         private readonly IServicePermissao servicePermissao;
 
-
         public ApplicationServicePermissao(IServicePermissao servicePermissao,
                                          IMapper mapper) : base(servicePermissao, mapper)
         {
             this.servicePermissao = servicePermissao;
         }
 
+        public async Task<Permissao> GetByIdPermissaoAsync(long id)
+        {
+            Permissao consulta = await servicePermissao.GetByIdPermissaoAsync(id);
+
+            if (consulta is null)
+            {
+                return null;
+            }
+
+            return consulta;
+        }
+
         public async Task<ViewPermissaoDto> PutStatusAsync(long id)
         {
-            Permissao consulta = await servicePermissao.GetByIdUsuarioAsync(id);
+            Permissao consulta = await GetByIdPermissaoAsync(id);
             if (consulta is null)
             {
                 return null;
@@ -35,6 +46,20 @@ namespace Empresa.Projeto.Application
 
             Permissao obj = await servicePermissao.PutStatusAsync(consulta);
             return mapper.Map<ViewPermissaoDto>(obj);
+        }
+
+        public async Task<int?> SaveChangesAsync(long id)
+        {
+            Permissao consulta = await GetByIdPermissaoAsync(id);
+
+            if (consulta is null)
+            {
+                return null;
+            }
+
+            consulta.ChangeAlteradoEmValue(DateTime.Now);
+            
+            return await servicePermissao.SaveChangesAsync();
         }
     }
 }

@@ -6,6 +6,7 @@ namespace Empresa.Projeto.Domain.Core.Interfaces.Repositorys
     public interface IRepositoryPermissao : IServiceBase<Permissao>
     {
         Task<Permissao> PutStatusAsync(Permissao permissao);
-        Task<Permissao> GetByIdUsuarioAsync(long id);
+        Task<Permissao> GetByIdPermissaoAsync(long id);
+        Task<int> SaveChangesAsync();
     }
 }

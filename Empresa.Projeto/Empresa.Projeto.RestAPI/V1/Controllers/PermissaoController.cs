@@ -1,6 +1,8 @@
 ﻿using Empresa.Projeto.Application.Dtos.Permissao;
 using Empresa.Projeto.Application.Interfaces;
+using Empresa.Projeto.Domain.Entitys;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +39,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Retorna uma permissão consultado via id
+        /// Retorna uma permissão consultado via id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -119,5 +121,33 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             return Ok(new { mensagem = "Permissão removida com sucesso!" });
         }
 
+        /// <summary>
+        /// Atualização parcial com HTTP PATCH.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="patch"></param>
+        /// <remarks>Modelo: [ { "op": "replace", "path": "/titulo", "value": "Teste path 1" } ]</remarks>
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<Permissao> patch)
+        {
+            if (patch == null)
+            {
+                return BadRequest(new { mensagem = "O patch não pode ser nulo." });
+            }
+
+            Permissao permissao = await applicationServicePermissao.GetByIdPermissaoAsync(id);
+
+            patch.ApplyTo(permissao, ModelState);
+            var isValid = TryValidateModel(permissao);
+            if (!isValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            int? valor = await applicationServicePermissao.SaveChangesAsync(id);
+            if (valor is null || valor == 0) { return BadRequest(new { mensagem = "Nenhum campo foi atualizado." }); } 
+
+            return Ok(new { mensagem = "Progresso atualizado com sucesso! " + (valor > 1 ? valor + " campos foram atualizados." : valor + " campo foi atualizados.") });
+        }
     }
 }

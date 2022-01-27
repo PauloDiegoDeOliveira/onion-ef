@@ -1,4 +1,5 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
+
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
 using System.Threading.Tasks;
@@ -19,9 +20,14 @@ namespace Empresa.Projeto.Domain.Services
             return await repositoryPermissao.PutStatusAsync(permissao);
         }
 
-        public async Task<Permissao> GetByIdUsuarioAsync(long id)
+        public async Task<Permissao> GetByIdPermissaoAsync(long id)
         {
-            return await repositoryPermissao.GetByIdUsuarioAsync(id);
+            return await repositoryPermissao.GetByIdPermissaoAsync(id);
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await repositoryPermissao.SaveChangesAsync();
         }
     }
 }

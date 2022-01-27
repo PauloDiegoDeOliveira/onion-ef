@@ -24,10 +24,15 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             return permissao;
         }
 
-        public async Task<Permissao> GetByIdUsuarioAsync(long id)
+        public async Task<Permissao> GetByIdPermissaoAsync(long id)
         {
             Permissao obj = await GetByIdAsync(id);
             return obj;
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+           return await appDbContext.SaveChangesAsync(); ;
         }
     }
 }
