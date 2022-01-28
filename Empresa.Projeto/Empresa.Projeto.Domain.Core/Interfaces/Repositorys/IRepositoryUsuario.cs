@@ -13,5 +13,7 @@ namespace Empresa.Projeto.Domain.Core.Interfaces.Repositorys
         Task<Usuario> PutStatusAsync(Usuario usuario);
 
         Task<Usuario> GetByIdUsuarioAsync(long id);
+
+        Task<Usuario> GetByIdDetalhesAsync(long id);
     }
 }

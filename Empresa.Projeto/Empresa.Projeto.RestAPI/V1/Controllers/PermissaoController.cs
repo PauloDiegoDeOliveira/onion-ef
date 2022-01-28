@@ -126,8 +126,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             {
                 return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
             }
-
-            return Ok(new { mensagem = "Status atualizado para " + status + " com sucesso!" });
+            return Ok(new { mensagem = "Status atualizado com sucesso para: " + status });
         }
 
         /// <summary>
@@ -145,10 +144,10 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             }
 
             EntityDtoStruct<Permissao, PutPermissaoDto> objetoPermissao = await applicationServicePermissao.GetByIdReturnPutAsync(id);
-            if (objetoPermissao.Equals(default(EntityDtoStruct<Permissao, PutPermissaoDto>))) 
+            if (objetoPermissao.Equals(default(EntityDtoStruct<Permissao, PutPermissaoDto>)))
             {
                 return BadRequest(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
-            }         
+            }
 
             patch.ApplyTo(objetoPermissao.dto, ModelState);
             var isValid = TryValidateModel(objetoPermissao.dto);

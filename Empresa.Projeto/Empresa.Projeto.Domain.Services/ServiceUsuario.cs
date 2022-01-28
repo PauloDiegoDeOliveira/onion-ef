@@ -34,5 +34,10 @@ namespace Empresa.Projeto.Domain.Services
         {
             return await repositoryUsuario.GetByIdUsuarioAsync(id);
         }
+
+        public async Task<Usuario> GetByIdDetalhesAsync(long id)
+        {
+            return await repositoryUsuario.GetByIdDetalhesAsync(id);  
+        }
     }
 }

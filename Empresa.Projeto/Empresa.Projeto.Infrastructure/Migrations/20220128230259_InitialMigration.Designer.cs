@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Empresa.Projeto.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220128163244_InitialMigration")]
+    [Migration("20220128230259_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,37 +113,25 @@ namespace Empresa.Projeto.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PermissaoId");
+
                     b.ToTable("Usuarios");
                 });
 
-            modelBuilder.Entity("PermissaoUsuario", b =>
+            modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Usuario", b =>
                 {
-                    b.Property<long>("PermissoesId")
-                        .HasColumnType("bigint");
+                    b.HasOne("Empresa.Projeto.Domain.Entitys.Permissao", "Permissao")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("PermissaoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<long>("UsuariosId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("PermissoesId", "UsuariosId");
-
-                    b.HasIndex("UsuariosId");
-
-                    b.ToTable("PermissaoUsuario");
+                    b.Navigation("Permissao");
                 });
 
-            modelBuilder.Entity("PermissaoUsuario", b =>
+            modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Permissao", b =>
                 {
-                    b.HasOne("Empresa.Projeto.Domain.Entitys.Permissao", null)
-                        .WithMany()
-                        .HasForeignKey("PermissoesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Empresa.Projeto.Domain.Entitys.Usuario", null)
-                        .WithMany()
-                        .HasForeignKey("UsuariosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Usuarios");
                 });
 #pragma warning restore 612, 618
         }

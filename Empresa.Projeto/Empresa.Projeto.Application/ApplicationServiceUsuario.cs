@@ -98,7 +98,7 @@ namespace Empresa.Projeto.Application
             }
         }
 
-        public async Task<ViewUsuarioDto> PutStatusAsync(long id)
+        public async Task<ViewUsuarioDto> PutStatusAsync(long id, Status status)
         {
             Usuario consulta = await serviceUsuario.GetByIdUsuarioAsync(id);
             if (consulta is null)
@@ -106,11 +106,21 @@ namespace Empresa.Projeto.Application
                 return null;
             }
 
-            consulta.ChangeStatusValue((int)Status.Excluido);
+            consulta.ChangeStatusValue((int)status);
             consulta.ChangeAlteradoEmValue(DateTime.Now);
 
             Usuario obj = await serviceUsuario.PutStatusAsync(consulta);
             return mapper.Map<ViewUsuarioDto>(obj);
+        }
+
+        public async Task<ViewUsuarioPermissaoDto> GetByIdDetalhesAsync(long id)
+        {
+            Usuario consulta = await serviceUsuario.GetByIdDetalhesAsync(id);  
+            if (consulta is null)
+            {
+                return null;
+            }     
+            return mapper.Map<ViewUsuarioPermissaoDto>(consulta);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Application.Interfaces;
+using Empresa.Projeto.Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -121,19 +122,42 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Atualiza o status para 3 excluído.
+        /// Atualiza o status
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
-        [HttpPut("status-exluido")]
-        public async Task<IActionResult> PutStatusAsync(long id)
+        [HttpPut("status")]
+        public async Task<IActionResult> PutStatusAsync(long id, Status status)
         {
-            ViewUsuarioDto consulta = await applicationServiceUsuario.PutStatusAsync(id);
+            if (status == 0)
+            {
+                return BadRequest(new { mensagem = "Nenhum status selecionado!" });
+            }
+
+            ViewUsuarioDto consulta = await applicationServiceUsuario.PutStatusAsync(id, status);
             if (consulta == null)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
             }
-            return Ok(new { mensagem = "Usuário removido com sucesso!" });
+            return Ok(new { mensagem = "Status atualizado com sucesso para: " + status });
+        }
+
+        /// <summary>
+        /// Retorna detalhes de um usuário consultado via id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("detalhes")] 
+        [ProducesResponseType(typeof(ViewUsuarioPermissaoDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetByIdDetalhesAsync(long id)  
+        {
+            ViewUsuarioPermissaoDto result = await applicationServiceUsuario.GetByIdDetalhesAsync(id); 
+            if (result == null)
+            {
+                return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
+            }
+            return Ok(result);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Empresa.Projeto.Domain.Entitys
         public string Senha { get; private set; }
 
         // Propriedades de navegação
-        public IList<Permissao> Permissoes { get; private set; }
+        public virtual Permissao Permissao { get; private set; } 
 
         // EF
         protected Usuario()
@@ -27,7 +27,7 @@ namespace Empresa.Projeto.Domain.Entitys
                        string apelido,
                        string email,
                        string senha,
-                       IList<Permissao> permissoes)
+                       Permissao permissao)
         {
             PermissaoId = permissaoId;
             Nome = nome;
@@ -35,7 +35,7 @@ namespace Empresa.Projeto.Domain.Entitys
             Apelido = apelido;
             Email = email;
             Senha = senha;
-            Permissoes = permissoes;
+            Permissao = permissao;
         }
 
         // Metodos

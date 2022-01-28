@@ -43,48 +43,27 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PermissaoUsuario",
-                columns: table => new
-                {
-                    PermissoesId = table.Column<long>(type: "bigint", nullable: false),
-                    UsuariosId = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PermissaoUsuario", x => new { x.PermissoesId, x.UsuariosId });
                     table.ForeignKey(
-                        name: "FK_PermissaoUsuario_Permissoes_PermissoesId",
-                        column: x => x.PermissoesId,
+                        name: "FK_Usuarios_Permissoes_PermissaoId",
+                        column: x => x.PermissaoId,
                         principalTable: "Permissoes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PermissaoUsuario_Usuarios_UsuariosId",
-                        column: x => x.UsuariosId,
-                        principalTable: "Usuarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PermissaoUsuario_UsuariosId",
-                table: "PermissaoUsuario",
-                column: "UsuariosId");
+                name: "IX_Usuarios_PermissaoId",
+                table: "Usuarios",
+                column: "PermissaoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PermissaoUsuario");
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "Permissoes");
-
-            migrationBuilder.DropTable(
-                name: "Usuarios");
         }
     }
 }

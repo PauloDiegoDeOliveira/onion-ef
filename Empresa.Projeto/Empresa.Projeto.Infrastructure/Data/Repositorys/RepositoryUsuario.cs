@@ -46,5 +46,14 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             Usuario obj = await GetByIdAsync(id);
             return obj;
         }
+
+        public async Task<Usuario> GetByIdDetalhesAsync(long id) 
+        {
+            Usuario obj = await appDbContext.Usuarios
+                .Include(x => x.Permissao)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+            return obj;
+        }
     }
 }
