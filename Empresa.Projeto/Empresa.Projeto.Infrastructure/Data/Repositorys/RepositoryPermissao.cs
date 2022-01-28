@@ -26,10 +26,9 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             return obj;
         }
 
-        public async Task<bool> SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
             await appDbContext.SaveChangesAsync();
-            return true;
         }
     }
 }

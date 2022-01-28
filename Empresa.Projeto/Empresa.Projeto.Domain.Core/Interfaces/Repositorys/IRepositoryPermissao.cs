@@ -9,6 +9,6 @@ namespace Empresa.Projeto.Domain.Core.Interfaces.Repositorys
 
         Task<Permissao> GetByIdPermissaoAsync(long id);
 
-        Task<bool> SaveChangesAsync();
+        Task SaveChangesAsync();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Empresa.Projeto.Application.Dtos.Permissao;
 using Empresa.Projeto.Application.Interfaces;
+using Empresa.Projeto.Application.Structs;
 using Empresa.Projeto.Domain.Entitys;
 using Empresa.Projeto.Domain.Enums;
 using Microsoft.AspNetCore.Http;
@@ -143,20 +144,20 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
                 return BadRequest(new { mensagem = "O patch não pode ser nulo." });
             }
 
-            ObjetoPermissao objetoPermissao = await applicationServicePermissao.GetByIdReturnPutAsync(id);
-            if (objetoPermissao.Equals(default(ObjetoPermissao))) 
+            EntityDtoStruct<Permissao, PutPermissaoDto> objetoPermissao = await applicationServicePermissao.GetByIdReturnPutAsync(id);
+            if (objetoPermissao.Equals(default(EntityDtoStruct<Permissao, PutPermissaoDto>))) 
             {
                 return BadRequest(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
             }         
 
-            patch.ApplyTo(objetoPermissao.putPermissaoDto, ModelState);
-            var isValid = TryValidateModel(objetoPermissao.putPermissaoDto);
+            patch.ApplyTo(objetoPermissao.dto, ModelState);
+            var isValid = TryValidateModel(objetoPermissao.dto);
             if (!isValid)
             {
                 return BadRequest(new { mensagem = "Ação ou campo inválido." });
             }
 
-            await applicationServicePermissao.SaveChangesAsync(objetoPermissao.putPermissaoDto, objetoPermissao.permissao);
+            await applicationServicePermissao.SaveChangesAsync(objetoPermissao);
 
             return Ok(new
             {

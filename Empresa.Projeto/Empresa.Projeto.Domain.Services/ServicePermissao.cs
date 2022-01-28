@@ -25,9 +25,9 @@ namespace Empresa.Projeto.Domain.Services
             return await repositoryPermissao.GetByIdPermissaoAsync(id);
         }
 
-        public async Task<bool> SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            return await repositoryPermissao.SaveChangesAsync();
+            await repositoryPermissao.SaveChangesAsync();
         }
     }
 }

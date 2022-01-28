@@ -1,7 +1,9 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
 using Empresa.Projeto.Domain.Entitys;
+using Empresa.Projeto.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Infrastructure.Data.Repositorys
@@ -17,7 +19,7 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
 
         public virtual async Task<IList<TEntity>> GetAllAsync()
         {
-            return await appDbContext.Set<TEntity>().AsNoTracking().ToListAsync();
+            return await appDbContext.Set<TEntity>().Where(p => p.Status != (int)Status.Excluido).AsNoTracking().ToListAsync();
         }
 
         public virtual async Task<TEntity> GetByIdAsync(long id)

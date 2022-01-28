@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Empresa.Projeto.Application.Dtos.Permissao;
 using Empresa.Projeto.Application.Interfaces;
+using Empresa.Projeto.Application.Structs;
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
 using Empresa.Projeto.Domain.Enums;
@@ -36,20 +37,18 @@ namespace Empresa.Projeto.Application
             return mapper.Map<ViewPermissaoDto>(obj);
         }
 
-        public async Task<ObjetoPermissao> GetByIdReturnPutAsync(long id)
+        public async Task<EntityDtoStruct<Permissao, PutPermissaoDto>> GetByIdReturnPutAsync(long id)
         {
-            ObjetoPermissao objetoPermissao;
-
-            objetoPermissao.permissao = await servicePermissao.GetByIdPermissaoAsync(id);
-            objetoPermissao.putPermissaoDto = mapper.Map<PutPermissaoDto>(objetoPermissao.permissao);
-
+            EntityDtoStruct<Permissao,PutPermissaoDto> objetoPermissao = new EntityDtoStruct<Permissao, PutPermissaoDto>();
+            objetoPermissao.ChangeEntity(await servicePermissao.GetByIdPermissaoAsync(id));
+            objetoPermissao.ChantePutDto(mapper.Map<PutPermissaoDto>(objetoPermissao.entity));
             return objetoPermissao;
         }
 
-        public async Task<bool> SaveChangesAsync(PutPermissaoDto putPermissaoDto, Permissao permissao)
+        public async Task SaveChangesAsync(EntityDtoStruct<Permissao,PutPermissaoDto> dtoStruct)
         {
-            mapper.Map(putPermissaoDto, permissao);
-            return await servicePermissao.SaveChangesAsync();
+            mapper.Map(dtoStruct.dto, dtoStruct.entity);
+            await servicePermissao.SaveChangesAsync();
         }
     }
 }
