@@ -1,6 +1,7 @@
 ﻿using Empresa.Projeto.Application.Dtos.Permissao;
 using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Domain.Entitys;
+using Empresa.Projeto.Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -106,19 +107,26 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Atualiza o status para 3 excluído.
+        /// Atualiza o status
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="status"></param>
         /// <returns></returns>
-        [HttpPut("status-exluido")]
-        public async Task<IActionResult> PutStatusAsync(long id)
+        [HttpPut("status")]
+        public async Task<IActionResult> PutStatusAsync(long id, Status status)
         {
-            ViewPermissaoDto consulta = await applicationServicePermissao.PutStatusAsync(id);
+            if (status == 0)
+            {
+                return BadRequest(new { mensagem = "Nenhum status selecionado!" });
+            }
+
+            ViewPermissaoDto consulta = await applicationServicePermissao.PutStatusAsync(id, status);
             if (consulta == null)
             {
                 return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
             }
-            return Ok(new { mensagem = "Permissão removida com sucesso!" });
+
+            return Ok(new { mensagem = "Status atualizado para " + status + " com sucesso!" });
         }
 
         /// <summary>
@@ -127,27 +135,33 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// <param name="id"></param>
         /// <param name="patch"></param>
         /// <remarks>Modelo: [ { "op": "replace", "path": "/titulo", "value": "Teste path 1" } ]</remarks>
-        [HttpPatch("{id:int}")]
-        public async Task<ActionResult> Patch(int id, [FromBody] JsonPatchDocument<Permissao> patch)
+        [HttpPatch("{id:long}")]
+        public async Task<ActionResult> PatchAsync(long id, [FromBody] JsonPatchDocument<PutPermissaoDto> patch)
         {
             if (patch == null)
             {
                 return BadRequest(new { mensagem = "O patch não pode ser nulo." });
             }
 
-            Permissao permissao = await applicationServicePermissao.GetByIdPermissaoAsync(id);
+            ObjetoPermissao objetoPermissao = await applicationServicePermissao.GetByIdReturnPutAsync(id);
+            if (objetoPermissao.Equals(default(ObjetoPermissao))) 
+            {
+                return BadRequest(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
+            }         
 
-            patch.ApplyTo(permissao, ModelState);
-            var isValid = TryValidateModel(permissao);
+            patch.ApplyTo(objetoPermissao.putPermissaoDto, ModelState);
+            var isValid = TryValidateModel(objetoPermissao.putPermissaoDto);
             if (!isValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(new { mensagem = "Ação ou campo inválido." });
             }
 
-            int? valor = await applicationServicePermissao.SaveChangesAsync(id);
-            if (valor is null || valor == 0) { return BadRequest(new { mensagem = "Nenhum campo foi atualizado." }); } 
+            await applicationServicePermissao.SaveChangesAsync(objetoPermissao.putPermissaoDto, objetoPermissao.permissao);
 
-            return Ok(new { mensagem = "Progresso atualizado com sucesso! " + (valor > 1 ? valor + " campos foram atualizados." : valor + " campo foi atualizados.") });
+            return Ok(new
+            {
+                mensagem = "Progresso atualizado com sucesso!"
+            });
         }
     }
 }

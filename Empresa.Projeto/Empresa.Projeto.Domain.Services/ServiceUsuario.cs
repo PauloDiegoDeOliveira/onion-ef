@@ -30,8 +30,8 @@ namespace Empresa.Projeto.Domain.Services
             return await repositoryUsuario.PutStatusAsync(usuario);
         }
 
-        public async Task<Usuario> GetByIdUsuarioAsync(long id) 
-        { 
+        public async Task<Usuario> GetByIdUsuarioAsync(long id)
+        {
             return await repositoryUsuario.GetByIdUsuarioAsync(id);
         }
     }

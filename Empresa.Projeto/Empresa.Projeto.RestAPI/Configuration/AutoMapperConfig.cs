@@ -10,7 +10,7 @@ namespace Empresa.Projeto.RestAPI.Configuration
             services.AddAutoMapper(
                 typeof(DtoToModelMappingUsuario),
                 typeof(DtoToModelMappingPermissao)
-                );       
+                );
         }
     }
 }

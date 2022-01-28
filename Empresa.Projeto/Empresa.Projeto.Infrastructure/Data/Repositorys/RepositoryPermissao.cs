@@ -1,9 +1,5 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
 using Empresa.Projeto.Domain.Entitys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Infrastructure.Data.Repositorys
@@ -30,9 +26,10 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             return obj;
         }
 
-        public async Task<int> SaveChangesAsync()
+        public async Task<bool> SaveChangesAsync()
         {
-           return await appDbContext.SaveChangesAsync(); ;
+            await appDbContext.SaveChangesAsync();
+            return true;
         }
     }
 }

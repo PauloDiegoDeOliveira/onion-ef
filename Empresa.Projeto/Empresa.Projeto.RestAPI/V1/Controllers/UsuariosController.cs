@@ -13,11 +13,11 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
     [ApiController]
     public class UsuariosController : ControllerBase
     {
-        private readonly IApplicationServiceUsuario serviceUsuario;
+        private readonly IApplicationServiceUsuario applicationServiceUsuario;
 
-        public UsuariosController(IApplicationServiceUsuario serviceUsuario)
+        public UsuariosController(IApplicationServiceUsuario applicationServiceUsuario)
         {
-            this.serviceUsuario = serviceUsuario;
+            this.applicationServiceUsuario = applicationServiceUsuario;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(IList<ViewUsuarioDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
-            IList<ViewUsuarioDto> result = await serviceUsuario.GetAllAsync();
+            IList<ViewUsuarioDto> result = await applicationServiceUsuario.GetAllAsync();
             if (result.Any())
             {
                 return Ok(result);
@@ -45,7 +45,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(ViewUsuarioDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
-            ViewUsuarioDto result = await serviceUsuario.GetByIdAsync(id);
+            ViewUsuarioDto result = await applicationServiceUsuario.GetByIdAsync(id);
             if (result == null)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
@@ -64,7 +64,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            ViewUsuarioDto result = await serviceUsuario.PostAsync(post);
+            ViewUsuarioDto result = await applicationServiceUsuario.PostAsync(post);
             return Ok(new { mensagem = "Usuário criado com sucesso!" });
         }
 
@@ -79,7 +79,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            ViewUsuarioDto result = await serviceUsuario.PutAsync(put);
+            ViewUsuarioDto result = await applicationServiceUsuario.PutAsync(put);
             if (result == null)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
@@ -95,7 +95,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeleteAsync(long id)
         {
-            ViewUsuarioDto result = await serviceUsuario.DeleteAsync(id);
+            ViewUsuarioDto result = await applicationServiceUsuario.DeleteAsync(id);
             if (result == null)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
@@ -112,7 +112,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(ViewUsuarioDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetNomeAsync(string nome)
         {
-            IList<ViewUsuarioDto> result = await serviceUsuario.GetNomeAsync(nome);
+            IList<ViewUsuarioDto> result = await applicationServiceUsuario.GetNomeAsync(nome);
             if (result.Count == 0)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o nome informado." });
@@ -128,7 +128,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpPut("status-exluido")]
         public async Task<IActionResult> PutStatusAsync(long id)
         {
-            ViewUsuarioDto consulta = await serviceUsuario.PutStatusAsync(id);
+            ViewUsuarioDto consulta = await applicationServiceUsuario.PutStatusAsync(id);
             if (consulta == null)
             {
                 return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });

@@ -7,8 +7,10 @@ namespace Empresa.Projeto.Application.Interfaces
     public interface IApplicationServiceUsuario :
         IApplicationServiceBase<ViewUsuarioDto, PostUsuarioDto, PutUsuarioDto>
     {
-        Task<IList<ViewUsuarioDto>> GetNomeAsync(string nome); 
+        Task<IList<ViewUsuarioDto>> GetNomeAsync(string nome);
+
         Task<ViewAposAutenticacaoDto> AutenticacaoAsync(ViewPreAutenticacaoDto viewPreAutenticacao);
+
         Task<ViewUsuarioDto> PutStatusAsync(long id);
     }
 }

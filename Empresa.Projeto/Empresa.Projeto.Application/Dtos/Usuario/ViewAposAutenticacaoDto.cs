@@ -10,9 +10,10 @@ namespace Empresa.Projeto.Application.Dtos.Usuario
         public string Sobrenome { get; set; }
         public string Apelido { get; set; }
         public string Email { get; set; }
-        public Status Status { get; set; }      
+        public Status Status { get; set; }
 
         public ViewTokenDto Token { get; set; }
+
         public ViewAposAutenticacaoDto()
         {
             Token = new ViewTokenDto();

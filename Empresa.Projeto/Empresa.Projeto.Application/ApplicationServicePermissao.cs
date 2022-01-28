@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application
 {
-    public class ApplicationServicePermissao: 
+    public class ApplicationServicePermissao :
         ApplicationServiceBase<Permissao, ViewPermissaoDto, PostPermissaoDto, PutPermissaoDto>,
         IApplicationServicePermissao
     {
@@ -21,44 +21,34 @@ namespace Empresa.Projeto.Application
             this.servicePermissao = servicePermissao;
         }
 
-        public async Task<Permissao> GetByIdPermissaoAsync(long id)
+        public async Task<ViewPermissaoDto> PutStatusAsync(long id, Status status)
         {
             Permissao consulta = await servicePermissao.GetByIdPermissaoAsync(id);
-
             if (consulta is null)
             {
                 return null;
             }
 
-            return consulta;
-        }
-
-        public async Task<ViewPermissaoDto> PutStatusAsync(long id)
-        {
-            Permissao consulta = await GetByIdPermissaoAsync(id);
-            if (consulta is null)
-            {
-                return null;
-            }
-
-            consulta.ChangeStatusValue((int)Status.Excluido);
+            consulta.ChangeStatusValue((int)status);
             consulta.ChangeAlteradoEmValue(DateTime.Now);
 
             Permissao obj = await servicePermissao.PutStatusAsync(consulta);
             return mapper.Map<ViewPermissaoDto>(obj);
         }
 
-        public async Task<int?> SaveChangesAsync(long id)
+        public async Task<ObjetoPermissao> GetByIdReturnPutAsync(long id)
         {
-            Permissao consulta = await GetByIdPermissaoAsync(id);
+            ObjetoPermissao objetoPermissao;
 
-            if (consulta is null)
-            {
-                return null;
-            }
+            objetoPermissao.permissao = await servicePermissao.GetByIdPermissaoAsync(id);
+            objetoPermissao.putPermissaoDto = mapper.Map<PutPermissaoDto>(objetoPermissao.permissao);
 
-            consulta.ChangeAlteradoEmValue(DateTime.Now);
-            
+            return objetoPermissao;
+        }
+
+        public async Task<bool> SaveChangesAsync(PutPermissaoDto putPermissaoDto, Permissao permissao)
+        {
+            mapper.Map(putPermissaoDto, permissao);
             return await servicePermissao.SaveChangesAsync();
         }
     }

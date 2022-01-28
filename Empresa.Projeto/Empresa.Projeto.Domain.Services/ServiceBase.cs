@@ -1,6 +1,4 @@
-﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
-using Empresa.Projeto.Domain.Core.Interfaces.Services;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Domain.Services
@@ -31,12 +29,12 @@ namespace Empresa.Projeto.Domain.Services
 
         public virtual async Task<TEntity> PutAsync(TEntity obj)
         {
-            return await repositoryBase.PutAsync(obj); 
+            return await repositoryBase.PutAsync(obj);
         }
 
-        public async Task<TEntity> DeleteAsync(long id) 
+        public async Task<TEntity> DeleteAsync(long id)
         {
-            return await repositoryBase.DeleteAsync(id); 
+            return await repositoryBase.DeleteAsync(id);
         }
     }
 }

@@ -9,19 +9,12 @@ namespace Empresa.Projeto.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+        }
 
         public DbSet<Usuario> Usuarios { get; set; }
-
         public DbSet<Permissao> Permissoes { get; set; }
-
-        //Migration
-        public AppDbContext() { }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Data Source=HENRIQUENOTE;Initial Catalog=DDD;Integrated Security=SSPI;"); //Server=192.168.103.12;Database=APITeste;User Id=u111575;Password=SenhaAqui;
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,7 +33,7 @@ namespace Empresa.Projeto.Infrastructure.Data
                 if (entry.State == EntityState.Modified)
                 {
                     entry.Property("CriadoEm").IsModified = false;
-                }               
+                }
             }
             return base.SaveChangesAsync(cancellationToken);
         }

@@ -7,6 +7,7 @@ namespace Empresa.Projeto.Domain.Entitys
     {
         // Propriedades
         public long PermissaoId { get; private set; }
+
         public string Nome { get; private set; }
         public string Sobrenome { get; private set; }
         public string Apelido { get; private set; }
@@ -20,7 +21,8 @@ namespace Empresa.Projeto.Domain.Entitys
         public IList<Permissao> Permissoes { get; private set; }
 
         // EF
-        protected Usuario() { }
+        protected Usuario()
+        { }
 
         // Construtor
         public Usuario(long permissaoId,

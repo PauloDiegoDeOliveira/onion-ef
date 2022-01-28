@@ -17,7 +17,7 @@ namespace Empresa.Projeto.Application.Mappers
             CreateMap<PostUsuarioDto, Usuario>();
             CreateMap<PutUsuarioDto, Usuario>().ForMember(d => d.AlteradoEm, o => o.MapFrom(x => DateTime.Now));
             CreateMap<Usuario, ViewUsuarioDto>();
-            CreateMap<Usuario, ViewAposAutenticacaoDto>().ReverseMap(); 
+            CreateMap<Usuario, ViewAposAutenticacaoDto>().ReverseMap();
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
 using Empresa.Projeto.Domain.Entitys;
-using Empresa.Projeto.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,9 +41,9 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             return usuario;
         }
 
-        public async Task<Usuario> GetByIdUsuarioAsync(long id) 
+        public async Task<Usuario> GetByIdUsuarioAsync(long id)
         {
-            Usuario obj = await GetByIdAsync(id);            
+            Usuario obj = await GetByIdAsync(id);
             return obj;
         }
     }
