@@ -19,7 +19,7 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
         public async Task<IList<Usuario>> GetNomeAsync(string nome)
         {
             IList<Usuario> obj = await appDbContext.Usuarios
-                                        .Where(ns => EF.Functions.Like(ns.Nome, $"%{nome}%"))
+                                        .Where(x => EF.Functions.Like(x.Nome, $"%{nome}%"))
                                         .AsNoTracking()
                                         .ToListAsync();
             return obj;
@@ -47,12 +47,12 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             return obj;
         }
 
-        public async Task<Usuario> GetByIdDetalhesAsync(long id) 
+        public async Task<Usuario> GetByIdDetalhesAsync(long id)
         {
             Usuario obj = await appDbContext.Usuarios
                 .Include(x => x.Permissao)
                 .AsNoTracking()
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(x => x.Id == id);
             return obj;
         }
     }
