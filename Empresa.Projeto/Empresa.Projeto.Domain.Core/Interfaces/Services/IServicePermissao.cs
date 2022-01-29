@@ -10,5 +10,7 @@ namespace Empresa.Projeto.Domain.Core.Interfaces.Services
         Task<Permissao> GetByIdPermissaoAsync(long id);
 
         Task SaveChangesAsync();
+
+        Task<Permissao> GetByIdDetalhesAsync(long id);
     }
 }

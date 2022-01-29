@@ -163,5 +163,22 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
                 mensagem = "Progresso atualizado com sucesso!"
             });
         }
+
+        /// <summary>
+        /// Retorna detalhes de uma permissão consultado via id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("detalhes")]
+        [ProducesResponseType(typeof(ViewPermissaoUsuarioDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetByIdDetalhesAsync(long id)
+        {
+            ViewPermissaoUsuarioDto result = await applicationServicePermissao.GetByIdDetalhesAsync(id);
+            if (result == null)
+            {
+                return NotFound(new { mensagem = "Nenhuma permissão foi encontrado com o id informado." });
+            }
+            return Ok(result);
+        }
     }
 }

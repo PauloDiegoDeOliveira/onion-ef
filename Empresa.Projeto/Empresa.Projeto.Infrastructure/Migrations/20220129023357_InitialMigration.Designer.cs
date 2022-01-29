@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Empresa.Projeto.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220128230259_InitialMigration")]
+    [Migration("20220129023357_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,11 +41,11 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Descricao");
 
-                    b.Property<string>("NomePermissao")
+                    b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)")
-                        .HasColumnName("NomePermissao");
+                        .HasColumnName("Nome");
 
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()

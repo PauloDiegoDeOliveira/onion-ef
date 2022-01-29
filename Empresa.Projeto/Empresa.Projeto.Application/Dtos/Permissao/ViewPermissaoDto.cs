@@ -5,7 +5,7 @@ namespace Empresa.Projeto.Application.Dtos.Permissao
     public class ViewPermissaoDto
     {
         public long Id { get; set; }
-        public string NomePermissao { get; set; }
+        public string Nome { get; set; } 
         public string Descricao { get; set; }
         public Status Status { get; set; }
     }

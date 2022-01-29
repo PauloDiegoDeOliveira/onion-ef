@@ -29,5 +29,10 @@ namespace Empresa.Projeto.Domain.Services
         {
             await repositoryPermissao.SaveChangesAsync();
         }
+
+        public async Task<Permissao> GetByIdDetalhesAsync(long id)
+        {
+            return await repositoryPermissao.GetByIdDetalhesAsync(id);
+        }
     }
 }

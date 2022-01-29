@@ -14,5 +14,7 @@ namespace Empresa.Projeto.Application.Interfaces
         Task<EntityDtoStruct<Permissao, PutPermissaoDto>> GetByIdReturnPutAsync(long id);
 
         Task SaveChangesAsync(EntityDtoStruct<Permissao, PutPermissaoDto> dtoStruct);
+
+        Task<ViewPermissaoUsuarioDto> GetByIdDetalhesAsync(long id);
     }
 }

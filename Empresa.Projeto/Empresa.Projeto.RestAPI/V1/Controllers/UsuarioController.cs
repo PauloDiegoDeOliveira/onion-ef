@@ -12,11 +12,11 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/usuarios")]
     [ApiController]
-    public class UsuariosController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
         private readonly IApplicationServiceUsuario applicationServiceUsuario;
 
-        public UsuariosController(IApplicationServiceUsuario applicationServiceUsuario)
+        public UsuarioController(IApplicationServiceUsuario applicationServiceUsuario)
         {
             this.applicationServiceUsuario = applicationServiceUsuario;
         }

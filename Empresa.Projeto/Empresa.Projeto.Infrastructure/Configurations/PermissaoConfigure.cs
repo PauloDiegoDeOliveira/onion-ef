@@ -16,10 +16,10 @@ namespace Empresa.Projeto.Infrastructure.Configurations
                    .UseIdentityColumn()
                    .HasColumnType("bigint");
 
-            builder.Property(p => p.NomePermissao)
+            builder.Property(p => p.Nome)
                    .HasMaxLength(100)
                    .IsRequired()
-                   .HasColumnName("NomePermissao")
+                   .HasColumnName("Nome")
                    .HasColumnType("varchar(100)");
 
             builder.Property(p => p.Descricao)

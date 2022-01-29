@@ -13,7 +13,7 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NomePermissao = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Nome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Descricao = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
                     Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
                     CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),

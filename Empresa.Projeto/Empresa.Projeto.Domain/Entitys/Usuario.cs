@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Empresa.Projeto.Domain.Entitys
+﻿namespace Empresa.Projeto.Domain.Entitys
 {
     public class Usuario : EntityBase
     {
         // Propriedades
         public long PermissaoId { get; private set; }
+
         public string Nome { get; private set; }
         public string Sobrenome { get; private set; }
         public string Apelido { get; private set; }
@@ -14,7 +12,7 @@ namespace Empresa.Projeto.Domain.Entitys
         public string Senha { get; private set; }
 
         // Propriedades de navegação
-        public virtual Permissao Permissao { get; private set; } 
+        public virtual Permissao Permissao { get; private set; }
 
         // EF
         protected Usuario()

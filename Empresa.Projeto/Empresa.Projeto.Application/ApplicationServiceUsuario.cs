@@ -63,6 +63,11 @@ namespace Empresa.Projeto.Application
         public async Task<ViewAposAutenticacaoDto> AutenticacaoAsync(ViewPreAutenticacaoDto viewPreAutenticacao)
         {
             Usuario consulta = await serviceUsuario.GetEmailAsync(viewPreAutenticacao.Email);
+            if (consulta is null)
+            {
+                return null;
+            }
+
             //await usuarioRepository.UltimoAcessoAsync(usuarioConsultado);
 
             if (await ValidaEAtualizaHashAsync(viewPreAutenticacao, consulta.Senha))

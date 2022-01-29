@@ -7,7 +7,7 @@ namespace Empresa.Projeto.Application.Validations.Permissao
     {
         public PostPermissaoValidator()
         {
-            RuleFor(x => x.NomePermissao)
+            RuleFor(x => x.Nome)
                 .NotNull()
                 .WithMessage("O nome não pode ser nulo.")
 

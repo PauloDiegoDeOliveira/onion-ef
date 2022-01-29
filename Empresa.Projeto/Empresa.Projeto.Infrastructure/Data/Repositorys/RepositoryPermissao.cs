@@ -1,5 +1,6 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
 using Empresa.Projeto.Domain.Entitys;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Infrastructure.Data.Repositorys
@@ -29,6 +30,15 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
         public async Task SaveChangesAsync()
         {
             await appDbContext.SaveChangesAsync();
+        }
+
+        public async Task<Permissao> GetByIdDetalhesAsync(long id)
+        {
+            var obj = await appDbContext.Permissoes
+                .Include(x => x.Usuarios)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            return obj;
         }
     }
 }

@@ -50,5 +50,11 @@ namespace Empresa.Projeto.Application
             mapper.Map(dtoStruct.dto, dtoStruct.entity);
             await servicePermissao.SaveChangesAsync();
         }
+
+        public async Task<ViewPermissaoUsuarioDto> GetByIdDetalhesAsync(long id)
+        {
+            Permissao consulta = await servicePermissao.GetByIdDetalhesAsync(id);
+            return mapper.Map<ViewPermissaoUsuarioDto>(consulta);
+        }
     }
 }
