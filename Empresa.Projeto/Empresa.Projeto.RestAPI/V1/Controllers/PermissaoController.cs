@@ -160,7 +160,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
 
             return Ok(new
             {
-                mensagem = "Progresso atualizado com sucesso!"
+                mensagem = "Permissão atualizada com sucesso!"
             });
         }
 
