@@ -122,7 +122,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Atualiza o status
+        /// Altera o status
         /// </summary>
         /// <param name="id"></param>
         /// <param name="status"></param>
