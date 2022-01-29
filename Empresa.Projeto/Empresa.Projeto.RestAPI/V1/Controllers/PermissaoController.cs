@@ -29,10 +29,10 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(IList<ViewPermissaoDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ViewPermissaoDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
-            IList<ViewPermissaoDto> result = await applicationServicePermissao.GetAllAsync();
+            IEnumerable<ViewPermissaoDto> result = await applicationServicePermissao.GetAllAsync();
             if (result.Any())
             {
                 return Ok(result);

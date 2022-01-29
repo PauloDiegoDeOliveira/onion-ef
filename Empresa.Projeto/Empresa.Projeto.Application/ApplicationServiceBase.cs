@@ -19,9 +19,9 @@ namespace Empresa.Projeto.Application
             this.mapper = mapper;
         }
 
-        public virtual async Task<IList<TView>> GetAllAsync()
+        public virtual async Task<IEnumerable<TView>> GetAllAsync()
         {
-            IList<TEntity> consulta = await serviceBase.GetAllAsync();
+            IEnumerable<TEntity> consulta = await serviceBase.GetAllAsync();
             return mapper.Map<IList<TView>>(consulta);
         }
 

@@ -12,7 +12,7 @@ namespace Empresa.Projeto.Domain.Services
             this.repositoryBase = repositoryBase;
         }
 
-        public async Task<IList<TEntity>> GetAllAsync()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await repositoryBase.GetAllAsync();
         }

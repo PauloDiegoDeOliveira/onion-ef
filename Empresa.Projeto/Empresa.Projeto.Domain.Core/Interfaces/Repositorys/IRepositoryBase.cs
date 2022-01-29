@@ -5,7 +5,7 @@ namespace Empresa.Projeto.Domain.Core.Interfaces.Repositorys
 {
     public interface IServiceBase<TEntity> where TEntity : class
     {
-        Task<IList<TEntity>> GetAllAsync();
+        Task<IEnumerable<TEntity>> GetAllAsync();
 
         Task<TEntity> GetByIdAsync(long id);
 

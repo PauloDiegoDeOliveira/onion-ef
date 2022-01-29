@@ -6,7 +6,7 @@ namespace Empresa.Projeto.Application.Interfaces
     public interface IApplicationServiceBase<TView, TPost, TPut>
         where TView : class where TPost : class where TPut : class
     {
-        Task<IList<TView>> GetAllAsync();
+        Task<IEnumerable<TView>> GetAllAsync();
 
         Task<TView> GetByIdAsync(long id);
 

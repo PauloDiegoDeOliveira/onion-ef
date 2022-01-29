@@ -26,10 +26,10 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(IList<ViewUsuarioDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ViewUsuarioDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
-            IList<ViewUsuarioDto> result = await applicationServiceUsuario.GetAllAsync();
+            IEnumerable<ViewUsuarioDto> result = await applicationServiceUsuario.GetAllAsync();
             if (result.Any())
             {
                 return Ok(result);

@@ -17,7 +17,7 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             this.appDbContext = appContext;
         }
 
-        public virtual async Task<IList<TEntity>> GetAllAsync()
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await appDbContext.Set<TEntity>().Where(p => p.Status != (int)Status.Excluido).AsNoTracking().ToListAsync();
         }
