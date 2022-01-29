@@ -41,13 +41,13 @@ namespace Empresa.Projeto.Application
         {
             EntityDtoStruct<Permissao,PutPermissaoDto> objetoPermissao = new EntityDtoStruct<Permissao, PutPermissaoDto>();
             objetoPermissao.ChangeEntity(await servicePermissao.GetByIdPermissaoAsync(id));
-            objetoPermissao.ChantePutDto(mapper.Map<PutPermissaoDto>(objetoPermissao.entity));
+            objetoPermissao.ChantePutDto(mapper.Map<PutPermissaoDto>(objetoPermissao.Entity));
             return objetoPermissao;
         }
 
         public async Task SaveChangesAsync(EntityDtoStruct<Permissao,PutPermissaoDto> dtoStruct)
         {
-            mapper.Map(dtoStruct.dto, dtoStruct.entity);
+            mapper.Map(dtoStruct.Dto, dtoStruct.Entity);
             await servicePermissao.SaveChangesAsync();
         }
 

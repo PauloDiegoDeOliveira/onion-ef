@@ -149,8 +149,8 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
                 return BadRequest(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
             }
 
-            patch.ApplyTo(objetoPermissao.dto, ModelState);
-            var isValid = TryValidateModel(objetoPermissao.dto);
+            patch.ApplyTo(objetoPermissao.Dto, ModelState);
+            var isValid = TryValidateModel(objetoPermissao.Dto);
             if (!isValid)
             {
                 return BadRequest(new { mensagem = "Ação ou campo inválido." });
