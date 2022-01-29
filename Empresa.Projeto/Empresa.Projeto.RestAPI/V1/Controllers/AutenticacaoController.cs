@@ -29,9 +29,8 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         {
             var consultado = await serviceUsuario.AutenticacaoAsync(viewPreAutenticacao);
             if (consultado != null)
-            {
                 return Ok(consultado);
-            }
+
             return Unauthorized(new { mensagem = "Usuário e/ou senha inválidos" });
         }
     }

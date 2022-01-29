@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.RestAPI.V1.Controllers
@@ -33,10 +32,9 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         public async Task<IActionResult> GetAllAsync()
         {
             IEnumerable<ViewPermissaoDto> result = await applicationServicePermissao.GetAllAsync();
-            if (result.Any())
-            {
+            if (result != null)
                 return Ok(result);
-            }
+
             return NotFound(new { mensagem = "Nenhuma permissão foi encontrada." });
         }
 
@@ -50,11 +48,10 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         public async Task<IActionResult> GetByIdAsync(long id)
         {
             ViewPermissaoDto result = await applicationServicePermissao.GetByIdAsync(id);
-            if (result == null)
-            {
-                return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
-            }
-            return Ok(result);
+            if (result != null)
+                return Ok(result);
+
+            return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
         }
 
         /// <summary>
@@ -68,7 +65,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            ViewPermissaoDto result = await applicationServicePermissao.PostAsync(post);
+            await applicationServicePermissao.PostAsync(post);
             return Ok(new { mensagem = "Permissão criada com sucesso!" });
         }
 
@@ -84,11 +81,10 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
                 return BadRequest(ModelState);
 
             ViewPermissaoDto result = await applicationServicePermissao.PutAsync(put);
-            if (result == null)
-            {
-                return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
-            }
-            return Ok(new { mensagem = "Permissão atualizada com sucesso!" });
+            if (result != null)
+                return Ok(new { mensagem = "Permissão atualizada com sucesso!" });
+
+            return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
         }
 
         /// <summary>
@@ -100,11 +96,10 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         public async Task<IActionResult> DeleteAsync(long id)
         {
             ViewPermissaoDto result = await applicationServicePermissao.DeleteAsync(id);
-            if (result == null)
-            {
-                return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
-            }
-            return Ok(new { mensagem = "Permissão removida com sucesso!" });
+            if (result != null)
+                return Ok(new { mensagem = "Permissão removida com sucesso!" });
+
+            return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
         }
 
         /// <summary>
@@ -117,16 +112,13 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         public async Task<IActionResult> PutStatusAsync(long id, Status status)
         {
             if (status == 0)
-            {
                 return BadRequest(new { mensagem = "Nenhum status selecionado!" });
-            }
 
-            ViewPermissaoDto consulta = await applicationServicePermissao.PutStatusAsync(id, status);
-            if (consulta == null)
-            {
-                return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
-            }
-            return Ok(new { mensagem = "Status atualizado com sucesso para: " + status });
+            ViewPermissaoDto result = await applicationServicePermissao.PutStatusAsync(id, status);
+            if (result != null)
+                return Ok(new { mensagem = "Status atualizado com sucesso para: " + status });
+
+            return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
         }
 
         /// <summary>
@@ -139,29 +131,20 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         public async Task<ActionResult> PatchAsync(long id, [FromBody] JsonPatchDocument<PutPermissaoDto> patch)
         {
             if (patch == null)
-            {
                 return BadRequest(new { mensagem = "O patch não pode ser nulo." });
-            }
 
             EntityDtoStruct<Permissao, PutPermissaoDto> objetoPermissao = await applicationServicePermissao.GetByIdReturnPutAsync(id);
             if (objetoPermissao.Equals(default(EntityDtoStruct<Permissao, PutPermissaoDto>)))
-            {
                 return BadRequest(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
-            }
 
             patch.ApplyTo(objetoPermissao.Dto, ModelState);
             var isValid = TryValidateModel(objetoPermissao.Dto);
             if (!isValid)
-            {
                 return BadRequest(new { mensagem = "Ação ou campo inválido." });
-            }
 
             await applicationServicePermissao.SaveChangesAsync(objetoPermissao);
 
-            return Ok(new
-            {
-                mensagem = "Permissão atualizada com sucesso!"
-            });
+            return Ok(new { mensagem = "Permissão atualizada com sucesso!" });
         }
 
         /// <summary>
@@ -174,11 +157,10 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         public async Task<IActionResult> GetByIdDetalhesAsync(long id)
         {
             ViewPermissaoUsuarioDto result = await applicationServicePermissao.GetByIdDetalhesAsync(id);
-            if (result == null)
-            {
-                return NotFound(new { mensagem = "Nenhuma permissão foi encontrado com o id informado." });
-            }
-            return Ok(result);
+            if (result != null)
+                return Ok(result);
+
+            return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
         }
     }
 }
