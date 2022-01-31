@@ -41,7 +41,7 @@ namespace Empresa.Projeto.Application
         {
             EntityDtoStruct<Permissao,PutPermissaoDto> objetoPermissao = new EntityDtoStruct<Permissao, PutPermissaoDto>();
             objetoPermissao.ChangeEntity(await servicePermissao.GetByIdPermissaoAsync(id));
-            objetoPermissao.ChantePutDto(mapper.Map<PutPermissaoDto>(objetoPermissao.Entity));
+            objetoPermissao.ChangeDto(mapper.Map<PutPermissaoDto>(objetoPermissao.Entity));
             return objetoPermissao;
         }
 

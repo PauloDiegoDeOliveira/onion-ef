@@ -12,7 +12,7 @@ namespace Empresa.Projeto.Application.Structs
             this.Entity = entity;
         }
 
-        public void ChantePutDto(TDto dto)
+        public void ChangeDto(TDto dto)
         {
             this.Dto = dto;
         }
