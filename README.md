@@ -1,1 +1,2 @@
-# ddd-ef
+# onion architecture
+# hexagonal architecture
