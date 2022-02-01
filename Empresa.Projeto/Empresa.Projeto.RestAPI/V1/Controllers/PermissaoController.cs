@@ -167,7 +167,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
 
             PermissaoPagination result = await applicationServicePermissao.GetAllPaginationAsync(pageNumber, resultSize);
 
-            if (result.Permissoes is null || result.Permissoes.Count <= 0)
+            if (result.Permissoes.Count <= 0)
                 return NotFound(new { mensagem = "Nenhuma permissão foi encontrada." });
 
             return Ok(result);
