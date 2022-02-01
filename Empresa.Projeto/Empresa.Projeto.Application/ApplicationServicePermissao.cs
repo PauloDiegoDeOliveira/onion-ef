@@ -29,7 +29,7 @@ namespace Empresa.Projeto.Application
         {
             PermissaoPagination pagination = new PermissaoPagination();
             pagination.SetValues(await servicePermissao.GetCountAsync(), resultSize, pageNumber);
-            pagination.Permissoes = mapper.Map<List<ViewPermissaoDto>>(await servicePermissao.GetAllPaginationAsync(pageNumber, resultSize));
+            pagination.Permissoes = mapper.Map<List<ViewPermissaoDto>>(await servicePermissao.GetAllPaginationAsync(pagination.PaginaAtual, pagination.ResultadosExibidos));
             return pagination;
         }
 

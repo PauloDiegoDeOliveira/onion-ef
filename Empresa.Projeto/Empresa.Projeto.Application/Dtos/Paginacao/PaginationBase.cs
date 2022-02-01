@@ -3,7 +3,7 @@
     public class PaginationBase
     {
         public int ContagemTotal { get; private set; }
-        public int TamanhoResultados { get; private set; }
+        public int ResultadosExibidos { get; private set; }
         public int PaginaAtual { get; private set; }
         public int TotalPaginas { get; private set; }
         public bool ExistePaginaPosterior { get; private set; }
@@ -12,7 +12,7 @@
         public void SetValues(int contagemTotal, int tamanhoPagina, int paginaAtual)
         {
             ContagemTotal = contagemTotal;
-            TamanhoResultados = tamanhoPagina;
+            ResultadosExibidos = tamanhoPagina;
             PaginaAtual = paginaAtual;
             TotalPaginas = CheckTotalPages();
             ExistePaginaPosterior = CheckHasNextPage();
@@ -28,7 +28,7 @@
 
         public int CheckTotalPages()
         {
-            return (ContagemTotal / TamanhoResultados);
+            return (ContagemTotal / ResultadosExibidos);
         }
 
         public bool CheckHasNextPage()
