@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
+using Empresa.Projeto.Application.Dtos.Paginacao;
 using Empresa.Projeto.Application.Dtos.Permissao;
 using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Application.Structs;
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
 using Empresa.Projeto.Domain.Enums;
+using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application
@@ -20,6 +23,20 @@ namespace Empresa.Projeto.Application
                                          IMapper mapper) : base(servicePermissao, mapper)
         {
             this.servicePermissao = servicePermissao;
+        }
+
+        public async Task<PermissaoPagination> GetAllPaginationAsync(int pageNumber, int resultSize)
+        {
+            PermissaoPagination pagination = new PermissaoPagination();
+            pagination.SetValues(await servicePermissao.GetCountAsync(), resultSize, pageNumber);
+            pagination.Permissoes = mapper.Map<List<ViewPermissaoDto>>(await servicePermissao.GetAllPaginationAsync(pageNumber, resultSize));
+            return pagination;
+        }
+
+        public async Task<ViewPermissaoUsuarioDto> GetByIdDetalhesAsync(long id)
+        {
+            Permissao consulta = await servicePermissao.GetByIdDetalhesAsync(id);
+            return mapper.Map<ViewPermissaoUsuarioDto>(consulta);
         }
 
         public async Task<ViewPermissaoDto> PutStatusAsync(long id, Status status)
@@ -45,16 +62,10 @@ namespace Empresa.Projeto.Application
             return objetoPermissao;
         }
 
-        public async Task SaveChangesAsync(EntityDtoStruct<Permissao,PutPermissaoDto> dtoStruct)
+        public async Task SaveChangesAsync(EntityDtoStruct<Permissao, PutPermissaoDto> dtoStruct)
         {
             mapper.Map(dtoStruct.Dto, dtoStruct.Entity);
             await servicePermissao.SaveChangesAsync();
-        }
-
-        public async Task<ViewPermissaoUsuarioDto> GetByIdDetalhesAsync(long id)
-        {
-            Permissao consulta = await servicePermissao.GetByIdDetalhesAsync(id);
-            return mapper.Map<ViewPermissaoUsuarioDto>(consulta);
         }
     }
 }

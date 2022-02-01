@@ -2,6 +2,7 @@
 
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Domain.Services
@@ -15,9 +16,9 @@ namespace Empresa.Projeto.Domain.Services
             this.repositoryPermissao = repositoryPermissao;
         }
 
-        public async Task<Permissao> PutStatusAsync(Permissao permissao)
+        public async Task<IEnumerable<Permissao>> GetAllPaginationAsync(int pageNumber, int resultSize)
         {
-            return await repositoryPermissao.PutStatusAsync(permissao);
+            return await repositoryPermissao.GetAllPaginationAsync(pageNumber, resultSize);
         }
 
         public async Task<Permissao> GetByIdPermissaoAsync(long id)
@@ -25,14 +26,24 @@ namespace Empresa.Projeto.Domain.Services
             return await repositoryPermissao.GetByIdPermissaoAsync(id);
         }
 
-        public async Task SaveChangesAsync()
-        {
-            await repositoryPermissao.SaveChangesAsync();
-        }
-
         public async Task<Permissao> GetByIdDetalhesAsync(long id)
         {
             return await repositoryPermissao.GetByIdDetalhesAsync(id);
+        }
+
+        public async Task<Permissao> PutStatusAsync(Permissao permissao)
+        {
+            return await repositoryPermissao.PutStatusAsync(permissao);
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            return await repositoryPermissao.GetCountAsync();
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await repositoryPermissao.SaveChangesAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Empresa.Projeto.Application.Dtos.Permissao;
+﻿using Empresa.Projeto.Application.Dtos.Paginacao;
+using Empresa.Projeto.Application.Dtos.Permissao;
 using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Application.Structs;
 using Empresa.Projeto.Domain.Entitys;
@@ -6,8 +7,10 @@ using Empresa.Projeto.Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 
 namespace Empresa.Projeto.RestAPI.V1.Controllers
 {
@@ -148,19 +151,26 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Retorna detalhes de uma permissão consultado via id
+        /// Retorna todas as permissões dividindo-as por páginas.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="resultSize"></param>
         /// <returns></returns>
-        [HttpGet("detalhes")]
-        [ProducesResponseType(typeof(ViewPermissaoUsuarioDto), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetByIdDetalhesAsync(long id)
+        [HttpGet("page/{pageNumber:int}/results/{resultSize:int}")]
+        [ProducesResponseType(typeof(IEnumerable<ViewPermissaoDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllPaginationAsync(int pageNumber, int resultSize)
         {
-            ViewPermissaoUsuarioDto result = await applicationServicePermissao.GetByIdDetalhesAsync(id);
-            if (result != null)
-                return Ok(result);
+            if (pageNumber <= 0)
+                return NotFound(new { mensagem = "Página não existente" });
+            else if (resultSize <= 0)
+                return NotFound(new { mensagem = "O tamanho de resultados exibidos não pode ser menor ou igual a 0" });
 
-            return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
+            PermissaoPagination result = await applicationServicePermissao.GetAllPaginationAsync(pageNumber, resultSize);
+
+            if (result.Permissoes is null || result.Permissoes.Count <= 0)
+                return NotFound(new { mensagem = "Nenhuma permissão foi encontrada." });
+
+            return Ok(result);
         }
     }
 }

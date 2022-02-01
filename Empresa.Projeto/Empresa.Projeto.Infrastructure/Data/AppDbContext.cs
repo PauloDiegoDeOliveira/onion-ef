@@ -22,6 +22,14 @@ namespace Empresa.Projeto.Infrastructure.Data
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
         }
 
+
+        // Migration
+        //public AppDbContext() { }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Data Source=HENRIQUENOTE;Initial Catalog=DDD;Integrated Security=SSPI;"); //Server=192.168.103.12;Database=APITeste;User Id=u111575;Password=SenhaAqui;
+        //}
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("CriadoEm") != null))
