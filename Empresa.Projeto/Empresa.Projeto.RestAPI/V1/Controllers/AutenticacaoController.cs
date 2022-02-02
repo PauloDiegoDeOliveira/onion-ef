@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Empresa.Projeto.RestAPI.V1.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/autenticacao")]
+    [Route("api/v{version:apiVersion}/Autenticacao")]
     [ApiController]
     public class AutenticacaoController : ControllerBase
     {

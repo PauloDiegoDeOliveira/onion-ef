@@ -8,8 +8,8 @@ namespace Empresa.Projeto.RestAPI.Configuration
         public static void AddAutoMapperConfiguration(this IServiceCollection services)
         {
             services.AddAutoMapper(
-                typeof(DtoToModelMappingUsuario),
-                typeof(DtoToModelMappingPermissao)
+                typeof(MappingProfileUsuario),
+                typeof(MappingProfilePermissao)
                 );
         }
     }

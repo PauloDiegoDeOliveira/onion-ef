@@ -6,7 +6,6 @@ using Empresa.Projeto.Application.Structs;
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
 using Empresa.Projeto.Domain.Enums;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

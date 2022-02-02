@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Empresa.Projeto.RestAPI.V1.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/usuarios")]
+    [Route("api/v{version:apiVersion}/Usuarios")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {

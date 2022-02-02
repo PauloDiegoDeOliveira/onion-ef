@@ -3,7 +3,7 @@
 namespace Empresa.Projeto.RestAPI.V1.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/versao")]
+    [Route("api/v{version:apiVersion}/Versao")]
     [ApiController]
     public class VersaoController : ControllerBase
     {

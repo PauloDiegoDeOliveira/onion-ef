@@ -5,9 +5,9 @@ using System;
 
 namespace Empresa.Projeto.Application.Mappers
 {
-    public class DtoToModelMappingPermissao : Profile
+    public class MappingProfilePermissao : Profile
     {
-        public DtoToModelMappingPermissao()
+        public MappingProfilePermissao()
         {
             Map();
         }

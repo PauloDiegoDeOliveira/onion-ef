@@ -26,6 +26,7 @@ namespace Empresa.Projeto.RestAPI
             services.AddDatabaseConfiguration(Configuration);
             services.AddDependencyInjectionConfiguration();
             services.AddSwaggerConfig();
+            services.AddRefitConfiguration(Configuration);
             services.AddCorsConfiguration(Configuration);
             services.AddVersionConfiguration();
         }

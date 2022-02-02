@@ -7,15 +7,13 @@ using Empresa.Projeto.Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 
 namespace Empresa.Projeto.RestAPI.V1.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/permissoes")]
+    [Route("api/v{version:apiVersion}/Permissoes")]
     [ApiController]
     public class PermissaoController : ControllerBase
     {
@@ -106,6 +104,22 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
+        /// Retorna uma permissão com detalhes consultado via id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("detalhes/{id:long}")]
+        [ProducesResponseType(typeof(ViewPermissaoDto), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetDetalhesByIdAsync(long id)
+        {
+            ViewPermissaoUsuarioDto result = await applicationServicePermissao.GetByIdDetalhesAsync(id);
+            if (result != null)
+                return Ok(result);
+
+            return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
+        }
+
+        /// <summary>
         /// Altera o status
         /// </summary>
         /// <param name="id"></param>
@@ -156,7 +170,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// <param name="pageNumber"></param>
         /// <param name="resultSize"></param>
         /// <returns></returns>
-        [HttpGet("page/{pageNumber:int}/results/{resultSize:int}")]
+        [HttpGet("{pageNumber:int}/{resultSize:int}")]
         [ProducesResponseType(typeof(IEnumerable<ViewPermissaoDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllPaginationAsync(int pageNumber, int resultSize)
         {
