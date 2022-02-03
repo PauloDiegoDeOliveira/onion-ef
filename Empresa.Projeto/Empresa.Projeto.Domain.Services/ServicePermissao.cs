@@ -45,5 +45,10 @@ namespace Empresa.Projeto.Domain.Services
         {
             await repositoryPermissao.SaveChangesAsync();
         }
+
+        public async Task<bool> ExisteNaBaseAsync(long? id)
+        {
+            return await repositoryPermissao.ExisteNaBaseAsync(id);
+        }
     }
 }

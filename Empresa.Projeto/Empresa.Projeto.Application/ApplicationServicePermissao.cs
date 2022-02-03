@@ -55,7 +55,7 @@ namespace Empresa.Projeto.Application
 
         public async Task<EntityDtoStruct<Permissao, PutPermissaoDto>> GetByIdReturnPutAsync(long id)
         {
-            EntityDtoStruct<Permissao,PutPermissaoDto> objetoPermissao = new EntityDtoStruct<Permissao, PutPermissaoDto>();
+            EntityDtoStruct<Permissao, PutPermissaoDto> objetoPermissao = new EntityDtoStruct<Permissao, PutPermissaoDto>();
             objetoPermissao.ChangeEntity(await servicePermissao.GetByIdPermissaoAsync(id));
             objetoPermissao.ChangeDto(mapper.Map<PutPermissaoDto>(objetoPermissao.Entity));
             return objetoPermissao;
@@ -65,6 +65,11 @@ namespace Empresa.Projeto.Application
         {
             mapper.Map(dtoStruct.Dto, dtoStruct.Entity);
             await servicePermissao.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExisteNaBaseAsync(long? id)
+        {
+            return await servicePermissao.ExisteNaBaseAsync(id);
         }
     }
 }

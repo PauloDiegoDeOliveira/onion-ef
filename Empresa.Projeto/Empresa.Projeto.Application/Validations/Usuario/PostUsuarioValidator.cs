@@ -1,12 +1,30 @@
 ﻿using Empresa.Projeto.Application.Dtos.Usuario;
+using Empresa.Projeto.Application.Interfaces;
 using FluentValidation;
+using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application.Validations.Usuario
 {
     public class PostUsuarioValidator : AbstractValidator<PostUsuarioDto>
     {
-        public PostUsuarioValidator()
+        private readonly IApplicationServicePermissao applicationServicePermissao;
+
+        public PostUsuarioValidator(IApplicationServicePermissao applicationServicePermissao)
         {
+            this.applicationServicePermissao = applicationServicePermissao;
+
+            RuleFor(x => x.PermissaoId)
+                  .NotNull()
+                  .WithMessage("O id da permissão não pode ser nulo.")
+
+                  .NotEmpty()
+                  .WithMessage("O id da permissão não pode ser vazio.")
+
+              .MustAsync(async (id, cancelar) =>
+              {
+                  return await ExisteNaBaseAsync(id);
+              }).WithMessage("Permisão não cadastrada!");
+
             RuleFor(x => x.Nome)
                 .NotNull()
                 .WithMessage("O nome não pode ser nulo.")
@@ -30,6 +48,11 @@ namespace Empresa.Projeto.Application.Validations.Usuario
 
                 .NotEmpty()
                 .WithMessage("O status não pode ser vazio.");
+        }
+
+        private async Task<bool> ExisteNaBaseAsync(long? id)
+        {
+            return await applicationServicePermissao.ExisteNaBaseAsync(id);
         }
     }
 }
