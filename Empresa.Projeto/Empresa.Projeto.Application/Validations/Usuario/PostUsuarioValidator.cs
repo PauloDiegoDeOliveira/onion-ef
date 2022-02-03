@@ -23,7 +23,7 @@ namespace Empresa.Projeto.Application.Validations.Usuario
               .MustAsync(async (id, cancelar) =>
               {
                   return await ExisteNaBaseAsync(id);
-              }).WithMessage("Permisão não cadastrada!");
+              }).WithMessage("Permissão não cadastrada!");
 
             RuleFor(x => x.Nome)
                 .NotNull()
