@@ -26,10 +26,10 @@ namespace Empresa.Projeto.Application.Validations.UploadForm
 
             RuleFor(x => x.ImagemUpload)
                 .NotNull()
-                .WithMessage("O nome não pode ser nulo.")
+                .WithMessage("A Imagem não pode ser nulo.")
 
                 .NotEmpty()
-                .WithMessage("O nome não pode ser vazio.");
+                .WithMessage("A Imagem não pode ser vazio.");
         }
 
         private async Task<bool> ExisteNaBaseAsync(long? id)
