@@ -4,17 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Empresa.Projeto.Infrastructure.Configurations
 {
-    public class UsuarioConfigure : IEntityTypeConfiguration<Usuario>
+    public class UsuarioConfigure : ConfigureBase<Usuario>
     {
-        public void Configure(EntityTypeBuilder<Usuario> builder)
+        public override void Configure(EntityTypeBuilder<Usuario> builder)
         {
-            builder.ToTable("Usuarios");
+            tableName = "Usuario";
 
-            builder.HasKey(x => x.Id);
-
-            builder.Property(x => x.Id)
-                   .UseIdentityColumn()
-                   .HasColumnType("bigint");
+            base.Configure(builder);
 
             builder.Property(x => x.PermissaoId)
                    .IsRequired()
@@ -46,13 +42,6 @@ namespace Empresa.Projeto.Infrastructure.Configurations
                    .HasMaxLength(500)
                    .HasColumnName("Senha")
                    .HasColumnType("varchar(500)");
-
-            builder.Property(p => p.Status)
-                   .IsRequired()
-                   .HasMaxLength(50)
-                   .HasColumnName("Status")
-                   .HasColumnType("int")
-                   .HasDefaultValue(1);
         }
     }
 }

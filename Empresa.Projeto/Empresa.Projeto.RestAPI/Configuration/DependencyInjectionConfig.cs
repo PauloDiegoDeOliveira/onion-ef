@@ -15,12 +15,16 @@ namespace Empresa.Projeto.RestAPI.Configuration
         public static void AddDependencyInjectionConfiguration(this IServiceCollection services)
         {
             services.AddScoped<IRepositoryUsuario, RepositoryUsuario>();
-            services.AddScoped<IApplicationServiceUsuario, ApplicationServiceUsuario>();
+            services.AddScoped<IApplicationUsuario, ApplicationUsuario>();
             services.AddScoped<IServiceUsuario, ServiceUsuario>();
 
             services.AddScoped<IRepositoryPermissao, RepositoryPermissao>();
-            services.AddScoped<IApplicationServicePermissao, ApplicationServicePermissao>();
+            services.AddScoped<IApplicationPermissao, ApplicationPermissao>();
             services.AddScoped<IServicePermissao, ServicePermissao>();
+
+            services.AddScoped<IRepositoryUploadForm, RepositoryUploadForm>();
+            services.AddScoped<IApplicationUploadForm, ApplicationUploadForm>();
+            services.AddScoped<IServiceUploadForm, ServiceUploadForm>();
 
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         }

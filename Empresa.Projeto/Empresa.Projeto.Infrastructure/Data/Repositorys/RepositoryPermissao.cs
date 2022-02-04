@@ -22,12 +22,6 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             return await appDbContext.Set<Permissao>().Where(p => p.Status != (int)Status.Excluido).AsNoTracking().Skip((pageNumber - 1) * resultSize).Take(resultSize).ToListAsync();
         }
 
-        public async Task<Permissao> GetByIdPermissaoAsync(long id)
-        {
-            Permissao obj = await GetByIdAsync(id);
-            return obj;
-        }
-
         public async Task<Permissao> GetByIdDetalhesAsync(long id)
         {
             var obj = await appDbContext.Permissoes

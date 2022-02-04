@@ -12,15 +12,15 @@ using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace Empresa.Projeto.Application
 {
-    public class ApplicationServiceUsuario :
-        ApplicationServiceBase<Usuario, ViewUsuarioDto, PostUsuarioDto, PutUsuarioDto>,
-        IApplicationServiceUsuario
+    public class ApplicationUsuario :
+        ApplicationBase<Usuario, ViewUsuarioDto, PostUsuarioDto, PutUsuarioDto>,
+        IApplicationUsuario
     {
         private readonly IServiceUsuario serviceUsuario;
         private readonly IConfiguration configuration;
         private readonly IServiceJWT serviceJWT;
 
-        public ApplicationServiceUsuario(IServiceUsuario serviceUsuario,
+        public ApplicationUsuario(IServiceUsuario serviceUsuario,
                                          IMapper mapper,
                                          IConfiguration configuration,
                                          IServiceJWT serviceJWT) : base(serviceUsuario, mapper)

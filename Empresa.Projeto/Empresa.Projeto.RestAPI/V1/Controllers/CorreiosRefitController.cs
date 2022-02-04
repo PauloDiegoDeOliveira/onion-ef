@@ -10,11 +10,11 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
     [ApiController]
     public class CorreiosRefitController : ControllerBase
     {
-		private readonly IApplicationServiceCorreios applicationServiceCorreios;
+		private readonly IApplicationCorreios applicationCorreios;
 
-		public CorreiosRefitController(IApplicationServiceCorreios applicationServiceCorreios)
+		public CorreiosRefitController(IApplicationCorreios applicationCorreios)
 		{
-			this.applicationServiceCorreios = applicationServiceCorreios;
+			this.applicationCorreios = applicationCorreios;
 		}
 
 		/// <summary>
@@ -27,7 +27,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
 		{
 			try
 			{
-				var consulta = await applicationServiceCorreios.GetCep(cep);
+				var consulta = await applicationCorreios.GetCep(cep);
 				return Ok(consulta);
 			}
 			catch (Exception e)

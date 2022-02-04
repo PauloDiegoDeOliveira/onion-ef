@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application
 {
-    public class ApplicationServicePermissao :
-        ApplicationServiceBase<Permissao, ViewPermissaoDto, PostPermissaoDto, PutPermissaoDto>,
-        IApplicationServicePermissao
+    public class ApplicationPermissao :
+        ApplicationBase<Permissao, ViewPermissaoDto, PostPermissaoDto, PutPermissaoDto>,
+        IApplicationPermissao
     {
         private readonly IServicePermissao servicePermissao;
 
-        public ApplicationServicePermissao(IServicePermissao servicePermissao,
+        public ApplicationPermissao(IServicePermissao servicePermissao,
                                          IMapper mapper) : base(servicePermissao, mapper)
         {
             this.servicePermissao = servicePermissao;

@@ -11,11 +11,11 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
     [ApiController]
     public class AutenticacaoController : ControllerBase
     {
-        private readonly IApplicationServiceUsuario serviceUsuario;
+        private readonly IApplicationUsuario applicationUsuario;
 
-        public AutenticacaoController(IApplicationServiceUsuario serviceUsuario)
+        public AutenticacaoController(IApplicationUsuario applicationUsuario)
         {
-            this.serviceUsuario = serviceUsuario;
+            this.applicationUsuario = applicationUsuario;
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(ViewAposAutenticacaoDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> AutenticacaoAsync([FromBody] ViewPreAutenticacaoDto viewPreAutenticacao)
         {
-            var consultado = await serviceUsuario.AutenticacaoAsync(viewPreAutenticacao);
+            var consultado = await applicationUsuario.AutenticacaoAsync(viewPreAutenticacao);
             if (consultado != null)
                 return Ok(consultado);
 

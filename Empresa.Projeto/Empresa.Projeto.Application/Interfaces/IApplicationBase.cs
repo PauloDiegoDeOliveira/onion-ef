@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application.Interfaces
 {
-    public interface IApplicationServiceBase<TView, TPost, TPut>
+    public interface IApplicationBase<TView, TPost, TPut>
         where TView : class where TPost : class where TPut : class
     {
         Task<IEnumerable<TView>> GetAllAsync();

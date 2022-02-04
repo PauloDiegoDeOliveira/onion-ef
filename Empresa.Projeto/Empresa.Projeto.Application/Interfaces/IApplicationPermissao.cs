@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application.Interfaces
 {
-    public interface IApplicationServicePermissao : IApplicationServiceBase<ViewPermissaoDto, PostPermissaoDto, PutPermissaoDto>
+    public interface IApplicationPermissao : IApplicationBase<ViewPermissaoDto, PostPermissaoDto, PutPermissaoDto>
     {
         Task<PermissaoPagination> GetAllPaginationAsync(int pageNumber, int resultSize);
 

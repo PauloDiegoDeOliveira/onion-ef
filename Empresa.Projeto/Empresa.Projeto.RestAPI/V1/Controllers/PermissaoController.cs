@@ -7,7 +7,9 @@ using Empresa.Projeto.Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.RestAPI.V1.Controllers
@@ -17,11 +19,11 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
     [ApiController]
     public class PermissaoController : ControllerBase
     {
-        private readonly IApplicationServicePermissao applicationServicePermissao;
+        private readonly IApplicationPermissao applicationPermissao;
 
-        public PermissaoController(IApplicationServicePermissao applicationServicePermissao)
+        public PermissaoController(IApplicationPermissao applicationPermissao)
         {
-            this.applicationServicePermissao = applicationServicePermissao;
+            this.applicationPermissao = applicationPermissao;
         }
 
         /// <summary>
@@ -32,7 +34,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(IEnumerable<ViewPermissaoDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
-            IEnumerable<ViewPermissaoDto> result = await applicationServicePermissao.GetAllAsync();
+            IEnumerable<ViewPermissaoDto> result = await applicationPermissao.GetAllAsync();
             if (result != null)
                 return Ok(result);
 
@@ -48,7 +50,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(ViewPermissaoDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
-            ViewPermissaoDto result = await applicationServicePermissao.GetByIdAsync(id);
+            ViewPermissaoDto result = await applicationPermissao.GetByIdAsync(id);
             if (result != null)
                 return Ok(result);
 
@@ -66,7 +68,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await applicationServicePermissao.PostAsync(post);
+            await applicationPermissao.PostAsync(post);
             return Ok(new { mensagem = "Permissão criada com sucesso!" });
         }
 
@@ -81,7 +83,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            ViewPermissaoDto result = await applicationServicePermissao.PutAsync(put);
+            ViewPermissaoDto result = await applicationPermissao.PutAsync(put);
             if (result != null)
                 return Ok(new { mensagem = "Permissão atualizada com sucesso!" });
 
@@ -96,7 +98,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeleteAsync(long id)
         {
-            ViewPermissaoDto result = await applicationServicePermissao.DeleteAsync(id);
+            ViewPermissaoDto result = await applicationPermissao.DeleteAsync(id);
             if (result != null)
                 return Ok(new { mensagem = "Permissão removida com sucesso!" });
 
@@ -112,7 +114,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(ViewPermissaoDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetDetalhesByIdAsync(long id)
         {
-            ViewPermissaoUsuarioDto result = await applicationServicePermissao.GetByIdDetalhesAsync(id);
+            ViewPermissaoUsuarioDto result = await applicationPermissao.GetByIdDetalhesAsync(id);
             if (result != null)
                 return Ok(result);
 
@@ -131,7 +133,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (status == 0)
                 return BadRequest(new { mensagem = "Nenhum status selecionado!" });
 
-            ViewPermissaoDto result = await applicationServicePermissao.PutStatusAsync(id, status);
+            ViewPermissaoDto result = await applicationPermissao.PutStatusAsync(id, status);
             if (result != null)
                 return Ok(new { mensagem = "Status atualizado com sucesso para: " + status });
 
@@ -150,7 +152,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (patch == null)
                 return BadRequest(new { mensagem = "O patch não pode ser nulo." });
 
-            EntityDtoStruct<Permissao, PutPermissaoDto> objetoPermissao = await applicationServicePermissao.GetByIdReturnPutAsync(id);
+            EntityDtoStruct<Permissao, PutPermissaoDto> objetoPermissao = await applicationPermissao.GetByIdReturnPutAsync(id);
             if (objetoPermissao.Equals(default(EntityDtoStruct<Permissao, PutPermissaoDto>)))
                 return BadRequest(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
 
@@ -159,7 +161,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (!isValid)
                 return BadRequest(new { mensagem = "Ação ou campo inválido." });
 
-            await applicationServicePermissao.SaveChangesAsync(objetoPermissao);
+            await applicationPermissao.SaveChangesAsync(objetoPermissao);
 
             return Ok(new { mensagem = "Permissão atualizada com sucesso!" });
         }
@@ -179,7 +181,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             else if (resultSize <= 0)
                 return NotFound(new { mensagem = "O tamanho de resultados exibidos não pode ser menor ou igual a 0" });
 
-            PermissaoPagination result = await applicationServicePermissao.GetAllPaginationAsync(pageNumber, resultSize);
+            PermissaoPagination result = await applicationPermissao.GetAllPaginationAsync(pageNumber, resultSize);
 
             if (result.Permissoes.Count <= 0)
                 return NotFound(new { mensagem = "Nenhuma permissão foi encontrada." });

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application.Interfaces
 {
-    public interface IApplicationServiceCorreios
+    public interface IApplicationCorreios
     {
         [Get("/ws/{cep}/json/")]
         Task<ViewCorreiosDto> GetCep(string cep);

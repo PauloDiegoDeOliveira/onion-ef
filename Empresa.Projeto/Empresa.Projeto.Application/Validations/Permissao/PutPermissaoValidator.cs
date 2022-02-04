@@ -1,19 +1,20 @@
-﻿using Empresa.Projeto.Application.Dtos.Usuario;
+﻿using Empresa.Projeto.Application.Dtos.Permissao;
 using Empresa.Projeto.Application.Interfaces;
 using FluentValidation;
 using System.Threading.Tasks;
 
-namespace Empresa.Projeto.Application.Validations.Usuario
+namespace Empresa.Projeto.Application.Validations.Permissao
 {
-    public class PostUsuarioValidator : AbstractValidator<PostUsuarioDto>
+
+    public class PutPermissaoValidator : AbstractValidator<PutPermissaoDto>
     {
         private readonly IApplicationPermissao applicationServicePermissao;
 
-        public PostUsuarioValidator(IApplicationPermissao applicationServicePermissao)
+        public PutPermissaoValidator(IApplicationPermissao applicationServicePermissao)
         {
             this.applicationServicePermissao = applicationServicePermissao;
 
-            RuleFor(x => x.PermissaoId)
+            RuleFor(x => x.Id)
                   .NotNull()
                   .WithMessage("O id da permissão não pode ser nulo.")
 
@@ -24,6 +25,7 @@ namespace Empresa.Projeto.Application.Validations.Usuario
               {
                   return await ExisteNaBaseAsync(id);
               }).WithMessage("Permissão não cadastrada!");
+
 
             RuleFor(x => x.Nome)
                 .NotNull()
@@ -38,9 +40,18 @@ namespace Empresa.Projeto.Application.Validations.Usuario
                 .MaximumLength(1000)
                 .WithMessage("O nome deve ter no máximo 100 caracteres.");
 
-            RuleFor(x => x.Email)
-                .EmailAddress()
-                .WithMessage("O e-mail informado não é válido.");
+            RuleFor(x => x.Descricao)
+                .NotNull()
+                .WithMessage("A descrição não pode ser nula.")
+
+                .NotEmpty()
+                .WithMessage("A descrição não pode ser vazia.")
+
+                .MinimumLength(3)
+                .WithMessage("A descrição deve ter no mínimo 3 caracteres.")
+
+                .MaximumLength(100)
+                .WithMessage("A descrição deve ter no máximo 100 caracteres.");
 
             RuleFor(x => x.Status)
                 .NotNull()

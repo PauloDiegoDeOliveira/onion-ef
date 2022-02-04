@@ -23,7 +23,7 @@ namespace Empresa.Projeto.Domain.Services
 
         public async Task<Permissao> GetByIdPermissaoAsync(long id)
         {
-            return await repositoryPermissao.GetByIdPermissaoAsync(id);
+            return await repositoryPermissao.GetByIdAsync(id);
         }
 
         public async Task<Permissao> GetByIdDetalhesAsync(long id)

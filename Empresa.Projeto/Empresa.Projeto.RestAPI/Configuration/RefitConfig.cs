@@ -10,7 +10,7 @@ namespace Empresa.Projeto.RestAPI.Configuration
 	{
 		public static void AddRefitConfiguration(this IServiceCollection services, IConfiguration configuration)
 		{
-			services.AddRefitClient<IApplicationServiceCorreios>().ConfigureHttpClient(c =>
+			services.AddRefitClient<IApplicationCorreios>().ConfigureHttpClient(c =>
 			{
 				c.BaseAddress = new Uri(configuration.GetSection("ExternalApiUrls:CorreiosUrl").Value);
 			});

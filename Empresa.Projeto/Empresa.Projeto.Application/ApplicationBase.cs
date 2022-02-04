@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application
 {
-    public class ApplicationServiceBase<TEntity, TView, TPost, TPut> :
-        IApplicationServiceBase<TView, TPost, TPut>
+    public class ApplicationBase<TEntity, TView, TPost, TPut> :
+        IApplicationBase<TView, TPost, TPut>
         where TEntity : class where TView : class where TPost : class where TPut : class
     {
         protected readonly IMapper mapper;
         protected readonly IServiceBase<TEntity> serviceBase;
 
-        public ApplicationServiceBase(IServiceBase<TEntity> serviceBase, IMapper mapper)
+        public ApplicationBase(IServiceBase<TEntity> serviceBase, IMapper mapper)
         {
             this.serviceBase = serviceBase;
             this.mapper = mapper;

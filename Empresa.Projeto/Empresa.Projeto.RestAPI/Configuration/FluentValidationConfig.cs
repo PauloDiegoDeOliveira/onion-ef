@@ -1,4 +1,5 @@
 ﻿using Empresa.Projeto.Application.Validations.Permissao;
+using Empresa.Projeto.Application.Validations.UploadForm;
 using Empresa.Projeto.Application.Validations.Usuario;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,7 +28,13 @@ namespace Empresa.Projeto.RestAPI.Configuration
                 {
                     //p.RegisterValidatorsFromAssemblyContaining<Startup>();
                     p.RegisterValidatorsFromAssemblyContaining<PostUsuarioValidator>();
+
                     p.RegisterValidatorsFromAssemblyContaining<PostPermissaoValidator>();
+                    p.RegisterValidatorsFromAssemblyContaining<PutPermissaoValidator>();
+
+                    p.RegisterValidatorsFromAssemblyContaining<PostUploadFormValidator>();
+                    p.RegisterValidatorsFromAssemblyContaining<PutUploadFormValidator>();
+
                     p.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
                 });
         }

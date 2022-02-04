@@ -8,7 +8,7 @@ namespace Empresa.Projeto.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Permissoes",
+                name: "Permissao",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -21,11 +21,33 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Permissoes", x => x.Id);
+                    table.PrimaryKey("PK_Permissao", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Usuarios",
+                name: "UploadForm",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
+                    TamanhoEmBytes = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    ContentType = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    ExtensaoArquivo = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    NomeArquivoOriginal = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
+                    CaminhoRelativo = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
+                    CaminhoAbsoluto = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
+                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
+                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AlteradoEm = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UploadForm", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuario",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -42,28 +64,31 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuarios", x => x.Id);
+                    table.PrimaryKey("PK_Usuario", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Usuarios_Permissoes_PermissaoId",
+                        name: "FK_Usuario_Permissao_PermissaoId",
                         column: x => x.PermissaoId,
-                        principalTable: "Permissoes",
+                        principalTable: "Permissao",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_PermissaoId",
-                table: "Usuarios",
+                name: "IX_Usuario_PermissaoId",
+                table: "Usuario",
                 column: "PermissaoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Usuarios");
+                name: "UploadForm");
 
             migrationBuilder.DropTable(
-                name: "Permissoes");
+                name: "Usuario");
+
+            migrationBuilder.DropTable(
+                name: "Permissao");
         }
     }
 }

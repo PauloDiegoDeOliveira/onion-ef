@@ -13,11 +13,11 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private readonly IApplicationServiceUsuario applicationServiceUsuario;
+        private readonly IApplicationUsuario applicationUsuario;
 
-        public UsuarioController(IApplicationServiceUsuario applicationServiceUsuario)
+        public UsuarioController(IApplicationUsuario applicationUsuario)
         {
-            this.applicationServiceUsuario = applicationServiceUsuario;
+            this.applicationUsuario = applicationUsuario;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(IEnumerable<ViewUsuarioDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
-            IEnumerable<ViewUsuarioDto> result = await applicationServiceUsuario.GetAllAsync();
+            IEnumerable<ViewUsuarioDto> result = await applicationUsuario.GetAllAsync();
             if (result != null)
                 return Ok(result);
 
@@ -44,7 +44,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(ViewUsuarioDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
-            ViewUsuarioDto result = await applicationServiceUsuario.GetByIdAsync(id);
+            ViewUsuarioDto result = await applicationUsuario.GetByIdAsync(id);
             if (result != null)
                 return Ok(result);
 
@@ -62,7 +62,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await applicationServiceUsuario.PostAsync(post);
+            await applicationUsuario.PostAsync(post);
             return Ok(new { mensagem = "Usuário criado com sucesso!" });
         }
 
@@ -77,7 +77,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            ViewUsuarioDto result = await applicationServiceUsuario.PutAsync(put);
+            ViewUsuarioDto result = await applicationUsuario.PutAsync(put);
             if (result != null)
                 return Ok(new { mensagem = "Usuário atualizado com sucesso!" });
 
@@ -92,7 +92,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeleteAsync(long id)
         {
-            ViewUsuarioDto result = await applicationServiceUsuario.DeleteAsync(id);
+            ViewUsuarioDto result = await applicationUsuario.DeleteAsync(id);
             if (result != null)
                 return Ok(new { mensagem = "Usuário removido com sucesso!" });
 
@@ -108,7 +108,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(ViewUsuarioDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetNomeAsync(string nome)
         {
-            IList<ViewUsuarioDto> result = await applicationServiceUsuario.GetNomeAsync(nome);
+            IList<ViewUsuarioDto> result = await applicationUsuario.GetNomeAsync(nome);
             if (result.Count != 0)
                 return Ok(result);
 
@@ -127,7 +127,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (status == 0)
                 return BadRequest(new { mensagem = "Nenhum status selecionado!" });
 
-            ViewUsuarioDto result = await applicationServiceUsuario.PutStatusAsync(id, status);
+            ViewUsuarioDto result = await applicationUsuario.PutStatusAsync(id, status);
             if (result != null)
                 return Ok(new { mensagem = "Status atualizado com sucesso para: " + status });
 
@@ -143,7 +143,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [ProducesResponseType(typeof(ViewUsuarioPermissaoDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetByIdDetalhesAsync(long id)
         {
-            ViewUsuarioPermissaoDto result = await applicationServiceUsuario.GetByIdDetalhesAsync(id);
+            ViewUsuarioPermissaoDto result = await applicationUsuario.GetByIdDetalhesAsync(id);
             if (result != null)
                 return Ok(result);
 

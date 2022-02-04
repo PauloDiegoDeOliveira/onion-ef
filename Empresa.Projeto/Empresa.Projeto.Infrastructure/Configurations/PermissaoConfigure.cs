@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Empresa.Projeto.Infrastructure.Configurations
 {
-    public class PermissaoConfigure : IEntityTypeConfiguration<Permissao>
+    public class PermissaoConfigure : ConfigureBase<Permissao>
     {
-        public void Configure(EntityTypeBuilder<Permissao> builder)
+        public override void Configure(EntityTypeBuilder<Permissao> builder)
         {
-            builder.ToTable("Permissoes");
+            tableName = "Permissao";
 
-            builder.HasKey(x => x.Id);
+            base.Configure(builder);
 
             builder.Property(x => x.Id)
                    .UseIdentityColumn()
@@ -26,13 +26,6 @@ namespace Empresa.Projeto.Infrastructure.Configurations
                    .HasMaxLength(100)
                    .HasColumnName("Descricao")
                    .HasColumnType("varchar(100)");
-
-            builder.Property(p => p.Status)
-                   .IsRequired()
-                   .HasMaxLength(50)
-                   .HasColumnName("Status")
-                   .HasColumnType("int")
-                   .HasDefaultValue(1);
         }
     }
 }

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application.Interfaces
 {
-    public interface IApplicationServiceUsuario :
-        IApplicationServiceBase<ViewUsuarioDto, PostUsuarioDto, PutUsuarioDto>
+    public interface IApplicationUsuario :
+        IApplicationBase<ViewUsuarioDto, PostUsuarioDto, PutUsuarioDto>
     {
         Task<IList<ViewUsuarioDto>> GetNomeAsync(string nome);
 
