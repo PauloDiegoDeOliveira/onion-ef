@@ -38,6 +38,11 @@ namespace Empresa.Projeto.Domain.Services
             return await repositoryBase.DeleteAsync(id);
         }
 
+        public async Task<TEntity> PutStatusAsync(TEntity obj)
+        {
+            return await repositoryBase.PutStatusAsync(obj);
+        }
+
         public virtual async Task<bool> ExisteNaBaseAsync(long? id)
         {
             return await repositoryBase.ExisteNaBaseAsync(id);

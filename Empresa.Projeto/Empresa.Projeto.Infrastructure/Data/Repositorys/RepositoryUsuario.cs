@@ -34,19 +34,6 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             return obj;
         }
 
-        public async Task<Usuario> PutStatusAsync(Usuario usuario)
-        {
-            appDbContext.Usuarios.Update(usuario);
-            await appDbContext.SaveChangesAsync();
-            return usuario;
-        }
-
-        public async Task<Usuario> GetByIdUsuarioAsync(long id)
-        {
-            Usuario obj = await GetByIdAsync(id);
-            return obj;
-        }
-
         public async Task<Usuario> GetByIdDetalhesAsync(long id)
         {
             Usuario obj = await appDbContext.Usuarios

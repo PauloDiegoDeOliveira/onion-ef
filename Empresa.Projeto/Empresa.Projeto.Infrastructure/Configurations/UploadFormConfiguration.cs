@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Empresa.Projeto.Infrastructure.Configurations
 {
-    public class UploadFormConfigure : ConfigureBase<UploadForm>
+    public class UploadFormConfiguration : ConfigurationBase<UploadForm>
     {
         public override void Configure(EntityTypeBuilder<UploadForm> builder)
         {

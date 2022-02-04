@@ -3,7 +3,6 @@ using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
-using Empresa.Projeto.Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -101,21 +100,6 @@ namespace Empresa.Projeto.Application
                 default:
                     throw new InvalidOperationException();
             }
-        }
-
-        public async Task<ViewUsuarioDto> PutStatusAsync(long id, Status status)
-        {
-            Usuario consulta = await serviceUsuario.GetByIdUsuarioAsync(id);
-            if (consulta is null)
-            {
-                return null;
-            }
-
-            consulta.ChangeStatusValue((int)status);
-            consulta.ChangeAlteradoEmValue(DateTime.Now);
-
-            Usuario obj = await serviceUsuario.PutStatusAsync(consulta);
-            return mapper.Map<ViewUsuarioDto>(obj);
         }
 
         public async Task<ViewUsuarioPermissaoDto> GetByIdDetalhesAsync(long id)

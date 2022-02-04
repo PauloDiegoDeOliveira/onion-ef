@@ -36,7 +36,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Retorna um usuário consultado via id
+        /// Retorna um usuário consultado via id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -116,7 +116,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Altera o status
+        /// Altera o status.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="status"></param>
@@ -135,7 +135,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Retorna detalhes de um usuário consultado via id
+        /// Retorna detalhes de um usuário consultado via id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

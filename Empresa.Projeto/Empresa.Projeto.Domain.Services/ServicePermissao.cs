@@ -15,24 +15,14 @@ namespace Empresa.Projeto.Domain.Services
             this.repositoryPermissao = repositoryPermissao;
         }
 
-        public async Task<IEnumerable<Permissao>> GetAllPaginationAsync(int pageNumber, int resultSize)
+        public async Task<IEnumerable<Permissao>> GetPaginationAsync(int pageNumber, int resultSize)
         {
-            return await repositoryPermissao.GetAllPaginationAsync(pageNumber, resultSize);
-        }
-
-        public async Task<Permissao> GetByIdPermissaoAsync(long id)
-        {
-            return await repositoryPermissao.GetByIdAsync(id);
+            return await repositoryPermissao.GetPaginationAsync(pageNumber, resultSize);
         }
 
         public async Task<Permissao> GetByIdDetalhesAsync(long id)
         {
             return await repositoryPermissao.GetByIdDetalhesAsync(id);
-        }
-
-        public async Task<Permissao> PutStatusAsync(Permissao permissao)
-        {
-            return await repositoryPermissao.PutStatusAsync(permissao);
         }
 
         public async Task<int> GetCountAsync()

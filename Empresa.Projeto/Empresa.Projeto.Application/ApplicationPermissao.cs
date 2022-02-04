@@ -5,8 +5,6 @@ using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Application.Structs;
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
-using Empresa.Projeto.Domain.Enums;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,11 +22,11 @@ namespace Empresa.Projeto.Application
             this.servicePermissao = servicePermissao;
         }
 
-        public async Task<PermissaoPagination> GetAllPaginationAsync(int pageNumber, int resultSize)
+        public async Task<PermissaoPagination> GetPaginationAsync(int pageNumber, int resultSize)
         {
             PermissaoPagination pagination = new PermissaoPagination();
             pagination.SetValues(await servicePermissao.GetCountAsync(), resultSize, pageNumber);
-            pagination.Permissoes = mapper.Map<List<ViewPermissaoDto>>(await servicePermissao.GetAllPaginationAsync(pagination.PaginaAtual, pagination.ResultadosExibidos));
+            pagination.Permissoes = mapper.Map<List<ViewPermissaoDto>>(await servicePermissao.GetPaginationAsync(pagination.PaginaAtual, pagination.ResultadosExibidos));
             return pagination;
         }
 
@@ -38,25 +36,10 @@ namespace Empresa.Projeto.Application
             return mapper.Map<ViewPermissaoUsuarioDto>(consulta);
         }
 
-        public async Task<ViewPermissaoDto> PutStatusAsync(long id, Status status)
-        {
-            Permissao consulta = await servicePermissao.GetByIdPermissaoAsync(id);
-            if (consulta is null)
-            {
-                return null;
-            }
-
-            consulta.ChangeStatusValue((int)status);
-            consulta.ChangeAlteradoEmValue(DateTime.Now);
-
-            Permissao obj = await servicePermissao.PutStatusAsync(consulta);
-            return mapper.Map<ViewPermissaoDto>(obj);
-        }
-
-        public async Task<EntityDtoStruct<Permissao, PutPermissaoDto>> GetByIdReturnPutAsync(long id)
+        public async Task<EntityDtoStruct<Permissao, PutPermissaoDto>> GetByIdReturnStructDtoAsync(long id)
         {
             EntityDtoStruct<Permissao, PutPermissaoDto> objetoPermissao = new EntityDtoStruct<Permissao, PutPermissaoDto>();
-            objetoPermissao.ChangeEntity(await servicePermissao.GetByIdPermissaoAsync(id));
+            objetoPermissao.ChangeEntity(await servicePermissao.GetByIdAsync(id));
             objetoPermissao.ChangeDto(mapper.Map<PutPermissaoDto>(objetoPermissao.Entity));
             return objetoPermissao;
         }

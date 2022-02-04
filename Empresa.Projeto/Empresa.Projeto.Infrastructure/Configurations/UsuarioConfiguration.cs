@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Empresa.Projeto.Infrastructure.Configurations
 {
-    public class UsuarioConfigure : ConfigureBase<Usuario>
+    public class UsuarioConfiguration : ConfigurationBase<Usuario>
     {
         public override void Configure(EntityTypeBuilder<Usuario> builder)
         {

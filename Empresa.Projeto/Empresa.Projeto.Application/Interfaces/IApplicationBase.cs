@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Empresa.Projeto.Domain.Enums;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application.Interfaces
@@ -11,6 +12,7 @@ namespace Empresa.Projeto.Application.Interfaces
         Task<TView> PostAsync(TPost post);
         Task<TView> PutAsync(TPut put);
         Task<TView> DeleteAsync(long id);
+        Task<TView> PutStatusAsync(long id, Status status);
         Task<bool> ExisteNaBaseAsync(long? id);
     }
 }

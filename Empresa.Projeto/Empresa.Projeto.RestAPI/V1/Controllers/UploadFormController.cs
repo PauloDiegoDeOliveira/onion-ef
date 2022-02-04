@@ -125,5 +125,24 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
 
             return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
         }
+
+        /// <summary>
+        /// Altera o status.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        [HttpPut("status")]
+        public async Task<IActionResult> PutStatusAsync(long id, Status status)
+        {
+            if (status == 0)
+                return BadRequest(new { mensagem = "Nenhum status selecionado!" });
+
+            ViewUploadFormDto result = await applicationUploadForm.PutStatusAsync(id, status);
+            if (result != null)
+                return Ok(new { mensagem = "Status atualizado com sucesso para: " + status });
+
+            return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
+        }
     }
 }

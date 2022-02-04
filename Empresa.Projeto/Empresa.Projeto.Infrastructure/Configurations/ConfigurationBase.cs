@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Empresa.Projeto.Infrastructure.Configurations
 {
-    public class ConfigureBase<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : EntityBase
+    public class ConfigurationBase<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : EntityBase
     {
         protected string tableName;
 

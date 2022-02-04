@@ -6,11 +6,9 @@ namespace Empresa.Projeto.Domain.Core.Interfaces.Repositorys
 {
     public interface IRepositoryPermissao : IRepositoryBase<Permissao>
     {
-        Task<IEnumerable<Permissao>> GetAllPaginationAsync(int pageNumber, int resultSize);
+        Task<IEnumerable<Permissao>> GetPaginationAsync(int pageNumber, int resultSize);
         Task<Permissao> GetByIdDetalhesAsync(long id);
-        Task<Permissao> PutStatusAsync(Permissao permissao);
         Task<int> GetCountAsync();
         Task SaveChangesAsync();
-
     }
 }

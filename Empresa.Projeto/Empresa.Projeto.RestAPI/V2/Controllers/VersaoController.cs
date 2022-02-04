@@ -8,13 +8,13 @@ namespace Empresa.Projeto.RestAPI.V2.Controllers
     public class VersaoController : ControllerBase
     {
         /// <summary>
-        /// Versão
+        /// Informa a versão da API.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public string Valor()
         {
-            return "Esta é a versão V2";
+            return "Esta é a versão V2.";
         }
     }
 }

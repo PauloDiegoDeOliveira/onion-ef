@@ -122,7 +122,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Altera o status
+        /// Altera o status.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="status"></param>
@@ -152,7 +152,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (patch == null)
                 return BadRequest(new { mensagem = "O patch não pode ser nulo." });
 
-            EntityDtoStruct<Permissao, PutPermissaoDto> objetoPermissao = await applicationPermissao.GetByIdReturnPutAsync(id);
+            EntityDtoStruct<Permissao, PutPermissaoDto> objetoPermissao = await applicationPermissao.GetByIdReturnStructDtoAsync(id);
             if (objetoPermissao.Equals(default(EntityDtoStruct<Permissao, PutPermissaoDto>)))
                 return BadRequest(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
 
@@ -181,7 +181,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             else if (resultSize <= 0)
                 return NotFound(new { mensagem = "O tamanho de resultados exibidos não pode ser menor ou igual a 0" });
 
-            PermissaoPagination result = await applicationPermissao.GetAllPaginationAsync(pageNumber, resultSize);
+            PermissaoPagination result = await applicationPermissao.GetPaginationAsync(pageNumber, resultSize);
 
             if (result.Permissoes.Count <= 0)
                 return NotFound(new { mensagem = "Nenhuma permissão foi encontrada." });

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Empresa.Projeto.Infrastructure.Configurations
 {
-    public class PermissaoConfigure : ConfigureBase<Permissao>
+    public class PermissaoConfiguration : ConfigurationBase<Permissao>
     {
         public override void Configure(EntityTypeBuilder<Permissao> builder)
         {

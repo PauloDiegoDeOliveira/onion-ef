@@ -17,7 +17,7 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             this.appDbContext = appContext;
         }
 
-        public async Task<IEnumerable<Permissao>> GetAllPaginationAsync(int pageNumber, int resultSize)
+        public async Task<IEnumerable<Permissao>> GetPaginationAsync(int pageNumber, int resultSize)
         {
             return await appDbContext.Set<Permissao>().Where(p => p.Status != (int)Status.Excluido).AsNoTracking().Skip((pageNumber - 1) * resultSize).Take(resultSize).ToListAsync();
         }
@@ -29,13 +29,6 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
             return obj;
-        }
-
-        public async Task<Permissao> PutStatusAsync(Permissao permissao)
-        {
-            appDbContext.Permissoes.Update(permissao);
-            await appDbContext.SaveChangesAsync();
-            return permissao;
         }
 
         public async Task<int> GetCountAsync()

@@ -14,7 +14,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
     public class CorreiosRestShapController : ControllerBase
     {
         /// <summary>
-        /// Teste para consumir via CEP com RestSharp 
+        /// Teste para consumir via CEP com RestSharp.
         /// </summary>
         /// <param name="cep"></param>
         /// <returns></returns>

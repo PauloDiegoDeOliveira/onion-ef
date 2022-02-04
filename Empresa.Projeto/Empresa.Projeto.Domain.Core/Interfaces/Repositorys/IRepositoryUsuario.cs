@@ -8,8 +8,6 @@ namespace Empresa.Projeto.Domain.Core.Interfaces.Repositorys
     {
         Task<IList<Usuario>> GetNomeAsync(string nome);
         Task<Usuario> GetEmailAsync(string email);
-        Task<Usuario> PutStatusAsync(Usuario usuario);
-        Task<Usuario> GetByIdUsuarioAsync(long id);
         Task<Usuario> GetByIdDetalhesAsync(long id);
     }
 }

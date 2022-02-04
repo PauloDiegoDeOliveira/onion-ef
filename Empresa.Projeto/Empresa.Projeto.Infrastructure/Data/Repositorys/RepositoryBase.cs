@@ -52,6 +52,13 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             return obj;
         }
 
+        public virtual async Task<TEntity> PutStatusAsync(TEntity obj)
+        {
+            appDbContext.Entry(obj).State = EntityState.Modified;
+            await appDbContext.SaveChangesAsync();
+            return obj;
+        }
+
         public virtual async Task<bool> ExisteNaBaseAsync(long? id)
         {
             return await appDbContext.Set<TEntity>().AnyAsync(x => x.Id == id);

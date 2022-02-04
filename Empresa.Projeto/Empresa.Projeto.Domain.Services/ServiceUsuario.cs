@@ -25,16 +25,6 @@ namespace Empresa.Projeto.Domain.Services
             return await repositoryUsuario.GetEmailAsync(email);
         }
 
-        public async Task<Usuario> PutStatusAsync(Usuario usuario)
-        {
-            return await repositoryUsuario.PutStatusAsync(usuario);
-        }
-
-        public async Task<Usuario> GetByIdUsuarioAsync(long id)
-        {
-            return await repositoryUsuario.GetByIdUsuarioAsync(id);
-        }
-
         public async Task<Usuario> GetByIdDetalhesAsync(long id)
         {
             return await repositoryUsuario.GetByIdDetalhesAsync(id);  
