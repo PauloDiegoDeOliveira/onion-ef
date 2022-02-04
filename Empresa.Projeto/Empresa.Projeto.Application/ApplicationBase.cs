@@ -63,7 +63,6 @@ namespace Empresa.Projeto.Application
             }
 
             consulta.ChangeStatusValue((int)status);
-            consulta.ChangeAlteradoEmValue(DateTime.Now);
 
             TEntity obj = await serviceBase.PutStatusAsync(consulta);
             return mapper.Map<TView>(obj);

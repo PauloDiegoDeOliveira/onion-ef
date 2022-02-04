@@ -30,6 +30,7 @@ namespace Empresa.Projeto.Domain.Entitys
         public void ChangeStatusValue(int status)
         {
             Status = status;
+            ChangeAlteradoEmValue(DateTime.Now);
         }
 
         public void ChangeAlteradoEmValue(DateTime data)
