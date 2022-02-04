@@ -106,7 +106,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             ViewUploadFormDto objeto = await applicationUploadForm.PutAsync(putUploadForm, urls[(int)diretorio - 1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
 
             if(objeto is null)
-                return NotFound(new { mensagem = "Imagem não encontrada." });
+                return NotFound(new { mensagem = "Id de imagem não encontrado." });
 
             return Ok(new { mensagem = "Upload efetuado com sucesso.", objeto.NomeArquivoOriginal, objeto.IdGuid, objeto.CaminhoRelativo });
         }

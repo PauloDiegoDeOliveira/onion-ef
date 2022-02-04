@@ -9,10 +9,10 @@ namespace Empresa.Projeto.Application.Validations.UploadForm
         {
             RuleFor(x => x.ImagemUpload)
                 .NotNull()
-                .WithMessage("O nome não pode ser nulo.")
+                .WithMessage("A imagem não pode ser nulo.")
 
                 .NotEmpty()
-                .WithMessage("O nome não pode ser vazio.");
+                .WithMessage("A imagem não pode ser vazio.");
         }
     }
 }
