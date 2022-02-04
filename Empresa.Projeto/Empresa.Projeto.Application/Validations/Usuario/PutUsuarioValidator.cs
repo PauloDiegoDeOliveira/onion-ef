@@ -5,13 +5,27 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application.Validations.Usuario
 {
-    public class PostUsuarioValidator : AbstractValidator<PostUsuarioDto>
+    public class PutUsuarioValidator : AbstractValidator<PutUsuarioDto>
     {
         private readonly IApplicationPermissao applicationPermissao;
+        private readonly IApplicationUsuario applicationUsuario;
 
-        public PostUsuarioValidator(IApplicationPermissao applicationPermissao)
+        public PutUsuarioValidator(IApplicationUsuario applicationUsuario, IApplicationPermissao applicationPermissao)
         {
             this.applicationPermissao = applicationPermissao;
+            this.applicationUsuario = applicationUsuario;
+
+            RuleFor(x => x.Id)
+                  .NotNull()
+                  .WithMessage("O id do usuário não pode ser nulo.")
+
+                  .NotEmpty()
+                  .WithMessage("O id do usuário não pode ser vazio.")
+
+              .MustAsync(async (id, cancelar) =>
+              {
+                  return await ExisteNaBaseAsync(id);
+              }).WithMessage("Id de usuário não cadastrado!");
 
             RuleFor(x => x.PermissaoId)
                   .NotNull()
@@ -22,7 +36,7 @@ namespace Empresa.Projeto.Application.Validations.Usuario
 
               .MustAsync(async (id, cancelar) =>
               {
-                  return await ExisteNaBaseAsync(id);
+                  return await ExisteNaBasePermissaoAsync(id);
               }).WithMessage("Id de permissão não cadastrada!");
 
             RuleFor(x => x.Nome)
@@ -50,9 +64,14 @@ namespace Empresa.Projeto.Application.Validations.Usuario
                 .WithMessage("O status não pode ser vazio.");
         }
 
-        private async Task<bool> ExisteNaBaseAsync(long? id)
+        private async Task<bool> ExisteNaBasePermissaoAsync(long? id)
         {
             return await applicationPermissao.ExisteNaBaseAsync(id);
+        }
+
+        private async Task<bool> ExisteNaBaseAsync(long? id)
+        {
+            return await applicationUsuario.ExisteNaBaseAsync(id);
         }
     }
 }

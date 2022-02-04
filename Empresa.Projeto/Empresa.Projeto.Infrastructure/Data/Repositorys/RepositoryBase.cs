@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Infrastructure.Data.Repositorys
 {
-    public class RepositoryBase<TEntity> : IServiceBase<TEntity> where TEntity : EntityBase
+    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : EntityBase
     {
         private readonly AppDbContext appDbContext;
 
@@ -50,6 +50,11 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
                 await appDbContext.SaveChangesAsync();
             }
             return obj;
+        }
+
+        public virtual async Task<bool> ExisteNaBaseAsync(long? id)
+        {
+            return await appDbContext.Set<TEntity>().AnyAsync(x => x.Id == id);
         }
     }
 }

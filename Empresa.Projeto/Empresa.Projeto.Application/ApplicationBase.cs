@@ -50,5 +50,10 @@ namespace Empresa.Projeto.Application
             TEntity consulta = await serviceBase.DeleteAsync(id);
             return mapper.Map<TView>(consulta);
         }
+
+        public virtual async Task<bool> ExisteNaBaseAsync(long? id)
+        {
+            return await serviceBase.ExisteNaBaseAsync(id);
+        }
     }
 }

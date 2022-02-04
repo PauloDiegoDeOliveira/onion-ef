@@ -47,10 +47,5 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
         {
             await appDbContext.SaveChangesAsync();
         }
-
-        public async Task<bool> ExisteNaBaseAsync(long? id)
-        {
-            return await appDbContext.Permissoes.AnyAsync(x => x.Id == id);
-        }
     }
 }

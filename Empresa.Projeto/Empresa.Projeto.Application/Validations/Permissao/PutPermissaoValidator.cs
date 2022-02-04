@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application.Validations.Permissao
 {
-
     public class PutPermissaoValidator : AbstractValidator<PutPermissaoDto>
     {
-        private readonly IApplicationPermissao applicationServicePermissao;
+        private readonly IApplicationPermissao applicationPermissao;
 
-        public PutPermissaoValidator(IApplicationPermissao applicationServicePermissao)
+        public PutPermissaoValidator(IApplicationPermissao applicationPermissao)
         {
-            this.applicationServicePermissao = applicationServicePermissao;
+            this.applicationPermissao = applicationPermissao;
 
             RuleFor(x => x.Id)
                   .NotNull()
@@ -24,8 +23,7 @@ namespace Empresa.Projeto.Application.Validations.Permissao
               .MustAsync(async (id, cancelar) =>
               {
                   return await ExisteNaBaseAsync(id);
-              }).WithMessage("Permissão não cadastrada!");
-
+              }).WithMessage("Id de imagem não cadastrada!");
 
             RuleFor(x => x.Nome)
                 .NotNull()
@@ -63,7 +61,7 @@ namespace Empresa.Projeto.Application.Validations.Permissao
 
         private async Task<bool> ExisteNaBaseAsync(long? id)
         {
-            return await applicationServicePermissao.ExisteNaBaseAsync(id);
+            return await applicationPermissao.ExisteNaBaseAsync(id);
         }
     }
 }

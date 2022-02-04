@@ -28,6 +28,7 @@ namespace Empresa.Projeto.RestAPI.Configuration
                 {
                     //p.RegisterValidatorsFromAssemblyContaining<Startup>();
                     p.RegisterValidatorsFromAssemblyContaining<PostUsuarioValidator>();
+                    p.RegisterValidatorsFromAssemblyContaining<PutUsuarioValidator>();
 
                     p.RegisterValidatorsFromAssemblyContaining<PostPermissaoValidator>();
                     p.RegisterValidatorsFromAssemblyContaining<PutPermissaoValidator>();

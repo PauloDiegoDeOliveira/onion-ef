@@ -1,23 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Domain.Services
 {
-    public class ServiceBase<TEntity> : Core.Interfaces.Services.IServiceBase<TEntity> where TEntity : class
+    public class ServiceBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
-        private readonly Core.Interfaces.Repositorys.IServiceBase<TEntity> repositoryBase;
+        private readonly IRepositoryBase<TEntity> repositoryBase;
 
-        public ServiceBase(Core.Interfaces.Repositorys.IServiceBase<TEntity> repositoryBase)
+        public ServiceBase(IRepositoryBase<TEntity> repositoryBase)
         {
             this.repositoryBase = repositoryBase;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await repositoryBase.GetAllAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(long id)
+        public virtual async Task<TEntity> GetByIdAsync(long id)
         {
             return await repositoryBase.GetByIdAsync(id);
         }
@@ -32,9 +33,14 @@ namespace Empresa.Projeto.Domain.Services
             return await repositoryBase.PutAsync(obj);
         }
 
-        public async Task<TEntity> DeleteAsync(long id)
+        public virtual async Task<TEntity> DeleteAsync(long id)
         {
             return await repositoryBase.DeleteAsync(id);
+        }
+
+        public virtual async Task<bool> ExisteNaBaseAsync(long? id)
+        {
+            return await repositoryBase.ExisteNaBaseAsync(id);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Empresa.Projeto.Domain.Core.Interfaces.Repositorys
 {
-    public interface IRepositoryUploadForm : IServiceBase<UploadForm>
+    public interface IRepositoryUploadForm : IRepositoryBase<UploadForm>
     {
     }
 }

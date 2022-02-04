@@ -2,7 +2,7 @@
 {
     public enum Diretorios
     {
-        Diretorio1,
+        Diretorio1 = 1,
         Diretorio2,
         Diretorio3
     }

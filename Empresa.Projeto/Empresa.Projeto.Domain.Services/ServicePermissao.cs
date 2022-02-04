@@ -1,5 +1,4 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
-
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
 using System.Collections.Generic;
@@ -44,11 +43,6 @@ namespace Empresa.Projeto.Domain.Services
         public async Task SaveChangesAsync()
         {
             await repositoryPermissao.SaveChangesAsync();
-        }
-
-        public async Task<bool> ExisteNaBaseAsync(long? id)
-        {
-            return await repositoryPermissao.ExisteNaBaseAsync(id);
         }
     }
 }

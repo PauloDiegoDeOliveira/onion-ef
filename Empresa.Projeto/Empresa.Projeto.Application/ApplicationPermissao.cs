@@ -66,10 +66,5 @@ namespace Empresa.Projeto.Application
             mapper.Map(dtoStruct.Dto, dtoStruct.Entity);
             await servicePermissao.SaveChangesAsync();
         }
-
-        public async Task<bool> ExisteNaBaseAsync(long? id)
-        {
-            return await servicePermissao.ExisteNaBaseAsync(id);
-        }
     }
 }

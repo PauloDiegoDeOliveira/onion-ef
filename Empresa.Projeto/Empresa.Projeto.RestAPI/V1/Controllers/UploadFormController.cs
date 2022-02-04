@@ -76,14 +76,12 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         public async Task<ActionResult> PostUploadForm([FromForm] PostUploadFormDto postUploadForm, Diretorios diretorio)
         {
             if (postUploadForm.ImagemUpload == null || postUploadForm.ImagemUpload.Length == 0)
-            {
                 return BadRequest(new { mensagem = "Insira uma imagem!" });
-            }
 
-            if ((int)diretorio > urls.Length-1 || (int)diretorio == 0)
+            if ((int)diretorio > urls.Length || (int)diretorio == 0)
                 return BadRequest(new { mensagem = "Diretório não encontrado." });
 
-            ViewUploadFormDto objeto = await applicationUploadForm.PostAsync(postUploadForm, urls[(int)diretorio].diretoriosAbsolutos, urls[(int)diretorio].diretoriosRelativos);
+            ViewUploadFormDto objeto = await applicationUploadForm.PostAsync(postUploadForm, urls[(int)diretorio -1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
 
             return Ok(new { mensagem = "Upload efetuado com sucesso.", objeto.NomeArquivoOriginal, objeto.IdGuid, objeto.CaminhoRelativo });
         }
@@ -100,14 +98,12 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         public async Task<ActionResult> PutUploadForm([FromForm] PutUploadFormDto putUploadForm, Diretorios diretorio)
         {
             if (putUploadForm.ImagemUpload == null || putUploadForm.ImagemUpload.Length == 0)
-            {
                 return BadRequest(new { mensagem = "Insira uma imagem!" });
-            }
 
-            if ((int)diretorio > urls.Length - 1 || (int)diretorio == 0)
+            if ((int)diretorio > urls.Length || (int)diretorio == 0)
                 return BadRequest(new { mensagem = "Diretório não encontrado." });
 
-            ViewUploadFormDto objeto = await applicationUploadForm.PutAsync(putUploadForm, urls[(int)diretorio].diretoriosAbsolutos, urls[(int)diretorio].diretoriosRelativos);
+            ViewUploadFormDto objeto = await applicationUploadForm.PutAsync(putUploadForm, urls[(int)diretorio - 1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
 
             if(objeto is null)
                 return NotFound(new { mensagem = "Imagem não encontrada." });
@@ -116,7 +112,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Exclui uma permissão.
+        /// Exclui uma Imagem.
         /// </summary>
         /// <param name="id"></param>
         /// <remarks>Ao excluir uma permissão o mesmo será removido permanentemente da base.</remarks>
