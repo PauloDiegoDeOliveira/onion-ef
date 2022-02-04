@@ -75,6 +75,9 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpPost]
         public async Task<ActionResult> PostUploadForm([FromForm] PostUploadFormDto postUploadForm, Diretorios diretorio)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             if (postUploadForm.ImagemUpload == null || postUploadForm.ImagemUpload.Length == 0)
                 return BadRequest(new { mensagem = "Insira uma imagem!" });
 
@@ -97,6 +100,9 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpPut]
         public async Task<ActionResult> PutUploadForm([FromForm] PutUploadFormDto putUploadForm, Diretorios diretorio)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             if (putUploadForm.ImagemUpload == null || putUploadForm.ImagemUpload.Length == 0)
                 return BadRequest(new { mensagem = "Insira uma imagem!" });
 
@@ -121,9 +127,9 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         {
             ViewUploadFormDto result = await applicationUploadForm.DeleteAsync(id);
             if (result != null)
-                return Ok(new { mensagem = "Permissão removida com sucesso!" });
+                return Ok(new { mensagem = "Imagem removida com sucesso!" });
 
-            return NotFound(new { mensagem = "Nenhuma permissão foi encontrada com o id informado." });
+            return NotFound(new { mensagem = "Nenhuma Imagem foi encontrada com o id informado." });
         }
 
         /// <summary>
@@ -142,7 +148,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (result != null)
                 return Ok(new { mensagem = "Status atualizado com sucesso para: " + status });
 
-            return NotFound(new { mensagem = "Nenhum usuário foi encontrado com o id informado." });
+            return NotFound(new { mensagem = "Nenhuma imagem foi encontrado com o id informado." });
         }
     }
 }
