@@ -10,8 +10,8 @@ namespace Empresa.Projeto.RestAPI.Configuration
             services.AddAutoMapper(
                 typeof(MappingProfileUsuario),
                 typeof(MappingProfilePermissao),
-                typeof(MappingProfileUploadForm)
-                );
+                typeof(MappingProfileUploadForm),
+                typeof(MappingProfileEspecialidade));
         }
     }
 }

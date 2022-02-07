@@ -4,17 +4,23 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Empresa.Projeto.Infrastructure.Configurations
 {
-    public class OrdemConfiguration : ConfigurationBase<Ordem>
+    public class EspecialidadeConfiguration : ConfigurationBase<Especialidade>
     {
-        public override void Configure(EntityTypeBuilder<Ordem> builder)
+        public override void Configure(EntityTypeBuilder<Especialidade> builder)
         {
-            tableName = "Ordem";
+            tableName = "Especialidade";
 
             base.Configure(builder);
 
             builder.Property(x => x.Id)
                    .UseIdentityColumn()
-                   .HasColumnType("bigint");         
+                   .HasColumnType("bigint");
+
+            builder.Property(p => p.Nome)
+                .HasMaxLength(100)
+                .IsRequired()
+                .HasColumnName("Nome")
+                .HasColumnType("varchar(100)");
 
             builder.Property(p => p.Descricao)
                    .HasMaxLength(200)

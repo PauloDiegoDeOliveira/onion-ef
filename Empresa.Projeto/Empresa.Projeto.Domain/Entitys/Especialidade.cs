@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Empresa.Projeto.Domain.Entitys
 {
-    public class Ordem : EntityBase
+    public class Especialidade : EntityBase
     {
         // Propriedades
-        public DateTime Data { get; private set; }
+        public string Nome { get; private set; }
 
         public string Descricao { get; private set; }
 
@@ -14,17 +13,16 @@ namespace Empresa.Projeto.Domain.Entitys
         public virtual IList<Usuario> Usuarios { get; private set; }
 
         // EF
-        protected Ordem()
+        protected Especialidade()
         { }
 
         // Construtor
-        public Ordem(string descricao,
-                      DateTime data)
+        public Especialidade(string nome, string descricao)
         {
+            Nome = nome;
             Descricao = descricao;
-            Data = data;
         }
 
-        // Metodos
+        // Métodos/Comportamentos
     }
 }

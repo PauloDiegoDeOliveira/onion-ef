@@ -8,12 +8,12 @@ namespace Empresa.Projeto.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Ordem",
+                name: "Especialidade",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Data = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Nome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Descricao = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
                     Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
                     CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -21,7 +21,7 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ordem", x => x.Id);
+                    table.PrimaryKey("PK_Especialidade", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -91,23 +91,23 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrdemUsuario",
+                name: "EspecialidadeUsuario",
                 columns: table => new
                 {
-                    OrdensId = table.Column<long>(type: "bigint", nullable: false),
+                    EspecialidadesId = table.Column<long>(type: "bigint", nullable: false),
                     UsuariosId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrdemUsuario", x => new { x.OrdensId, x.UsuariosId });
+                    table.PrimaryKey("PK_EspecialidadeUsuario", x => new { x.EspecialidadesId, x.UsuariosId });
                     table.ForeignKey(
-                        name: "FK_OrdemUsuario_Ordem_OrdensId",
-                        column: x => x.OrdensId,
-                        principalTable: "Ordem",
+                        name: "FK_EspecialidadeUsuario_Especialidade_EspecialidadesId",
+                        column: x => x.EspecialidadesId,
+                        principalTable: "Especialidade",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrdemUsuario_Usuario_UsuariosId",
+                        name: "FK_EspecialidadeUsuario_Usuario_UsuariosId",
                         column: x => x.UsuariosId,
                         principalTable: "Usuario",
                         principalColumn: "Id",
@@ -115,8 +115,8 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrdemUsuario_UsuariosId",
-                table: "OrdemUsuario",
+                name: "IX_EspecialidadeUsuario_UsuariosId",
+                table: "EspecialidadeUsuario",
                 column: "UsuariosId");
 
             migrationBuilder.CreateIndex(
@@ -128,13 +128,13 @@ namespace Empresa.Projeto.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OrdemUsuario");
+                name: "EspecialidadeUsuario");
 
             migrationBuilder.DropTable(
                 name: "UploadForm");
 
             migrationBuilder.DropTable(
-                name: "Ordem");
+                name: "Especialidade");
 
             migrationBuilder.DropTable(
                 name: "Usuario");

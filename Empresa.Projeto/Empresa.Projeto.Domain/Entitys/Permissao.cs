@@ -26,6 +26,6 @@ namespace Empresa.Projeto.Domain.Entitys
             Usuarios = usuarios;
         }
 
-        // Metodos
+        // Métodos/Comportamentos
     }
 }

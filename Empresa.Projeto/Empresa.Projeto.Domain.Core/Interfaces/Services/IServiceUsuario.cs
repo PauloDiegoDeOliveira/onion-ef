@@ -10,6 +10,6 @@ namespace Empresa.Projeto.Domain.Core.Interfaces.Services
 
         Task<Usuario> GetEmailAsync(string email);
 
-        Task<Usuario> GetByIdDetalhesAsync(long id);
+        Task<Usuario> GetByIdDetalhesAsync(long id);       
     }
 }

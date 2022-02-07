@@ -1,5 +1,7 @@
-﻿using Empresa.Projeto.Application.Dtos.Permissao;
+﻿using Empresa.Projeto.Application.Dtos.Especialidade;
+using Empresa.Projeto.Application.Dtos.Permissao;
 using Empresa.Projeto.Domain.Enums;
+using System.Collections.Generic;
 
 namespace Empresa.Projeto.Application.Dtos.Usuario
 {
@@ -14,5 +16,6 @@ namespace Empresa.Projeto.Application.Dtos.Usuario
         public Status Status { get; set; }
 
         public ViewPermissaoDto Permissao { get; set; }
+        public List<ViewEspecialidadeDto> Especialidades { get; set; } 
     }
 }

@@ -19,7 +19,7 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Ordem", b =>
+            modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Especialidade", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,13 +34,16 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                     b.Property<DateTime?>("CriadoEm")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Descricao")
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)")
                         .HasColumnName("Descricao");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Nome");
 
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()
@@ -51,7 +54,7 @@ namespace Empresa.Projeto.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ordem");
+                    b.ToTable("Especialidade");
                 });
 
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Permissao", b =>
@@ -214,19 +217,19 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                     b.ToTable("Usuario");
                 });
 
-            modelBuilder.Entity("OrdemUsuario", b =>
+            modelBuilder.Entity("EspecialidadeUsuario", b =>
                 {
-                    b.Property<long>("OrdensId")
+                    b.Property<long>("EspecialidadesId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("UsuariosId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("OrdensId", "UsuariosId");
+                    b.HasKey("EspecialidadesId", "UsuariosId");
 
                     b.HasIndex("UsuariosId");
 
-                    b.ToTable("OrdemUsuario");
+                    b.ToTable("EspecialidadeUsuario");
                 });
 
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Usuario", b =>
@@ -240,11 +243,11 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                     b.Navigation("Permissao");
                 });
 
-            modelBuilder.Entity("OrdemUsuario", b =>
+            modelBuilder.Entity("EspecialidadeUsuario", b =>
                 {
-                    b.HasOne("Empresa.Projeto.Domain.Entitys.Ordem", null)
+                    b.HasOne("Empresa.Projeto.Domain.Entitys.Especialidade", null)
                         .WithMany()
-                        .HasForeignKey("OrdensId")
+                        .HasForeignKey("EspecialidadesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

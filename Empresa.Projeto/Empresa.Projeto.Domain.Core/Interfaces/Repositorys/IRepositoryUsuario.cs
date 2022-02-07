@@ -11,5 +11,7 @@ namespace Empresa.Projeto.Domain.Core.Interfaces.Repositorys
         Task<Usuario> GetEmailAsync(string email);
 
         Task<Usuario> GetByIdDetalhesAsync(long id);
+
+        Task<Usuario> InsertEspecialidadeAsync(Usuario usuario);
     }
 }

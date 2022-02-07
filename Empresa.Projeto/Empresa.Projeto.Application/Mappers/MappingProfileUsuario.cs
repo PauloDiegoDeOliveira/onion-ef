@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Empresa.Projeto.Application.Dtos.Especialidade;
 using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Domain.Entitys;
 using System;
@@ -19,6 +20,9 @@ namespace Empresa.Projeto.Application.Mappers
             CreateMap<Usuario, ViewUsuarioDto>();
             CreateMap<Usuario, ViewAposAutenticacaoDto>().ReverseMap();
             CreateMap<Usuario, ViewUsuarioPermissaoDto>().ReverseMap();
+
+            CreateMap<Especialidade, ReferenciaEspecialidadeDto>().ReverseMap();
+            CreateMap<Especialidade, ViewEspecialidadeDto>().ReverseMap();
         }
     }
 }

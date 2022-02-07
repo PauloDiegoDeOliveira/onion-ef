@@ -16,7 +16,7 @@ namespace Empresa.Projeto.Infrastructure.Data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Permissao> Permissoes { get; set; }
         public DbSet<UploadForm> UploadForm { get; set; }
-        public DbSet<Ordem> Ordens { get; set; } 
+        public DbSet<Especialidade> Especialidades { get; set; }  
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

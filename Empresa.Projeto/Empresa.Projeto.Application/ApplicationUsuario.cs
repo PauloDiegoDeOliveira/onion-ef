@@ -11,9 +11,7 @@ using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace Empresa.Projeto.Application
 {
-    public class ApplicationUsuario :
-        ApplicationBase<Usuario, ViewUsuarioDto, PostUsuarioDto, PutUsuarioDto>,
-        IApplicationUsuario
+    public class ApplicationUsuario : ApplicationBase<Usuario, ViewUsuarioDto, PostUsuarioDto, PutUsuarioDto>, IApplicationUsuario
     {
         private readonly IServiceUsuario serviceUsuario;
         private readonly IConfiguration configuration;
@@ -31,7 +29,7 @@ namespace Empresa.Projeto.Application
 
         public override Task<ViewUsuarioDto> PostAsync(PostUsuarioDto obj)
         {
-            ConverteSenhaEmHash(obj);
+            ConverteSenhaEmHash(obj);          
             return base.PostAsync(obj);
         }
 
@@ -39,7 +37,7 @@ namespace Empresa.Projeto.Application
         {
             ConverteSenhaEmHash(obj);
             return base.PutAsync(obj);
-        }
+        }      
 
         private void ConverteSenhaEmHash(PostUsuarioDto post)
         {

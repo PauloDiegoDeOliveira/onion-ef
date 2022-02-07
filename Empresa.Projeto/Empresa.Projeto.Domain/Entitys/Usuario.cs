@@ -15,7 +15,7 @@ namespace Empresa.Projeto.Domain.Entitys
 
         // Propriedades de navegação
         public virtual Permissao Permissao { get; private set; }
-        public virtual IList<Ordem> Ordens { get; private set; }
+        public virtual List<Especialidade> Especialidades { get; private set; }
 
         // EF
         protected Usuario()
@@ -28,7 +28,8 @@ namespace Empresa.Projeto.Domain.Entitys
                        string apelido,
                        string email,
                        string senha,
-                       Permissao permissao)
+                       Permissao permissao,
+                       List<Especialidade> especialidades)
         {
             PermissaoId = permissaoId;
             Nome = nome;
@@ -37,8 +38,13 @@ namespace Empresa.Projeto.Domain.Entitys
             Email = email;
             Senha = senha;
             Permissao = permissao;
+            Especialidades = especialidades;
         }
 
-        // Metodos
+        // Métodos/Comportamentos
+        public void ChangeOrdensValue(List<Especialidade> especialidades)
+        {
+            Especialidades = especialidades;
+        }
     }
 }

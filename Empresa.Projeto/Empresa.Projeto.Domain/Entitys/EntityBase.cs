@@ -27,7 +27,7 @@ namespace Empresa.Projeto.Domain.Entitys
             AlteradoEm = alteradoEm;
         }
 
-        // Metodos
+        // Métodos/Comportamentos
         public void ChangeStatusValue(int status)
         {
             Status = status;
