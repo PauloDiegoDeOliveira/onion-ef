@@ -21,7 +21,7 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             return await base.PostAsync(await InsertEspecialidadesAsync(obj));
         }
 
-        public async Task<Usuario> InsertEspecialidadesAsync(Usuario usuario) 
+        public async Task<Usuario> InsertEspecialidadesAsync(Usuario usuario)
         {
             List<Especialidade> especialidadesConsultadas = new List<Especialidade>();
             foreach (Especialidade especialidade in usuario.Especialidades)
@@ -29,7 +29,32 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
                 Especialidade especialidadeConsultada = await appDbContext.Especialidades.FindAsync(especialidade.Id);
                 especialidadesConsultadas.Add(especialidadeConsultada);
             }
-            usuario.ChangeOrdensValue(especialidadesConsultadas);
+            usuario.ChangeEspecialidadesValue(especialidadesConsultadas);
+            return usuario;
+        }
+
+        public override async Task<Usuario> PutAsync(Usuario obj)
+        {
+            return await base.PutAsync(await UpdateEspecialidadesAsync(obj));
+        }
+
+        public async Task<Usuario> UpdateEspecialidadesAsync(Usuario usuario)
+        {
+            Usuario consulta = await appDbContext.Usuarios
+                                    .Include(x => x.Especialidades)
+                                    .AsNoTracking()
+                                    .FirstOrDefaultAsync(p => p.Id == usuario.Id);
+            if (consulta == null)
+                return null;
+
+            appDbContext.Entry(consulta).CurrentValues.SetValues(usuario);
+
+            consulta.Especialidades.Clear();
+            foreach (Especialidade especialidade in usuario.Especialidades)
+            {
+                Especialidade especialidadeConsultada = await appDbContext.Especialidades.FindAsync(especialidade.Id);
+                consulta.Especialidades.Add(especialidadeConsultada);
+            }
             return usuario;
         }
 

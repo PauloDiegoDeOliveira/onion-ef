@@ -1,4 +1,6 @@
-﻿using Empresa.Projeto.Domain.Enums;
+﻿using Empresa.Projeto.Application.Dtos.Especialidade;
+using Empresa.Projeto.Domain.Enums;
+using System.Collections.Generic;
 
 namespace Empresa.Projeto.Application.Dtos.Usuario
 {
@@ -12,5 +14,7 @@ namespace Empresa.Projeto.Application.Dtos.Usuario
         public string Email { get; set; }
         public string Senha { get; set; }
         public Status Status { get; set; }
+
+        public List<ReferenciaEspecialidadeDto> Especialidades { get; set; }
     }
 }

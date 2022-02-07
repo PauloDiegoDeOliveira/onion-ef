@@ -42,7 +42,7 @@ namespace Empresa.Projeto.Domain.Entitys
         }
 
         // Métodos/Comportamentos
-        public void ChangeOrdensValue(List<Especialidade> especialidades)
+        public void ChangeEspecialidadesValue(List<Especialidade> especialidades) 
         {
             Especialidades = especialidades;
         }
