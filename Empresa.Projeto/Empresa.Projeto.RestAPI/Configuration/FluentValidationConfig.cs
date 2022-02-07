@@ -27,6 +27,7 @@ namespace Empresa.Projeto.RestAPI.Configuration
                 .AddFluentValidation(p =>
                 {
                     //p.RegisterValidatorsFromAssemblyContaining<Startup>();
+
                     p.RegisterValidatorsFromAssemblyContaining<PostUsuarioValidator>();
                     p.RegisterValidatorsFromAssemblyContaining<PutUsuarioValidator>();
 

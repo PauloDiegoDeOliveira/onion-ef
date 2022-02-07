@@ -9,6 +9,7 @@ namespace Empresa.Projeto.Domain.Entitys
     {
         [NotMapped]
         public IFormFile ImagemUpload { get; private set; }
+
         public Guid IdGuid { get; private set; }
         public long TamanhoEmBytes { get; private set; }
         public string ContentType { get; private set; }

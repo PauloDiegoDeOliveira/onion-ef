@@ -1,4 +1,6 @@
-﻿namespace Empresa.Projeto.Domain.Entitys
+﻿using System.Collections.Generic;
+
+namespace Empresa.Projeto.Domain.Entitys
 {
     public class Usuario : EntityBase
     {
@@ -13,6 +15,7 @@
 
         // Propriedades de navegação
         public virtual Permissao Permissao { get; private set; }
+        public virtual IList<Ordem> Ordens { get; private set; }
 
         // EF
         protected Usuario()

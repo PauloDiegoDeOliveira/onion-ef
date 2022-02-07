@@ -8,6 +8,7 @@ namespace Empresa.Projeto.Application.Validations.UploadForm
     public class PutUploadFormValidator : AbstractValidator<PutUploadFormDto>
     {
         private readonly IApplicationUploadForm applicationUploadForm;
+
         public PutUploadFormValidator(IApplicationUploadForm applicationUploadForm)
         {
             this.applicationUploadForm = applicationUploadForm;

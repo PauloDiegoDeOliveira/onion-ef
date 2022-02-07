@@ -8,7 +8,7 @@
         public int TotalPaginas { get; private set; }
         public bool ExistePaginaPosterior { get; private set; }
         public bool ExistePaginaAnterior { get; private set; }
-        
+
         public void SetValues(int contagemTotal, int tamanhoPagina, int paginaAtual)
         {
             ContagemTotal = contagemTotal;
@@ -33,7 +33,7 @@
 
         public bool CheckHasNextPage()
         {
-            return PaginaAtual < TotalPaginas ? true : false; 
+            return PaginaAtual < TotalPaginas ? true : false;
         }
 
         public bool CheckHasPreviousPage()

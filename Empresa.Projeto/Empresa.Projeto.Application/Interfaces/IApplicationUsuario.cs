@@ -8,7 +8,9 @@ namespace Empresa.Projeto.Application.Interfaces
         IApplicationBase<ViewUsuarioDto, PostUsuarioDto, PutUsuarioDto>
     {
         Task<IList<ViewUsuarioDto>> GetNomeAsync(string nome);
+
         Task<ViewAposAutenticacaoDto> AutenticacaoAsync(ViewPreAutenticacaoDto viewPreAutenticacao);
-        Task<ViewUsuarioPermissaoDto> GetByIdDetalhesAsync(long id);  
+
+        Task<ViewUsuarioPermissaoDto> GetByIdDetalhesAsync(long id);
     }
 }

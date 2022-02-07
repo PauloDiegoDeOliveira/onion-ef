@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Empresa.Projeto.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220204143443_InitialMigration")]
+    [Migration("20220207005722_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,41 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Ordem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("AlteradoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("CriadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("Descricao");
+
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("int")
+                        .HasDefaultValue(1)
+                        .HasColumnName("Status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ordem");
+                });
 
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Permissao", b =>
                 {
@@ -181,6 +216,21 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                     b.ToTable("Usuario");
                 });
 
+            modelBuilder.Entity("OrdemUsuario", b =>
+                {
+                    b.Property<long>("OrdensId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UsuariosId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("OrdensId", "UsuariosId");
+
+                    b.HasIndex("UsuariosId");
+
+                    b.ToTable("OrdemUsuario");
+                });
+
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Usuario", b =>
                 {
                     b.HasOne("Empresa.Projeto.Domain.Entitys.Permissao", "Permissao")
@@ -190,6 +240,21 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Permissao");
+                });
+
+            modelBuilder.Entity("OrdemUsuario", b =>
+                {
+                    b.HasOne("Empresa.Projeto.Domain.Entitys.Ordem", null)
+                        .WithMany()
+                        .HasForeignKey("OrdensId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Empresa.Projeto.Domain.Entitys.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UsuariosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Permissao", b =>

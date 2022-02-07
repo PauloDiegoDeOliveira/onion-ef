@@ -9,8 +9,11 @@ namespace Empresa.Projeto.Application.Interfaces
     public interface IApplicationPermissao : IApplicationBase<ViewPermissaoDto, PostPermissaoDto, PutPermissaoDto>
     {
         Task<PermissaoPagination> GetPaginationAsync(int pageNumber, int resultSize);
+
         Task<ViewPermissaoUsuarioDto> GetByIdDetalhesAsync(long id);
+
         Task<EntityDtoStruct<Permissao, PutPermissaoDto>> GetByIdReturnStructDtoAsync(long id);
+
         Task SaveChangesAsync(EntityDtoStruct<Permissao, PutPermissaoDto> dtoStruct);
     }
 }

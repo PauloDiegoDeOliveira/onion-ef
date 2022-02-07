@@ -16,20 +16,13 @@ namespace Empresa.Projeto.Infrastructure.Data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Permissao> Permissoes { get; set; }
         public DbSet<UploadForm> UploadForm { get; set; }
+        public DbSet<Ordem> Ordens { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-        }
-
-        //Migration
-        public AppDbContext() { }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-62DE9CE;Initial Catalog=DDD;Integrated Security=SSPI;"); 
-        }
+        }   
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

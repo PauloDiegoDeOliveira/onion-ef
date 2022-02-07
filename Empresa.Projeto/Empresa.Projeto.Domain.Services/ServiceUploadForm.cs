@@ -1,7 +1,6 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
-using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Domain.Services
 {

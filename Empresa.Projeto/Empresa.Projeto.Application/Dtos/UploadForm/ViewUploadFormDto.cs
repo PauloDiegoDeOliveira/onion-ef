@@ -8,9 +8,11 @@ namespace Empresa.Projeto.Application.Dtos.UploadForm
     public class ViewUploadFormDto
     {
         public long Id { get; set; }
+
         [JsonIgnore]
         [IgnoreDataMember]
         public IFormFile ImagemUpload { get; set; }
+
         public Guid IdGuid { get; set; }
         public long TamanhoEmBytes { get; set; }
         public string ContentType { get; set; }

@@ -6,6 +6,7 @@ namespace Empresa.Projeto.Domain.Entitys
     {
         // Propriedades
         public long Id { get; private set; }
+
         public int Status { get; private set; }
         public DateTime? CriadoEm { get; private set; }
         public DateTime? AlteradoEm { get; private set; }

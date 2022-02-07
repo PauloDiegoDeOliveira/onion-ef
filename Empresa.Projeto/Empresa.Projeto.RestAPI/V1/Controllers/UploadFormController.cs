@@ -84,7 +84,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if ((int)diretorio > urls.Length || (int)diretorio == 0)
                 return BadRequest(new { mensagem = "Diretório não encontrado." });
 
-            ViewUploadFormDto objeto = await applicationUploadForm.PostAsync(postUploadForm, urls[(int)diretorio -1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
+            ViewUploadFormDto objeto = await applicationUploadForm.PostAsync(postUploadForm, urls[(int)diretorio - 1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
 
             return Ok(new { mensagem = "Upload efetuado com sucesso.", objeto.NomeArquivoOriginal, objeto.IdGuid, objeto.CaminhoRelativo });
         }
@@ -111,7 +111,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
 
             ViewUploadFormDto objeto = await applicationUploadForm.PutAsync(putUploadForm, urls[(int)diretorio - 1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
 
-            if(objeto is null)
+            if (objeto is null)
                 return NotFound(new { mensagem = "Id de imagem não encontrado." });
 
             return Ok(new { mensagem = "Upload efetuado com sucesso.", objeto.NomeArquivoOriginal, objeto.IdGuid, objeto.CaminhoRelativo });

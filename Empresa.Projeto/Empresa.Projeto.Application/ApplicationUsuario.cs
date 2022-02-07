@@ -104,7 +104,7 @@ namespace Empresa.Projeto.Application
 
         public async Task<ViewUsuarioPermissaoDto> GetByIdDetalhesAsync(long id)
         {
-            Usuario consulta = await serviceUsuario.GetByIdDetalhesAsync(id);               
+            Usuario consulta = await serviceUsuario.GetByIdDetalhesAsync(id);
             return mapper.Map<ViewUsuarioPermissaoDto>(consulta);
         }
     }

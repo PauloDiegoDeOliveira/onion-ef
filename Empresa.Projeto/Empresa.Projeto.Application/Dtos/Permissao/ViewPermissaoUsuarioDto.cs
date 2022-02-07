@@ -11,6 +11,6 @@ namespace Empresa.Projeto.Application.Dtos.Permissao
         public string Descricao { get; set; }
         public Status Status { get; set; }
 
-        public List<ViewUsuarioDto> Usuarios { get; set; } 
+        public List<ViewUsuarioDto> Usuarios { get; set; }
     }
 }

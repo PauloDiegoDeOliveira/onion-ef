@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using Empresa.Projeto.Application.Dtos.Correios;
 using Microsoft.AspNetCore.Mvc;
-using RestSharp;
 using Newtonsoft.Json;
-using Empresa.Projeto.Application.Dtos.Correios;
+using RestSharp;
+using System.Threading.Tasks;
 
 namespace Empresa.Projeto.RestAPI.V1.Controllers
 {

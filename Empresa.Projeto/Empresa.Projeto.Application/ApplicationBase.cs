@@ -3,7 +3,6 @@ using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
 using Empresa.Projeto.Domain.Enums;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
