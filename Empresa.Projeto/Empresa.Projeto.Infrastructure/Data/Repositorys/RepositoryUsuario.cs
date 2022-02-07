@@ -18,7 +18,19 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
 
         public override async Task<Usuario> PostAsync(Usuario obj)
         {
-            return await base.PostAsync(await InsertEspecialidadeAsync(obj));
+            return await base.PostAsync(await InsertEspecialidadesAsync(obj));
+        }
+
+        public async Task<Usuario> InsertEspecialidadesAsync(Usuario usuario) 
+        {
+            List<Especialidade> especialidadesConsultadas = new List<Especialidade>();
+            foreach (Especialidade especialidade in usuario.Especialidades)
+            {
+                Especialidade especialidadeConsultada = await appDbContext.Especialidades.FindAsync(especialidade.Id);
+                especialidadesConsultadas.Add(especialidadeConsultada);
+            }
+            usuario.ChangeOrdensValue(especialidadesConsultadas);
+            return usuario;
         }
 
         public async Task<IList<Usuario>> GetNomeAsync(string nome)
@@ -47,19 +59,6 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
             return obj;
-        }
-
-        public async Task<Usuario> InsertEspecialidadeAsync(Usuario usuario)
-        {
-            //TODO Refatorar para async
-            List<Especialidade> especialidadesConsultadas = new List<Especialidade>();
-            foreach (Especialidade especialidade in usuario.Especialidades)
-            {
-                Especialidade especialidadeConsultada = await appDbContext.Especialidades.FindAsync(especialidade.Id);
-                especialidadesConsultadas.Add(especialidadeConsultada);
-            }
-            usuario.ChangeOrdensValue(especialidadesConsultadas);
-            return usuario;
         }
     }
 }
