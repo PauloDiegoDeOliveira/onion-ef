@@ -32,7 +32,7 @@ namespace Empresa.Projeto.Infrastructure.Data
                 {
                     entry.Property("CriadoEm").CurrentValue = DateTime.Now;
                 }
-                if (entry.State == EntityState.Modified)
+                else if (entry.State == EntityState.Modified)
                 {
                     entry.Property("CriadoEm").IsModified = false;
                 }

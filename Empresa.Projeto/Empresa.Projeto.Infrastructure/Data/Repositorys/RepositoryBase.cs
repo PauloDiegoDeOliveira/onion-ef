@@ -2,6 +2,7 @@
 using Empresa.Projeto.Domain.Entitys;
 using Empresa.Projeto.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,8 +36,8 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
         }
 
         public virtual async Task<TEntity> PutAsync(TEntity obj)
-        {
-            appDbContext.Entry(obj).State = EntityState.Modified;
+        {           
+            //appDbContext.Entry(obj).State = EntityState.Modified;
             await appDbContext.SaveChangesAsync();
             return obj;
         }

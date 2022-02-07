@@ -1,6 +1,7 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
 using Empresa.Projeto.Domain.Entitys;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,20 +43,23 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
         {
             Usuario consulta = await appDbContext.Usuarios
                                     .Include(x => x.Especialidades)
-                                    .AsNoTracking()
-                                    .FirstOrDefaultAsync(p => p.Id == usuario.Id);
+                                    .FirstAsync(x => x.Id == usuario.Id);
             if (consulta == null)
                 return null;
 
-            appDbContext.Entry(consulta).CurrentValues.SetValues(usuario);
+            consulta.ChangeAlteradoEmValue(DateTime.Now);
+            await UpdateEspecialidades(usuario, consulta);
+            return usuario;
+        }
 
+        private async Task UpdateEspecialidades(Usuario usuario, Usuario consulta)
+        {
             consulta.Especialidades.Clear();
             foreach (Especialidade especialidade in usuario.Especialidades)
             {
                 Especialidade especialidadeConsultada = await appDbContext.Especialidades.FindAsync(especialidade.Id);
                 consulta.Especialidades.Add(especialidadeConsultada);
             }
-            return usuario;
         }
 
         public async Task<IList<Usuario>> GetNomeAsync(string nome)
