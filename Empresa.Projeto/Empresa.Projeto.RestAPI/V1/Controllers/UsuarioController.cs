@@ -4,6 +4,7 @@ using Empresa.Projeto.Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.RestAPI.V1.Controllers
@@ -29,7 +30,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         public async Task<IActionResult> GetAllAsync()
         {
             IEnumerable<ViewUsuarioDto> result = await applicationUsuario.GetAllAsync();
-            if (result != null)
+            if (result.Any())
                 return Ok(result);
 
             return NotFound(new { mensagem = "Nenhum usuário foi encontrado." });
