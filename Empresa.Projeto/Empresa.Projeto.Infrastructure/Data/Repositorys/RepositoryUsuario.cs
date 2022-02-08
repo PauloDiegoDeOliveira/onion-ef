@@ -36,10 +36,10 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
 
         public override async Task<Usuario> PutAsync(Usuario obj)
         {
-            return await base.PutAsync(await UpdateEspecialidadesAsync(obj));
+            return await base.PutAsync(await UpdateAsync(obj));
         }
 
-        public async Task<Usuario> UpdateEspecialidadesAsync(Usuario usuario)
+        public async Task<Usuario> UpdateAsync(Usuario usuario) 
         {
             Usuario consulta = await appDbContext.Usuarios
                                     .Include(x => x.Especialidades)
@@ -48,11 +48,11 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
                 return null;
 
             consulta.ChangeAlteradoEmValue(DateTime.Now);
-            await UpdateEspecialidades(usuario, consulta);
+            await InsertEspecialidades(usuario, consulta); 
             return usuario;
         }
 
-        private async Task UpdateEspecialidades(Usuario usuario, Usuario consulta)
+        private async Task InsertEspecialidades(Usuario usuario, Usuario consulta)
         {
             consulta.Especialidades.Clear();
             foreach (Especialidade especialidade in usuario.Especialidades)
