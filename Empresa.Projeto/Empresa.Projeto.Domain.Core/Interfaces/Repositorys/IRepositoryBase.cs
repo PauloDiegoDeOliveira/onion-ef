@@ -15,8 +15,6 @@ namespace Empresa.Projeto.Domain.Core.Interfaces.Repositorys
 
         Task<TEntity> DeleteAsync(long id);
 
-        Task<TEntity> PutStatusAsync(TEntity obj);
-
         Task<bool> ExisteNaBaseAsync(long? id);
     }
 }

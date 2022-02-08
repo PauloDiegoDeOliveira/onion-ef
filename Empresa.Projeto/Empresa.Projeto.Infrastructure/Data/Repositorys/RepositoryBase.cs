@@ -36,8 +36,9 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
         }
 
         public virtual async Task<TEntity> PutAsync(TEntity obj)
-        {           
-            //appDbContext.Entry(obj).State = EntityState.Modified;
+        {
+            appDbContext.Entry(obj).State = EntityState.Modified;
+            obj.ChangeAlteradoEmValue(DateTime.Now);
             await appDbContext.SaveChangesAsync();
             return obj;
         }
@@ -50,13 +51,6 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
                 appDbContext.Remove(obj);
                 await appDbContext.SaveChangesAsync();
             }
-            return obj;
-        }
-
-        public virtual async Task<TEntity> PutStatusAsync(TEntity obj)
-        {
-            appDbContext.Entry(obj).State = EntityState.Modified;
-            await appDbContext.SaveChangesAsync();
             return obj;
         }
 

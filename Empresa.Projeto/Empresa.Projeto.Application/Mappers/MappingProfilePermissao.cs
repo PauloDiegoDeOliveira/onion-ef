@@ -15,7 +15,7 @@ namespace Empresa.Projeto.Application.Mappers
         private void Map()
         {
             CreateMap<PostPermissaoDto, Permissao>();
-            CreateMap<PutPermissaoDto, Permissao>().ForMember(d => d.AlteradoEm, o => o.MapFrom(x => DateTime.Now)).ReverseMap();
+            CreateMap<PutPermissaoDto, Permissao>();
             CreateMap<Permissao, ViewPermissaoDto>();
             CreateMap<Permissao, ViewPermissaoUsuarioDto>().ReverseMap();
         }

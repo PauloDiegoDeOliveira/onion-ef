@@ -15,7 +15,7 @@ namespace Empresa.Projeto.Application.Mappers
         private void Map()
         {
             CreateMap<UploadForm, PostUploadFormDto>().ReverseMap();
-            CreateMap<PutUploadFormDto, UploadForm>().ForMember(d => d.AlteradoEm, o => o.MapFrom(x => DateTime.Now)).ReverseMap();
+            CreateMap<PutUploadFormDto, UploadForm>();
             CreateMap<UploadForm, ViewUploadFormDto>();
         }
     }

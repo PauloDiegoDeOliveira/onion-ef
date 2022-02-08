@@ -47,9 +47,8 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             if (consulta == null)
                 return null;
 
-            consulta.ChangeAlteradoEmValue(DateTime.Now);
             await InsertEspecialidades(usuario, consulta); 
-            return usuario;
+            return consulta;
         }
 
         private async Task InsertEspecialidades(Usuario usuario, Usuario consulta)

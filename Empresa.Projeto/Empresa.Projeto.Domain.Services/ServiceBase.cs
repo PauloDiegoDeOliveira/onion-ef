@@ -40,7 +40,7 @@ namespace Empresa.Projeto.Domain.Services
 
         public async Task<TEntity> PutStatusAsync(TEntity obj)
         {
-            return await repositoryBase.PutStatusAsync(obj);
+            return await repositoryBase.PutAsync(obj);
         }
 
         public virtual async Task<bool> ExisteNaBaseAsync(long? id)
