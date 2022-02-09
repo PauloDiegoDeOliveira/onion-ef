@@ -1,2 +1,1 @@
-# onion architecture
-# hexagonal architecture
+
