@@ -1,4 +1,5 @@
 ﻿using Empresa.Projeto.Application.Validations.Permissao;
+using Empresa.Projeto.Application.Validations.UploadB64;
 using Empresa.Projeto.Application.Validations.UploadForm;
 using Empresa.Projeto.Application.Validations.Usuario;
 using FluentValidation.AspNetCore;
@@ -36,6 +37,9 @@ namespace Empresa.Projeto.RestAPI.Configuration
 
                     p.RegisterValidatorsFromAssemblyContaining<PostUploadFormValidator>();
                     p.RegisterValidatorsFromAssemblyContaining<PutUploadFormValidator>();
+
+                    p.RegisterValidatorsFromAssemblyContaining<PostUploadB64Validator>();
+                    p.RegisterValidatorsFromAssemblyContaining<PutUploadB64Validator>();
 
                     p.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
                 });

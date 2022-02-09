@@ -1,28 +1,33 @@
-﻿using Empresa.Projeto.Application.Dtos.UploadForm;
+﻿using Empresa.Projeto.Application.Dtos.UploadB64;
 using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Domain.Enums;
 using Empresa.Projeto.RestAPI.URLs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Empresa.Projeto.Application.Dtos.Conversor_B64;
 
 namespace Empresa.Projeto.RestAPI.V1.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/UploadForm")]
+    [Route("api/v{version:apiVersion}/UploadBase64")]
     [ApiController]
-    public class UploadFormController : ControllerBase
+    public class UploadB64Controller : ControllerBase
     {
-        private readonly IApplicationUploadForm applicationUploadForm;
+        private readonly IApplicationUploadB64 applicationUploadB64;
 
         private Caminhos[] urls;
+        private IWebHostEnvironment webHostEnvironment;
 
-        public UploadFormController(IApplicationUploadForm applicationUploadForm)
+        public UploadB64Controller(IApplicationUploadB64 applicationUploadB64, IWebHostEnvironment webHostEnvironment)
         {
-            this.applicationUploadForm = applicationUploadForm;
+            this.applicationUploadB64 = applicationUploadB64;
+            this.webHostEnvironment = webHostEnvironment;
             PopulateURLs();
         }
 
@@ -38,10 +43,10 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<ViewUploadFormDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ViewUploadB64Dto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
-            IEnumerable<ViewUploadFormDto> result = await applicationUploadForm.GetAllAsync();
+            IEnumerable<ViewUploadB64Dto> result = await applicationUploadB64.GetAllAsync();
             if (result != null)
                 return Ok(result);
 
@@ -54,10 +59,11 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id:long}")]
-        [ProducesResponseType(typeof(ViewUploadFormDto), StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(ViewUploadB64Dto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
-            ViewUploadFormDto result = await applicationUploadForm.GetByIdAsync(id);
+            ViewUploadB64Dto result = await applicationUploadB64.GetByIdAsync(id);
+
             if (result != null)
                 return Ok(result);
 
@@ -65,56 +71,52 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Faz um upload de imagem em um diretório escolhido por parâmetro (Tamanho máximo 10 MB).
+        /// Faz um upload de imagem em um diretório escolhido por parâmetro.
         /// </summary>
-        /// <param name="postUploadForm"></param>
+        /// <param name="postUploadB64"></param>
         /// <param name="diretorio"></param>
         /// <returns></returns>
-        // 10 Megabyte
-        [RequestSizeLimit(10000000)]
         [HttpPost]
-        public async Task<ActionResult> PostUploadForm([FromForm] PostUploadFormDto postUploadForm, Diretorios diretorio)
+        public async Task<ActionResult> PostUploadB64(PostUploadB64Dto postUploadB64, Diretorios diretorio)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (postUploadForm.ImagemUpload == null || postUploadForm.ImagemUpload.Length == 0)
+            if (postUploadB64.ImagemEmBase64 == null || !IsBase64String(postUploadB64.ImagemEmBase64))
                 return BadRequest(new { mensagem = "Insira uma imagem!" });
 
             if ((int)diretorio > urls.Length || diretorio == 0)
                 return BadRequest(new { mensagem = "Diretório não encontrado." });
 
-            ViewUploadFormDto objeto = await applicationUploadForm.PostAsync(postUploadForm, urls[(int)diretorio - 1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
+            ViewUploadB64Dto objeto = await applicationUploadB64.PostAsync(postUploadB64, urls[(int)diretorio - 1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
 
-            return Ok(new { mensagem = "Upload efetuado com sucesso.", objeto.NomeArquivoOriginal, objeto.IdGuid, objeto.CaminhoRelativo });
+            return Ok(new { mensagem = "Upload efetuado com sucesso.", objeto.IdGuid, objeto.CaminhoRelativo });
         }
 
         /// <summary>
-        /// Substitui uma imagem em um diretório escolhido por parâmetro (Tamanho máximo 10 MB).
+        /// Substitui uma imagem em um diretório escolhido por parâmetro.
         /// </summary>
-        /// <param name="putUploadForm"></param>
+        /// <param name="putUploadB64"></param>
         /// <param name="diretorio"></param>
         /// <returns></returns>
-        // 10 Megabyte
-        [RequestSizeLimit(10000000)]
         [HttpPut]
-        public async Task<ActionResult> PutUploadForm([FromForm] PutUploadFormDto putUploadForm, Diretorios diretorio)
+        public async Task<ActionResult> PutUploadForm(PutUploadB64Dto putUploadB64, Diretorios diretorio)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (putUploadForm.ImagemUpload == null || putUploadForm.ImagemUpload.Length == 0)
+            if (putUploadB64.ImagemEmBase64 == null || !IsBase64String(putUploadB64.ImagemEmBase64))
                 return BadRequest(new { mensagem = "Insira uma imagem!" });
 
             if ((int)diretorio > urls.Length || diretorio == 0)
                 return BadRequest(new { mensagem = "Diretório não encontrado." });
 
-            ViewUploadFormDto objeto = await applicationUploadForm.PutAsync(putUploadForm, urls[(int)diretorio - 1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
+            ViewUploadB64Dto objeto = await applicationUploadB64.PutAsync(putUploadB64, urls[(int)diretorio - 1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
 
             if (objeto is null)
                 return NotFound(new { mensagem = "Id de imagem não encontrado." });
 
-            return Ok(new { mensagem = "Upload efetuado com sucesso.", objeto.NomeArquivoOriginal, objeto.IdGuid, objeto.CaminhoRelativo });
+            return Ok(new { mensagem = "Upload efetuado com sucesso.", objeto.IdGuid, objeto.CaminhoRelativo });
         }
 
         /// <summary>
@@ -125,7 +127,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeleteAsync(long id)
         {
-            ViewUploadFormDto result = await applicationUploadForm.DeleteAsync(id);
+            ViewUploadB64Dto result = await applicationUploadB64.DeleteAsync(id);
             if (result != null)
                 return Ok(new { mensagem = "Imagem removida com sucesso!" });
 
@@ -144,11 +146,41 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (status == 0)
                 return BadRequest(new { mensagem = "Nenhum status selecionado!" });
 
-            ViewUploadFormDto result = await applicationUploadForm.PutStatusAsync(id, status);
+            ViewUploadB64Dto result = await applicationUploadB64.PutStatusAsync(id, status);
             if (result != null)
                 return Ok(new { mensagem = "Status atualizado com sucesso para: " + status });
 
             return NotFound(new { mensagem = "Nenhuma imagem foi encontrado com o id informado." });
+        }
+
+        private bool IsBase64String(string stringBase64)
+        {
+            Span<byte> buffer = new Span<byte>(new byte[stringBase64.Length]);
+            return Convert.TryFromBase64String(stringBase64, buffer, out int bytesParsed);
+        }
+
+        /// <summary>
+        /// Converte a imagem em base64.
+        /// Nome: formFile.
+        /// </summary>
+        /// <param name="formFile"></param>
+        /// <returns></returns>
+        [HttpPost("Conversor-Base64")]
+        public IActionResult ConversorBase64([FromForm] PostConversorDto formFile)
+        {
+            if (formFile.ImagemUpload.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    formFile.ImagemUpload.CopyTo(ms);
+                    byte[] fileBytes = ms.ToArray();
+
+                    ViewConversorDto image = new ViewConversorDto();
+                    image.ImagemEmBase64 = Convert.ToBase64String(fileBytes);
+                    return Ok(image);
+                }
+            }
+            return null;
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Empresa.Projeto.Application.Dtos.UploadForm;
 using Empresa.Projeto.Domain.Entitys;
-using System;
 
 namespace Empresa.Projeto.Application.Mappers
 {

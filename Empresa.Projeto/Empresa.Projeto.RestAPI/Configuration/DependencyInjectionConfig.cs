@@ -26,6 +26,10 @@ namespace Empresa.Projeto.RestAPI.Configuration
             services.AddScoped<IApplicationUploadForm, ApplicationUploadForm>();
             services.AddScoped<IServiceUploadForm, ServiceUploadForm>();
 
+            services.AddScoped<IRepositoryUploadB64, RepositoryUploadB64>();
+            services.AddScoped<IApplicationUploadB64, ApplicationUploadB64>();
+            services.AddScoped<IServiceUploadB64, ServiceUploadB64>();
+
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         }
     }

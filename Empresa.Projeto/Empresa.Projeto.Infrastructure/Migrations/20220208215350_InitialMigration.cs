@@ -42,6 +42,24 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UploadB64",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
+                    CaminhoRelativo = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
+                    CaminhoAbsoluto = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
+                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
+                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AlteradoEm = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UploadB64", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UploadForm",
                 columns: table => new
                 {
@@ -129,6 +147,9 @@ namespace Empresa.Projeto.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "EspecialidadeUsuario");
+
+            migrationBuilder.DropTable(
+                name: "UploadB64");
 
             migrationBuilder.DropTable(
                 name: "UploadForm");

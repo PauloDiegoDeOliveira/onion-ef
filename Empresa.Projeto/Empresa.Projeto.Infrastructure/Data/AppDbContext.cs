@@ -16,7 +16,8 @@ namespace Empresa.Projeto.Infrastructure.Data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Permissao> Permissoes { get; set; }
         public DbSet<UploadForm> UploadForm { get; set; }
-        public DbSet<Especialidade> Especialidades { get; set; }  
+        public DbSet<Especialidade> Especialidades { get; set; }
+        public DbSet<UploadB64> UploadB64 { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,7 +30,7 @@ namespace Empresa.Projeto.Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-62DE9CE;Initial Catalog=DDD;Integrated Security=SSPI;");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-62DE9CE;Initial Catalog=APIREST;Integrated Security=SSPI;");
         }
 
 

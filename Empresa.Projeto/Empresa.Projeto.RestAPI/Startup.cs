@@ -43,6 +43,7 @@ namespace Empresa.Projeto.RestAPI
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors("CorsPolicy");
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

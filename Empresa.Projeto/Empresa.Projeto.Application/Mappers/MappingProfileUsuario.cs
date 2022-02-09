@@ -2,7 +2,6 @@
 using Empresa.Projeto.Application.Dtos.Especialidade;
 using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Domain.Entitys;
-using System;
 
 namespace Empresa.Projeto.Application.Mappers
 {
