@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Empresa.Projeto.Application.Dtos.Especialidade;
-using Empresa.Projeto.Application.Dtos.Ordem;
 using Empresa.Projeto.Domain.Entitys;
 
 namespace Empresa.Projeto.Application.Mappers
@@ -14,8 +13,9 @@ namespace Empresa.Projeto.Application.Mappers
 
         private void Map()
         {
+            CreateMap<PutEspecialidadeDto, Especialidade>();
             CreateMap<PostEspecialidadeDto, Especialidade>();
-            CreateMap<Especialidade, ViewEspecialidadeDto>();        
+            CreateMap<Especialidade, ViewEspecialidadeDto>();
         }
     }
 }

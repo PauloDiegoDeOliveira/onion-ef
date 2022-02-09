@@ -1,6 +1,6 @@
 ﻿using Empresa.Projeto.Domain.Enums;
 
-namespace Empresa.Projeto.Application.Dtos.Ordem
+namespace Empresa.Projeto.Application.Dtos.Especialidade
 {
     public class PostEspecialidadeDto
     {

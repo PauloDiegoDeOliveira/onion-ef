@@ -30,6 +30,10 @@ namespace Empresa.Projeto.RestAPI.Configuration
             services.AddScoped<IApplicationUploadB64, ApplicationUploadB64>();
             services.AddScoped<IServiceUploadB64, ServiceUploadB64>();
 
+            services.AddScoped<IRepositoryEspecialidade, RepositoryEspecialidade>();
+            services.AddScoped<IApplicationEspecialidade, ApplicationEspecialidade>();
+            services.AddScoped<IServiceEspecialidade, ServiceEspecialidade>();
+
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         }
     }

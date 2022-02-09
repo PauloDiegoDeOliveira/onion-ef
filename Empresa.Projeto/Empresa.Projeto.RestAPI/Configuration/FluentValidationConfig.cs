@@ -1,4 +1,5 @@
-﻿using Empresa.Projeto.Application.Validations.Permissao;
+﻿using Empresa.Projeto.Application.Validations.Especialidade;
+using Empresa.Projeto.Application.Validations.Permissao;
 using Empresa.Projeto.Application.Validations.UploadB64;
 using Empresa.Projeto.Application.Validations.UploadForm;
 using Empresa.Projeto.Application.Validations.Usuario;
@@ -40,6 +41,9 @@ namespace Empresa.Projeto.RestAPI.Configuration
 
                     p.RegisterValidatorsFromAssemblyContaining<PostUploadB64Validator>();
                     p.RegisterValidatorsFromAssemblyContaining<PutUploadB64Validator>();
+
+                    p.RegisterValidatorsFromAssemblyContaining<PostEspecialidadeValidator>();
+                    p.RegisterValidatorsFromAssemblyContaining<PutEspecialidadeValidator>();
 
                     p.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
                 });

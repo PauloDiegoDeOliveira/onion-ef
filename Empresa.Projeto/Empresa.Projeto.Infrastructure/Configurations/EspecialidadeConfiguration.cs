@@ -12,10 +12,6 @@ namespace Empresa.Projeto.Infrastructure.Configurations
 
             base.Configure(builder);
 
-            builder.Property(x => x.Id)
-                   .UseIdentityColumn()
-                   .HasColumnType("bigint");
-
             builder.Property(p => p.Nome)
                 .HasMaxLength(100)
                 .IsRequired()
