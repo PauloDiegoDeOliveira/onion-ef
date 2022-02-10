@@ -1,4 +1,5 @@
 ﻿using Empresa.Projeto.Application.Dtos.Usuario;
+using Empresa.Projeto.Application.Validations.Especialidade;
 using Empresa.Projeto.Application.Interfaces;
 using FluentValidation;
 using System.Threading.Tasks;
@@ -9,11 +10,13 @@ namespace Empresa.Projeto.Application.Validations.Usuario
     {
         private readonly IApplicationPermissao applicationPermissao;
         private readonly IApplicationUsuario applicationUsuario;
+        private readonly IApplicationEspecialidade applicationEspecialidade;
 
-        public PutUsuarioValidator(IApplicationUsuario applicationUsuario, IApplicationPermissao applicationPermissao)
+        public PutUsuarioValidator(IApplicationUsuario applicationUsuario, IApplicationPermissao applicationPermissao, IApplicationEspecialidade applicationEspecialidade)
         {
             this.applicationPermissao = applicationPermissao;
             this.applicationUsuario = applicationUsuario;
+            this.applicationEspecialidade = applicationEspecialidade;
 
             RuleFor(x => x.Id)
                   .NotNull()
@@ -62,6 +65,8 @@ namespace Empresa.Projeto.Application.Validations.Usuario
 
                 .NotEmpty()
                 .WithMessage("O status não pode ser vazio.");
+
+            RuleForEach(p => p.Especialidades).SetValidator(new ReferenciaEspecialidadeValidator(applicationEspecialidade));
         }
 
         private async Task<bool> ExisteNaBasePermissaoAsync(long? id)

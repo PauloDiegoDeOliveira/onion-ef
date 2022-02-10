@@ -15,15 +15,15 @@ namespace Empresa.Projeto.Application.Validations.Especialidade
 
             RuleFor(x => x.Id)
                   .NotNull()
-                  .WithMessage("O id do usuário não pode ser nulo.")
+                  .WithMessage("O id de especialidade não pode ser nulo.")
 
                   .NotEmpty()
-                  .WithMessage("O id do usuário não pode ser vazio.")
+                  .WithMessage("O de especialidade não pode ser vazio.")
 
               .MustAsync(async (id, cancelar) =>
               {
                   return await ExisteNaBaseAsync(id);
-              }).WithMessage("Id de usuário não cadastrado!");
+              }).WithMessage("Id de especialidade não cadastrado!");
 
             RuleFor(x => x.Nome)
                 .NotNull()

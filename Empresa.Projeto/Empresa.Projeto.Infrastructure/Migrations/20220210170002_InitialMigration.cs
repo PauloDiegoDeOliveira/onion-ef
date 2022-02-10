@@ -8,6 +8,22 @@ namespace Empresa.Projeto.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Capitulo",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NumeroCapitulo = table.Column<int>(type: "int", maxLength: 1000, nullable: false),
+                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
+                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AlteradoEm = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Capitulo", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Especialidade",
                 columns: table => new
                 {
@@ -39,6 +55,22 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Permissao", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Unidade",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NumeroCapitulo = table.Column<int>(type: "int", maxLength: 1000, nullable: false),
+                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
+                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AlteradoEm = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Unidade", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,6 +114,29 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Progresso",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TotalProgresso = table.Column<int>(type: "int", maxLength: 100, nullable: false, defaultValue: 0),
+                    CapituloId = table.Column<long>(type: "bigint", nullable: true),
+                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
+                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AlteradoEm = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Progresso", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Progresso_Capitulo_CapituloId",
+                        column: x => x.CapituloId,
+                        principalTable: "Capitulo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Usuario",
                 columns: table => new
                 {
@@ -104,6 +159,30 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                         name: "FK_Usuario_Permissao_PermissaoId",
                         column: x => x.PermissaoId,
                         principalTable: "Permissao",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CapituloUnidade",
+                columns: table => new
+                {
+                    CapitulosId = table.Column<long>(type: "bigint", nullable: false),
+                    UnidadesId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CapituloUnidade", x => new { x.CapitulosId, x.UnidadesId });
+                    table.ForeignKey(
+                        name: "FK_CapituloUnidade_Capitulo_CapitulosId",
+                        column: x => x.CapitulosId,
+                        principalTable: "Capitulo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CapituloUnidade_Unidade_UnidadesId",
+                        column: x => x.UnidadesId,
+                        principalTable: "Unidade",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -133,9 +212,19 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CapituloUnidade_UnidadesId",
+                table: "CapituloUnidade",
+                column: "UnidadesId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EspecialidadeUsuario_UsuariosId",
                 table: "EspecialidadeUsuario",
                 column: "UsuariosId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Progresso_CapituloId",
+                table: "Progresso",
+                column: "CapituloId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Usuario_PermissaoId",
@@ -146,7 +235,13 @@ namespace Empresa.Projeto.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "CapituloUnidade");
+
+            migrationBuilder.DropTable(
                 name: "EspecialidadeUsuario");
+
+            migrationBuilder.DropTable(
+                name: "Progresso");
 
             migrationBuilder.DropTable(
                 name: "UploadB64");
@@ -155,10 +250,16 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 name: "UploadForm");
 
             migrationBuilder.DropTable(
+                name: "Unidade");
+
+            migrationBuilder.DropTable(
                 name: "Especialidade");
 
             migrationBuilder.DropTable(
                 name: "Usuario");
+
+            migrationBuilder.DropTable(
+                name: "Capitulo");
 
             migrationBuilder.DropTable(
                 name: "Permissao");

@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Empresa.Projeto.Domain.Entitys
+﻿namespace Empresa.Projeto.Domain.Entitys
 {
-    public class Progresso
+    public class Progresso : EntityBase
     {
+        public int TotalProgresso { get; private set; }
+
+        public Capitulo Capitulo { get; private set; }
+
+        protected Progresso()
+        { }
+
+        protected Progresso(int totalProgresso, Capitulo capitulo)
+        {
+            TotalProgresso = totalProgresso;
+            Capitulo = capitulo;
+        }
     }
 }

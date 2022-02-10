@@ -1,7 +1,6 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
 using Empresa.Projeto.Domain.Entitys;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,9 +11,9 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
     {
         private readonly AppDbContext appDbContext;
 
-        public RepositoryUsuario(AppDbContext appContext) : base(appContext)
+        public RepositoryUsuario(AppDbContext appDbContext) : base(appDbContext)
         {
-            this.appDbContext = appContext;
+            this.appDbContext = appDbContext;
         }
 
         public override async Task<Usuario> PostAsync(Usuario obj)
@@ -39,7 +38,7 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             return await base.PutAsync(await UpdateAsync(obj));
         }
 
-        public async Task<Usuario> UpdateAsync(Usuario usuario) 
+        private async Task<Usuario> UpdateAsync(Usuario usuario) 
         {
             Usuario consulta = await appDbContext.Usuarios
                                     .Include(x => x.Especialidades)
@@ -47,11 +46,11 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             if (consulta == null)
                 return null;
 
-            await InsertEspecialidades(usuario, consulta); 
+            await PopulateEspecialidades(usuario, consulta); 
             return consulta;
         }
 
-        private async Task InsertEspecialidades(Usuario usuario, Usuario consulta)
+        private async Task PopulateEspecialidades(Usuario usuario, Usuario consulta)
         {
             consulta.Especialidades.Clear();
             foreach (Especialidade especialidade in usuario.Especialidades)

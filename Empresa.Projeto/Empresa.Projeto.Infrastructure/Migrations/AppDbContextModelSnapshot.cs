@@ -19,6 +19,53 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CapituloUnidade", b =>
+                {
+                    b.Property<long>("CapitulosId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UnidadesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("CapitulosId", "UnidadesId");
+
+                    b.HasIndex("UnidadesId");
+
+                    b.ToTable("CapituloUnidade");
+                });
+
+            modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Capitulo", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("AlteradoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("CriadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NumeroCapitulo")
+                        .HasMaxLength(1000)
+                        .HasColumnType("int")
+                        .HasColumnName("NumeroCapitulo");
+
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("int")
+                        .HasDefaultValue(1)
+                        .HasColumnName("Status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Capitulo");
+                });
+
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Especialidade", b =>
                 {
                     b.Property<long>("Id")
@@ -93,6 +140,77 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Permissao");
+                });
+
+            modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Progresso", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("AlteradoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CapituloId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CriadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("int")
+                        .HasDefaultValue(1)
+                        .HasColumnName("Status");
+
+                    b.Property<int>("TotalProgresso")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(100)
+                        .HasColumnType("int")
+                        .HasDefaultValue(0)
+                        .HasColumnName("TotalProgresso");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CapituloId");
+
+                    b.ToTable("Progresso");
+                });
+
+            modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Unidade", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("AlteradoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("CriadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NumeroUnidade")
+                        .HasMaxLength(1000)
+                        .HasColumnType("int")
+                        .HasColumnName("NumeroCapitulo");
+
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("int")
+                        .HasDefaultValue(1)
+                        .HasColumnName("Status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Unidade");
                 });
 
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.UploadB64", b =>
@@ -274,6 +392,30 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                     b.ToTable("EspecialidadeUsuario");
                 });
 
+            modelBuilder.Entity("CapituloUnidade", b =>
+                {
+                    b.HasOne("Empresa.Projeto.Domain.Entitys.Capitulo", null)
+                        .WithMany()
+                        .HasForeignKey("CapitulosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Empresa.Projeto.Domain.Entitys.Unidade", null)
+                        .WithMany()
+                        .HasForeignKey("UnidadesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Progresso", b =>
+                {
+                    b.HasOne("Empresa.Projeto.Domain.Entitys.Capitulo", "Capitulo")
+                        .WithMany("Progressos")
+                        .HasForeignKey("CapituloId");
+
+                    b.Navigation("Capitulo");
+                });
+
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Usuario", b =>
                 {
                     b.HasOne("Empresa.Projeto.Domain.Entitys.Permissao", "Permissao")
@@ -298,6 +440,11 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                         .HasForeignKey("UsuariosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Capitulo", b =>
+                {
+                    b.Navigation("Progressos");
                 });
 
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Permissao", b =>

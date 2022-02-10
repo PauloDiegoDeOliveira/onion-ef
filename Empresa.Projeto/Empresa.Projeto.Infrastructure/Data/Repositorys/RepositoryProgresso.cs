@@ -3,13 +3,13 @@ using Empresa.Projeto.Domain.Entitys;
 
 namespace Empresa.Projeto.Infrastructure.Data.Repositorys
 {
-    public class RepositoryEspecialidade : RepositoryBase<Especialidade>, IRepositoryEspecialidade
+    public class RepositoryProgresso : RepositoryBase<Progresso>, IRepositoryProgresso
     {
         private readonly AppDbContext appDbContext;
 
-        public RepositoryEspecialidade(AppDbContext appDbContext) : base(appDbContext)
+        public RepositoryProgresso(AppDbContext appContext) : base(appContext)
         {
-            this.appDbContext = appDbContext;
+            this.appDbContext = appContext;
         }
     }
 }

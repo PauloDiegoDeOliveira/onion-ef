@@ -13,9 +13,9 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
     {
         private readonly AppDbContext appDbContext;
 
-        public RepositoryBase(AppDbContext appContext)
+        public RepositoryBase(AppDbContext appDbContext)
         {
-            this.appDbContext = appContext;
+            this.appDbContext = appDbContext;
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync()

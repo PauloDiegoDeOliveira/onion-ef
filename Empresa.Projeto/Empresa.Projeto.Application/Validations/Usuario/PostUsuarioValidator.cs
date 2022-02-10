@@ -1,5 +1,6 @@
 ﻿using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Application.Interfaces;
+using Empresa.Projeto.Application.Validations.Especialidade;
 using FluentValidation;
 using System.Threading.Tasks;
 
@@ -8,10 +9,12 @@ namespace Empresa.Projeto.Application.Validations.Usuario
     public class PostUsuarioValidator : AbstractValidator<PostUsuarioDto>
     {
         private readonly IApplicationPermissao applicationPermissao;
+        private readonly IApplicationEspecialidade applicationEspecialidade;
 
-        public PostUsuarioValidator(IApplicationPermissao applicationPermissao)
+        public PostUsuarioValidator(IApplicationPermissao applicationPermissao, IApplicationEspecialidade applicationEspecialidade)
         {
             this.applicationPermissao = applicationPermissao;
+            this.applicationEspecialidade = applicationEspecialidade;
 
             RuleFor(x => x.PermissaoId)
                   .NotNull()
@@ -48,6 +51,8 @@ namespace Empresa.Projeto.Application.Validations.Usuario
 
                 .NotEmpty()
                 .WithMessage("O status não pode ser vazio.");
+
+            RuleForEach(p => p.Especialidades).SetValidator(new ReferenciaEspecialidadeValidator(applicationEspecialidade));
         }
 
         private async Task<bool> ExisteNaBaseAsync(long? id)

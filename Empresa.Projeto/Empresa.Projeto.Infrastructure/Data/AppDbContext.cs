@@ -18,6 +18,9 @@ namespace Empresa.Projeto.Infrastructure.Data
         public DbSet<UploadForm> UploadForm { get; set; }
         public DbSet<Especialidade> Especialidades { get; set; }
         public DbSet<UploadB64> UploadB64 { get; set; }
+        public DbSet<Progresso> Progressos { get; set; }
+        public DbSet<Capitulo> Capitulos { get; set; }
+        public DbSet<Unidade> Unidades { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,7 +35,6 @@ namespace Empresa.Projeto.Infrastructure.Data
         {
             optionsBuilder.UseSqlServer("Data Source=DESKTOP-62DE9CE;Initial Catalog=APIREST;Integrated Security=SSPI;");
         }
-
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

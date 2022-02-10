@@ -1,5 +1,8 @@
-﻿using Empresa.Projeto.Application.Validations.Especialidade;
+﻿using Empresa.Projeto.Application.Validations.Capitulo;
+using Empresa.Projeto.Application.Validations.Especialidade;
 using Empresa.Projeto.Application.Validations.Permissao;
+using Empresa.Projeto.Application.Validations.Progresso;
+using Empresa.Projeto.Application.Validations.Unidade;
 using Empresa.Projeto.Application.Validations.UploadB64;
 using Empresa.Projeto.Application.Validations.UploadForm;
 using Empresa.Projeto.Application.Validations.Usuario;
@@ -44,6 +47,18 @@ namespace Empresa.Projeto.RestAPI.Configuration
 
                     p.RegisterValidatorsFromAssemblyContaining<PostEspecialidadeValidator>();
                     p.RegisterValidatorsFromAssemblyContaining<PutEspecialidadeValidator>();
+                    p.RegisterValidatorsFromAssemblyContaining<ReferenciaEspecialidadeValidator>();
+
+                    p.RegisterValidatorsFromAssemblyContaining<PostProgressoValidator>();
+                    p.RegisterValidatorsFromAssemblyContaining<PutProgressoValidator>();
+                    p.RegisterValidatorsFromAssemblyContaining<ReferenciaProgressoValidator>();
+
+                    p.RegisterValidatorsFromAssemblyContaining<PostCapituloValidator>();
+                    p.RegisterValidatorsFromAssemblyContaining<PutCapituloValidator>();
+                    p.RegisterValidatorsFromAssemblyContaining<ReferenciaCapituloValidator>();
+
+                    p.RegisterValidatorsFromAssemblyContaining<PostUnidadeValidator>();
+                    p.RegisterValidatorsFromAssemblyContaining<PutUnidadeValidator>();
 
                     p.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
                 });

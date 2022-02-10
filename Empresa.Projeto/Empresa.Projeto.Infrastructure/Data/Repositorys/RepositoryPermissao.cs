@@ -12,9 +12,9 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
     {
         private readonly AppDbContext appDbContext;
 
-        public RepositoryPermissao(AppDbContext appContext) : base(appContext)
+        public RepositoryPermissao(AppDbContext appDbContext) : base(appDbContext)
         {
-            this.appDbContext = appContext;
+            this.appDbContext = appDbContext;
         }
 
         public async Task<IEnumerable<Permissao>> GetPaginationAsync(int pageNumber, int resultSize)

@@ -34,6 +34,18 @@ namespace Empresa.Projeto.RestAPI.Configuration
             services.AddScoped<IApplicationEspecialidade, ApplicationEspecialidade>();
             services.AddScoped<IServiceEspecialidade, ServiceEspecialidade>();
 
+            services.AddScoped<IRepositoryProgresso, RepositoryProgresso>();
+            services.AddScoped<IApplicationProgresso, ApplicationProgresso>();
+            services.AddScoped<IServiceProgresso, ServiceProgresso>();
+
+            services.AddScoped<IRepositoryCapitulo, RepositoryCapitulo>();
+            services.AddScoped<IApplicationCapitulo, ApplicationCapitulo>();
+            services.AddScoped<IServiceCapitulo, ServiceCapitulo>();
+
+            services.AddScoped<IRepositoryUnidade, RepositoryUnidade>();
+            services.AddScoped<IApplicationUnidade, ApplicationUnidade>();
+            services.AddScoped<IServiceUnidade, ServiceUnidade>();
+
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         }
     }

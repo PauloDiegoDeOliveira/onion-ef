@@ -12,7 +12,10 @@ namespace Empresa.Projeto.RestAPI.Configuration
                 typeof(MappingProfilePermissao),
                 typeof(MappingProfileUploadForm),
                 typeof(MappingProfileEspecialidade),
-                typeof(MappingProfileUploadB64));
+                typeof(MappingProfileUploadB64),
+                typeof(MappingProfileProgresso),
+                typeof(MappingProfileCapitulo),
+                typeof(MappingProfileUnidade));
         }
     }
 }
