@@ -3,7 +3,7 @@ using Empresa.Projeto.Application.Dtos.UploadForm;
 using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
-using System.IO;
+using Empresa.Projeto.Application.Utilities;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application
@@ -24,7 +24,8 @@ namespace Empresa.Projeto.Application
         {
             UploadForm objeto = mapper.Map<UploadForm>(postUploadForm);
             objeto.PolulateInformations(objeto, caminhoRelativo, caminhoAbsoluto);
-            await UploadImage(objeto);
+            UploadImageForm<UploadForm> uploadClass = new UploadImageForm<UploadForm>();
+            await uploadClass.UploadImage(objeto);
             return mapper.Map<ViewUploadFormDto>(await serviceUploadForm.PostAsync(objeto));
         }
 
@@ -35,10 +36,12 @@ namespace Empresa.Projeto.Application
             if (consulta is null)
                 return null;
 
-            await DeleteImage(consulta);
+            UploadImageForm<UploadForm> uploadClass = new UploadImageForm<UploadForm>();
+
+            await uploadClass.DeleteImage(consulta);
 
             consulta.PolulateInformations(mapper.Map<UploadForm>(putUploadForm), caminhoRelativo, caminhoAbsoluto);
-            await UploadImage(consulta);
+            await uploadClass.UploadImage(consulta);
             return mapper.Map<ViewUploadFormDto>(await serviceUploadForm.PutAsync(consulta));
         }
 
@@ -49,26 +52,9 @@ namespace Empresa.Projeto.Application
             if (consulta is null)
                 return null;
 
-            await DeleteImage(consulta);
+            UploadImageForm<UploadForm> uploadClass = new UploadImageForm<UploadForm>();
+            await uploadClass.DeleteImage(consulta);
             return await base.DeleteAsync(id);
-        }
-
-        private async Task UploadImage(UploadForm uploadForm)
-        {
-            string root = Path.Combine(Directory.GetCurrentDirectory(), uploadForm.CaminhoAbsoluto);
-            using (var stream = new FileStream(root, FileMode.Create))
-            {
-                await uploadForm.ImagemUpload.CopyToAsync(stream);
-            }
-        }
-
-        private async Task DeleteImage(UploadForm uploadForm)
-        {
-            if (File.Exists(uploadForm.CaminhoAbsoluto))
-            {
-                File.Delete(uploadForm.CaminhoAbsoluto);
-            }
-            await Task.CompletedTask;
         }
     }
 }

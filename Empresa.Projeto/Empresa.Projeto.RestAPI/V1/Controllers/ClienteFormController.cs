@@ -1,4 +1,4 @@
-﻿using Empresa.Projeto.Application.Dtos.UploadForm;
+﻿using Empresa.Projeto.Application.Dtos.ClienteForm;
 using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Domain.Enums;
 using Empresa.Projeto.RestAPI.URLs;
@@ -12,17 +12,17 @@ using System.Threading.Tasks;
 namespace Empresa.Projeto.RestAPI.V1.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/UploadForm")]
+    [Route("api/v{version:apiVersion}/ClienteForm")]
     [ApiController]
-    public class UploadFormController : ControllerBase
+    public class ClienteFormController : ControllerBase
     {
-        private readonly IApplicationUploadForm applicationUploadForm;
+        private readonly IApplicationClienteForm applicationClienteForm;
 
         private Caminhos[] urls;
 
-        public UploadFormController(IApplicationUploadForm applicationUploadForm)
+        public ClienteFormController(IApplicationClienteForm applicationClienteForm)
         {
-            this.applicationUploadForm = applicationUploadForm;
+            this.applicationClienteForm = applicationClienteForm;
             PopulateURLs();
         }
 
@@ -34,38 +34,38 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         }
 
         /// <summary>
-        /// Retorna todas as imagens.
+        /// Retorna todos os cliente.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<ViewUploadFormDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ViewClienteFormDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
-            IEnumerable<ViewUploadFormDto> result = await applicationUploadForm.GetAllAsync();
+            IEnumerable<ViewClienteFormDto> result = await applicationClienteForm.GetAllAsync();
             if (result != null)
                 return Ok(result);
 
-            return NotFound(new { mensagem = "Nenhuma imagem foi encontrada." });
+            return NotFound(new { mensagem = "Nenhum cliente foi encontrado." });
         }
 
         /// <summary>
-        /// Retorna uma imagem consultado via id.
+        /// Retorna um cliente consultado via id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id:long}")]
-        [ProducesResponseType(typeof(ViewUploadFormDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ViewClienteFormDto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
-            ViewUploadFormDto result = await applicationUploadForm.GetByIdAsync(id);
+            ViewClienteFormDto result = await applicationClienteForm.GetByIdAsync(id);
             if (result != null)
                 return Ok(result);
 
-            return NotFound(new { mensagem = "Nenhuma imagem foi encontrada com o id informado." });
+            return NotFound(new { mensagem = "Nenhum cliente foi encontrado com o id informado." });
         }
 
         /// <summary>
-        /// Faz um upload de imagem em um diretório escolhido por parâmetro (Tamanho máximo 10 MB).
+        /// Faz um upload de cliente em um diretório escolhido por parâmetro (Tamanho máximo 10 MB).
         /// </summary>
         /// <param name="postUploadForm"></param>
         /// <param name="diretorio"></param>
@@ -73,7 +73,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         // 10 Megabyte
         [RequestSizeLimit(10000000)]
         [HttpPost]
-        public async Task<ActionResult> PostUploadForm([FromForm] PostUploadFormDto postUploadForm, Diretorios diretorio)
+        public async Task<ActionResult> PostUploadForm([FromForm] PostClienteFormDto postUploadForm, Diretorios diretorio)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -84,13 +84,13 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if ((int)diretorio > urls.Length || diretorio == 0)
                 return BadRequest(new { mensagem = "Diretório não encontrado." });
 
-            ViewUploadFormDto objeto = await applicationUploadForm.PostAsync(postUploadForm, urls[(int)diretorio - 1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
+            ViewClienteFormDto objeto = await applicationClienteForm.PostAsync(postUploadForm, urls[(int)diretorio - 1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
 
             return Ok(new { mensagem = "Upload efetuado com sucesso.", objeto.NomeArquivoOriginal, objeto.IdGuid, objeto.CaminhoRelativo });
         }
 
         /// <summary>
-        /// Substitui uma imagem em um diretório escolhido por parâmetro (Tamanho máximo 10 MB).
+        /// Substitui um cliente em um diretório escolhido por parâmetro (Tamanho máximo 10 MB).
         /// </summary>
         /// <param name="putUploadForm"></param>
         /// <param name="diretorio"></param>
@@ -98,7 +98,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         // 10 Megabyte
         [RequestSizeLimit(10000000)]
         [HttpPut]
-        public async Task<ActionResult> PutUploadForm([FromForm] PutUploadFormDto putUploadForm, Diretorios diretorio)
+        public async Task<ActionResult> PutUploadForm([FromForm] PutClienteFormDto putUploadForm, Diretorios diretorio)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -109,10 +109,10 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if ((int)diretorio > urls.Length || diretorio == 0)
                 return BadRequest(new { mensagem = "Diretório não encontrado." });
 
-            ViewUploadFormDto objeto = await applicationUploadForm.PutAsync(putUploadForm, urls[(int)diretorio - 1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
+            ViewClienteFormDto objeto = await applicationClienteForm.PutAsync(putUploadForm, urls[(int)diretorio - 1].diretoriosAbsolutos, urls[(int)diretorio - 1].diretoriosRelativos);
 
             if (objeto is null)
-                return NotFound(new { mensagem = "Id de imagem não encontrado." });
+                return NotFound(new { mensagem = "Id de cliente não encontrado." });
 
             return Ok(new { mensagem = "Upload efetuado com sucesso.", objeto.NomeArquivoOriginal, objeto.IdGuid, objeto.CaminhoRelativo });
         }
@@ -121,15 +121,15 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// Exclui uma Imagem.
         /// </summary>
         /// <param name="id"></param>
-        /// <remarks>Ao excluir uma imagem o mesmo será removido permanentemente da base.</remarks>
+        /// <remarks>Ao excluir um cliente o mesmo será removido permanentemente da base.</remarks>
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeleteAsync(long id)
         {
-            ViewUploadFormDto result = await applicationUploadForm.DeleteAsync(id);
+            ViewClienteFormDto result = await applicationClienteForm.DeleteAsync(id);
             if (result != null)
-                return Ok(new { mensagem = "Imagem removida com sucesso!" });
+                return Ok(new { mensagem = "Cliente removida com sucesso!" });
 
-            return NotFound(new { mensagem = "Nenhuma Imagem foi encontrada com o id informado." });
+            return NotFound(new { mensagem = "Nenhum cliente foi encontrado com o id informado." });
         }
 
         /// <summary>
@@ -144,11 +144,12 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
             if (status == 0)
                 return BadRequest(new { mensagem = "Nenhum status selecionado!" });
 
-            ViewUploadFormDto result = await applicationUploadForm.PutStatusAsync(id, status);
+            ViewClienteFormDto result = await applicationClienteForm.PutStatusAsync(id, status);
             if (result != null)
                 return Ok(new { mensagem = "Status atualizado com sucesso para: " + status });
 
-            return NotFound(new { mensagem = "Nenhuma imagem foi encontrado com o id informado." });
+            return NotFound(new { mensagem = "Nenhum cliente foi encontrado com o id informado." });
         }
+
     }
 }

@@ -46,6 +46,10 @@ namespace Empresa.Projeto.RestAPI.Configuration
             services.AddScoped<IApplicationUnidade, ApplicationUnidade>();
             services.AddScoped<IServiceUnidade, ServiceUnidade>();
 
+            services.AddScoped<IRepositoryClienteForm, RepositoryClienteForm>();
+            services.AddScoped<IApplicationClienteForm, ApplicationClienteForm>();
+            services.AddScoped<IServiceClienteForm, ServiceClienteForm>();
+
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         }
     }

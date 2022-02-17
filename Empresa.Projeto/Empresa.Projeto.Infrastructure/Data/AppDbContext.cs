@@ -21,6 +21,7 @@ namespace Empresa.Projeto.Infrastructure.Data
         public DbSet<Progresso> Progressos { get; set; }
         public DbSet<Capitulo> Capitulos { get; set; }
         public DbSet<Unidade> Unidades { get; set; }
+        public DbSet<ClienteForm> ClientesForm { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,7 +34,7 @@ namespace Empresa.Projeto.Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-62DE9CE;Initial Catalog=APIREST;Integrated Security=SSPI;");
+            optionsBuilder.UseSqlServer("Data Source=HENRIQUENOTE;Initial Catalog=APIREST;Integrated Security=SSPI;");
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

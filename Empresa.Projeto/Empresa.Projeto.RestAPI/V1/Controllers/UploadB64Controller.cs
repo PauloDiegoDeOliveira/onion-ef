@@ -100,7 +100,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// <param name="diretorio"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<ActionResult> PutUploadForm(PutUploadB64Dto putUploadB64, Diretorios diretorio)
+        public async Task<ActionResult> PutUpload(PutUploadB64Dto putUploadB64, Diretorios diretorio)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

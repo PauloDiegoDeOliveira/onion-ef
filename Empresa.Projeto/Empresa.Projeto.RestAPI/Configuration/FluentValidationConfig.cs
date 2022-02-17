@@ -1,4 +1,5 @@
 ﻿using Empresa.Projeto.Application.Validations.Capitulo;
+using Empresa.Projeto.Application.Validations.ClienteForm;
 using Empresa.Projeto.Application.Validations.Especialidade;
 using Empresa.Projeto.Application.Validations.Permissao;
 using Empresa.Projeto.Application.Validations.Progresso;
@@ -59,6 +60,9 @@ namespace Empresa.Projeto.RestAPI.Configuration
 
                     p.RegisterValidatorsFromAssemblyContaining<PostUnidadeValidator>();
                     p.RegisterValidatorsFromAssemblyContaining<PutUnidadeValidator>();
+
+                    p.RegisterValidatorsFromAssemblyContaining<PostClienteFormValidator>();
+                    p.RegisterValidatorsFromAssemblyContaining<PutClienteFormValidator>();
 
                     p.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
                 });
