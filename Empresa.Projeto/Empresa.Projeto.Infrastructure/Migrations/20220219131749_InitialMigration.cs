@@ -24,30 +24,6 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClienteForm",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    Sobrenome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
-                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
-                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    AlteradoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IdGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
-                    TamanhoEmBytes = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    ContentType = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
-                    ExtensaoArquivo = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
-                    NomeArquivoOriginal = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
-                    CaminhoRelativo = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
-                    CaminhoAbsoluto = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClienteForm", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Especialidade",
                 columns: table => new
                 {
@@ -98,46 +74,6 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UploadB64",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
-                    CaminhoRelativo = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
-                    CaminhoAbsoluto = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
-                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
-                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    AlteradoEm = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UploadB64", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UploadForm",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
-                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    AlteradoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IdGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
-                    TamanhoEmBytes = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    ContentType = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
-                    ExtensaoArquivo = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
-                    NomeArquivoOriginal = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
-                    CaminhoRelativo = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
-                    CaminhoAbsoluto = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UploadForm", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Progresso",
                 columns: table => new
                 {
@@ -172,6 +108,7 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                     Apelido = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
                     Email = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
                     Senha = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true),
+                    UltimoAcessoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
                     CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
                     AlteradoEm = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -262,19 +199,10 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 name: "CapituloUnidade");
 
             migrationBuilder.DropTable(
-                name: "ClienteForm");
-
-            migrationBuilder.DropTable(
                 name: "EspecialidadeUsuario");
 
             migrationBuilder.DropTable(
                 name: "Progresso");
-
-            migrationBuilder.DropTable(
-                name: "UploadB64");
-
-            migrationBuilder.DropTable(
-                name: "UploadForm");
 
             migrationBuilder.DropTable(
                 name: "Unidade");

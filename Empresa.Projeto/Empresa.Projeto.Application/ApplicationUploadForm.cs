@@ -23,9 +23,12 @@ namespace Empresa.Projeto.Application
         public async Task<ViewUploadFormDto> PostAsync(PostUploadFormDto postUploadForm, string caminhoAbsoluto, string caminhoRelativo)
         {
             UploadForm objeto = mapper.Map<UploadForm>(postUploadForm);
-            objeto.PolulateInformations(objeto, caminhoRelativo, caminhoAbsoluto);
-            UploadImageForm<UploadForm> uploadClass = new UploadImageForm<UploadForm>();
+            PathCreator pathCreator = new PathCreator();
+            objeto.PolulateInformations(objeto, pathCreator.CreateAbsolutePath(caminhoAbsoluto), pathCreator.CreateRelativePath(caminhoRelativo));
+            
+            FormImageMethods<UploadForm> uploadClass = new FormImageMethods<UploadForm>();
             await uploadClass.UploadImage(objeto);
+            
             return mapper.Map<ViewUploadFormDto>(await serviceUploadForm.PostAsync(objeto));
         }
 
@@ -36,11 +39,12 @@ namespace Empresa.Projeto.Application
             if (consulta is null)
                 return null;
 
-            UploadImageForm<UploadForm> uploadClass = new UploadImageForm<UploadForm>();
-
+            FormImageMethods<UploadForm> uploadClass = new FormImageMethods<UploadForm>();
             await uploadClass.DeleteImage(consulta);
 
-            consulta.PolulateInformations(mapper.Map<UploadForm>(putUploadForm), caminhoRelativo, caminhoAbsoluto);
+            PathCreator pathCreator = new PathCreator();
+            consulta.PolulateInformations(mapper.Map<UploadForm>(putUploadForm), pathCreator.CreateAbsolutePath(caminhoAbsoluto), pathCreator.CreateRelativePath(caminhoRelativo));
+            
             await uploadClass.UploadImage(consulta);
             return mapper.Map<ViewUploadFormDto>(await serviceUploadForm.PutAsync(consulta));
         }
@@ -52,7 +56,7 @@ namespace Empresa.Projeto.Application
             if (consulta is null)
                 return null;
 
-            UploadImageForm<UploadForm> uploadClass = new UploadImageForm<UploadForm>();
+            FormImageMethods<UploadForm> uploadClass = new FormImageMethods<UploadForm>();
             await uploadClass.DeleteImage(consulta);
             return await base.DeleteAsync(id);
         }

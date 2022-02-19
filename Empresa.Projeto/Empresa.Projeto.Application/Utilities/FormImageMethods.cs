@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application.Utilities
 {
-    public class UploadImageForm<TEntity> where TEntity : UploadFormBase
+    public class FormImageMethods<TEntity> where TEntity : UploadFormBase
     {
         public async Task UploadImage(TEntity uploadForm)
         {

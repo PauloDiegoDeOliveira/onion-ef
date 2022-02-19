@@ -29,5 +29,10 @@ namespace Empresa.Projeto.Domain.Services
         {
             return await repositoryUsuario.GetByIdDetalhesAsync(id);
         }
+
+        public async Task<Usuario> PutUltimoAcessoAsync(Usuario obj)
+        {
+            return await repositoryUsuario.PutUltimoAcessoAsync(obj);
+        }
     }
 }

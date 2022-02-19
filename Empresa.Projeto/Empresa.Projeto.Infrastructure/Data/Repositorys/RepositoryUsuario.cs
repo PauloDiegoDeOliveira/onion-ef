@@ -1,6 +1,7 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
 using Empresa.Projeto.Domain.Entitys;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -60,6 +61,13 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             }
         }
 
+        public async Task<Usuario> PutUltimoAcessoAsync(Usuario obj)
+        {
+            Usuario result = await UpdateAsync(obj);
+            result.ChangeUltimoAcessoEmValue(DateTime.Now);
+            return await base.PutAsync(result);
+        }
+
         public async Task<IList<Usuario>> GetNomeAsync(string nome)
         {
             IList<Usuario> obj = await appDbContext.Usuarios
@@ -72,6 +80,7 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
         public async Task<Usuario> GetEmailAsync(string email)
         {
             Usuario obj = await appDbContext.Usuarios
+                                   .Include(x => x.Especialidades)
                                    .Where(x => x.Email.ToLower() == email.ToLower())
                                    .AsNoTracking()
                                    .FirstOrDefaultAsync();

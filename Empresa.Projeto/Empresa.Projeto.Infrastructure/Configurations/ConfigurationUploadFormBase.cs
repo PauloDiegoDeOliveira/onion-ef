@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Empresa.Projeto.Infrastructure.Configurations
 {
-    public class ConfigurationUploadFormBase<TEntity> : ConfigurationBase <TEntity>, IEntityTypeConfiguration<TEntity> where TEntity : UploadFormBase
+    public class ConfigurationUploadFormBase<TEntity> : ConfigurationBase <TEntity> where TEntity : UploadFormBase
     {
         public new virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {

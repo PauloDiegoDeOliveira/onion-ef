@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Empresa.Projeto.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220215215723_InitialMigration")]
+    [Migration("20220219131749_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,7 +71,6 @@ namespace Empresa.Projeto.Infrastructure.Migrations
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.ClienteForm", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:IdentityIncrement", 1)
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
@@ -81,65 +80,44 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CaminhoAbsoluto")
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("CaminhoAbsoluto");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CaminhoRelativo")
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("CaminhoRelativo");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContentType")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("ContentType");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CriadoEm")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ExtensaoArquivo")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("ExtensaoArquivo");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("IdGuid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("Nome");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NomeArquivoOriginal")
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("NomeArquivoOriginal");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sobrenome")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("Sobrenome");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
                         .HasColumnType("int")
                         .HasDefaultValue(1)
                         .HasColumnName("Status");
 
-                    b.Property<string>("TamanhoEmBytes")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("TamanhoEmBytes");
+                    b.Property<long>("TamanhoEmBytes")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ClienteForm");
+                    b.ToTable(null);
                 });
 
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Especialidade", b =>
@@ -292,7 +270,6 @@ namespace Empresa.Projeto.Infrastructure.Migrations
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.UploadB64", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:IdentityIncrement", 1)
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
@@ -302,25 +279,18 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CaminhoAbsoluto")
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("CaminhoAbsoluto");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CaminhoRelativo")
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("CaminhoRelativo");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CriadoEm")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("IdGuid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
                         .HasColumnType("int")
                         .HasDefaultValue(1)
@@ -328,13 +298,12 @@ namespace Empresa.Projeto.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UploadB64");
+                    b.ToTable(null);
                 });
 
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.UploadForm", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:IdentityIncrement", 1)
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
@@ -344,54 +313,38 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CaminhoAbsoluto")
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("CaminhoAbsoluto");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CaminhoRelativo")
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("CaminhoRelativo");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContentType")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("ContentType");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CriadoEm")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ExtensaoArquivo")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("ExtensaoArquivo");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("IdGuid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("NomeArquivoOriginal")
-                        .HasMaxLength(300)
-                        .HasColumnType("varchar(300)")
-                        .HasColumnName("NomeArquivoOriginal");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
                         .HasColumnType("int")
                         .HasDefaultValue(1)
                         .HasColumnName("Status");
 
-                    b.Property<string>("TamanhoEmBytes")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("TamanhoEmBytes");
+                    b.Property<long>("TamanhoEmBytes")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.ToTable("UploadForm");
+                    b.ToTable(null);
                 });
 
             modelBuilder.Entity("Empresa.Projeto.Domain.Entitys.Usuario", b =>
@@ -445,6 +398,9 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(1)
                         .HasColumnName("Status");
+
+                    b.Property<DateTime?>("UltimoAcessoEm")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

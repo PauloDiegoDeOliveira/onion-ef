@@ -3,11 +3,11 @@ using Empresa.Projeto.Application.Dtos.Usuario;
 using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+using Empresa.Projeto.Application.Utilities;
 
 namespace Empresa.Projeto.Application
 {
@@ -29,27 +29,17 @@ namespace Empresa.Projeto.Application
 
         public override Task<ViewUsuarioDto> PostAsync(PostUsuarioDto obj)
         {
-            ConverteSenhaEmHash(obj);          
+            HashedPassword hashedPassword = new PasswordHasherManager().ConvertPasswordToHash(obj.Senha);
+            obj.Senha = hashedPassword.Password;       
             return base.PostAsync(obj);
         }
 
         public override Task<ViewUsuarioDto> PutAsync(PutUsuarioDto obj)
         {
-            ConverteSenhaEmHash(obj);
+            HashedPassword hashedPassword = new PasswordHasherManager().ConvertPasswordToHash(obj.Senha);
+            obj.Senha = hashedPassword.Password;
             return base.PutAsync(obj);
         }      
-
-        private void ConverteSenhaEmHash(PostUsuarioDto post)
-        {
-            var passwordHasher = new PasswordHasher<PostUsuarioDto>();
-            post.Senha = passwordHasher.HashPassword(post, post.Senha);
-        }
-
-        private void ConverteSenhaEmHash(PutUsuarioDto put)
-        {
-            var passwordHasher = new PasswordHasher<PutUsuarioDto>();
-            put.Senha = passwordHasher.HashPassword(put, put.Senha);
-        }
 
         public async Task<IList<ViewUsuarioDto>> GetNomeAsync(string nome)
         {
@@ -60,44 +50,24 @@ namespace Empresa.Projeto.Application
         public async Task<ViewAposAutenticacaoDto> AutenticacaoAsync(ViewPreAutenticacaoDto viewPreAutenticacao)
         {
             Usuario consulta = await serviceUsuario.GetEmailAsync(viewPreAutenticacao.Email);
+
             if (consulta is null)
-            {
                 return null;
-            }
 
-            //await usuarioRepository.UltimoAcessoAsync(usuarioConsultado);
+            await serviceUsuario.PutUltimoAcessoAsync(consulta);
 
-            if (await ValidaEAtualizaHashAsync(viewPreAutenticacao, consulta.Senha))
+            if (await new PasswordHasherManager().ValidatePassword(consulta.Senha, viewPreAutenticacao.Senha))
             {
                 ViewAposAutenticacaoDto usuarioLogado = mapper.Map<ViewAposAutenticacaoDto>(consulta);
 
-                usuarioLogado.Token.Token = serviceJWT.GerarToken(consulta);
-                usuarioLogado.Token.Mensagem = "Usuário autenticado com sucesso!";
-                usuarioLogado.Token.TokenExpira = DateTime.Now.AddMinutes(Convert.ToInt32(configuration.GetSection("JWT:ExpiraEmMinutos").Value)).ToString();
+                usuarioLogado.Token.PopulateValidToken(serviceJWT.GerarToken(consulta),
+                    "Usuário autenticado com sucesso!",
+                    DateTime.Now.AddMinutes(Convert.ToInt32(configuration.GetSection("JWT:ExpiraEmMinutos").Value)).ToString());
+                
                 return usuarioLogado;
             }
+
             return null;
-        }
-
-        private static async Task<bool> ValidaEAtualizaHashAsync(ViewPreAutenticacaoDto viewAutenticacao, string hash)
-        {
-            await Task.CompletedTask;
-            var passwordHasher = new PasswordHasher<ViewPreAutenticacaoDto>();
-            var status = passwordHasher.VerifyHashedPassword(viewAutenticacao, hash, viewAutenticacao.Senha);
-            switch (status)
-            {
-                case PasswordVerificationResult.Failed:
-                    return false;
-
-                case PasswordVerificationResult.Success:
-                    return true;
-
-                case PasswordVerificationResult.SuccessRehashNeeded:
-                    return true;
-
-                default:
-                    throw new InvalidOperationException();
-            }
         }
 
         public async Task<ViewUsuarioPermissaoDto> GetByIdDetalhesAsync(long id)

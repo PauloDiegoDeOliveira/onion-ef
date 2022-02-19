@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Empresa.Projeto.Domain.Entitys
 {
@@ -12,6 +13,8 @@ namespace Empresa.Projeto.Domain.Entitys
         public string Apelido { get; private set; }
         public string Email { get; private set; }
         public string Senha { get; private set; }
+        public DateTime? UltimoAcessoEm { get; private set; }
+
 
         // Propriedades de navegação
         public virtual Permissao Permissao { get; private set; }
@@ -28,6 +31,7 @@ namespace Empresa.Projeto.Domain.Entitys
                        string apelido,
                        string email,
                        string senha,
+                       DateTime? ultimoAcessoEm,
                        Permissao permissao,
                        List<Especialidade> especialidades)
         {
@@ -37,6 +41,7 @@ namespace Empresa.Projeto.Domain.Entitys
             Apelido = apelido;
             Email = email;
             Senha = senha;
+            UltimoAcessoEm = ultimoAcessoEm;
             Permissao = permissao;
             Especialidades = especialidades;
         }
@@ -45,6 +50,11 @@ namespace Empresa.Projeto.Domain.Entitys
         public void ChangeEspecialidadesValue(List<Especialidade> especialidades) 
         {
             Especialidades = especialidades;
+        }
+
+        public void ChangeUltimoAcessoEmValue(DateTime date)
+        {
+            UltimoAcessoEm = date;
         }
     }
 }

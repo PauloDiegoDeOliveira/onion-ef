@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Empresa.Projeto.Infrastructure.Configurations
 {
-    public class ConfigurationClienteForm : ConfigurationUploadFormBase<ClienteForm>
+    public class ClienteFormConfiguration : ConfigurationUploadFormBase<ClienteForm>
     {
         public sealed override void Configure(EntityTypeBuilder<ClienteForm> builder)
         {

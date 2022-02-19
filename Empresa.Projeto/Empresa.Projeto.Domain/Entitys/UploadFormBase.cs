@@ -40,7 +40,7 @@ namespace Empresa.Projeto.Domain.Entitys
             CaminhoAbsoluto = caminhoAbsoluto;
         }
 
-        public void PolulateInformations(UploadFormBase uploadForm, string caminhoRelativo, string caminhoAbsoluto)
+        public void PolulateInformations(UploadFormBase uploadForm, string caminhoAbsoluto, string caminhoRelativo)
         {
             IdGuid = Guid.NewGuid();
             ImagemUpload = uploadForm.ImagemUpload;
@@ -48,8 +48,8 @@ namespace Empresa.Projeto.Domain.Entitys
             ContentType = uploadForm.ImagemUpload.ContentType;
             ExtensaoArquivo = Path.GetExtension(uploadForm.ImagemUpload.FileName);
             NomeArquivoOriginal = Path.GetFileNameWithoutExtension(uploadForm.ImagemUpload.FileName);
-            CaminhoRelativo = caminhoRelativo + IdGuid + "_" + ImagemUpload.FileName;
-            CaminhoAbsoluto = caminhoAbsoluto + IdGuid + "_" + ImagemUpload.FileName;
+            CaminhoRelativo = caminhoRelativo + IdGuid;
+            CaminhoAbsoluto = caminhoAbsoluto + IdGuid;
         }
     }
 }
