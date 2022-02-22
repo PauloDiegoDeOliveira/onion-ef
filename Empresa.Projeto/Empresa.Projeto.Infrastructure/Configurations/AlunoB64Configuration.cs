@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Empresa.Projeto.Infrastructure.Configurations
 {
-    public class ClienteFormConfiguration : ConfigurationUploadFormBase<ClienteForm>
+    public class AlunoB64Configuration : ConfigurationUploadB64Base<AlunoB64>
     {
-        public override void Configure(EntityTypeBuilder<ClienteForm> builder)
+        public override void Configure(EntityTypeBuilder<AlunoB64> builder)
         {
-            tableName = "ClienteForm";
+            tableName = "AlunoB64";
 
             base.Configure(builder);
 

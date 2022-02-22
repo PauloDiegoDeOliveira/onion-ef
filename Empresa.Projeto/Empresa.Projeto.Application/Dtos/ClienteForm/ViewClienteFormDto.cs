@@ -21,6 +21,5 @@ namespace Empresa.Projeto.Application.Dtos.ClienteForm
         public string ExtensaoArquivo { get; set; }
         public string NomeArquivoOriginal { get; set; }
         public string CaminhoRelativo { get; set; }
-        public string CaminhoAbsoluto { get; set; }
     }
 }

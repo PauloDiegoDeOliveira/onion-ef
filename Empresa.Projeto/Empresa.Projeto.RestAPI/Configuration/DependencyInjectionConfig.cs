@@ -50,6 +50,10 @@ namespace Empresa.Projeto.RestAPI.Configuration
             services.AddScoped<IApplicationClienteForm, ApplicationClienteForm>();
             services.AddScoped<IServiceClienteForm, ServiceClienteForm>();
 
+            services.AddScoped<IRepositoryAlunoB64, RepositoryAlunoB64>();
+            services.AddScoped<IApplicationAlunoB64, ApplicationAlunoB64>();
+            services.AddScoped<IServiceAlunoB64, ServiceAlunoB64>();
+
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         }
     }

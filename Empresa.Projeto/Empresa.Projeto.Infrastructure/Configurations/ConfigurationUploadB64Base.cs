@@ -4,11 +4,25 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Empresa.Projeto.Infrastructure.Configurations
 {
-    public class ConfigurationUploadB64Base<TEntity> : ConfigurationBase<TEntity> where TEntity : UploadB64Base
+    public class ConfigurationUploadB64Base<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : UploadB64Base
     {
-        public new virtual void Configure(EntityTypeBuilder<TEntity> builder)
+        protected string tableName;
+        public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
-            base.Configure(builder);
+            builder.ToTable(tableName);
+
+            builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.Id)
+                   .UseIdentityColumn()
+                   .HasColumnType("bigint");
+
+            builder.Property(p => p.Status)
+                   .IsRequired()
+                   .HasMaxLength(50)
+                   .HasColumnName("Status")
+                   .HasColumnType("int")
+                   .HasDefaultValue(1);
 
             builder.Property(x => x.IdGuid)
                   .HasDefaultValueSql("NEWID()");

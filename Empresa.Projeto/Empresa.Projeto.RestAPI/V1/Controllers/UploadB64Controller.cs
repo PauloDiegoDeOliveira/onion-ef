@@ -22,12 +22,10 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         private readonly IApplicationUploadB64 applicationUploadB64;
 
         private Caminhos[] urls;
-        private IWebHostEnvironment webHostEnvironment;
 
-        public UploadB64Controller(IApplicationUploadB64 applicationUploadB64, IWebHostEnvironment webHostEnvironment)
+        public UploadB64Controller(IApplicationUploadB64 applicationUploadB64)
         {
             this.applicationUploadB64 = applicationUploadB64;
-            this.webHostEnvironment = webHostEnvironment;
             PopulateURLs();
         }
 
@@ -59,7 +57,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id:long}")]
-        //[ProducesResponseType(typeof(ViewUploadB64Dto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ViewUploadB64Dto), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
             ViewUploadB64Dto result = await applicationUploadB64.GetByIdAsync(id);
@@ -123,7 +121,7 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// Exclui uma Imagem.
         /// </summary>
         /// <param name="id"></param>
-        /// <remarks>Ao excluir uma permissão o mesmo será removido permanentemente da base.</remarks>
+        /// <remarks>Ao excluir uma imagem o mesmo será removido permanentemente da base.</remarks>
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeleteAsync(long id)
         {

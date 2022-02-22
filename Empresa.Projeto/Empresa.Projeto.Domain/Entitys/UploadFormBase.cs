@@ -48,8 +48,8 @@ namespace Empresa.Projeto.Domain.Entitys
             ContentType = uploadForm.ImagemUpload.ContentType;
             ExtensaoArquivo = Path.GetExtension(uploadForm.ImagemUpload.FileName);
             NomeArquivoOriginal = Path.GetFileNameWithoutExtension(uploadForm.ImagemUpload.FileName);
-            CaminhoRelativo = caminhoRelativo + IdGuid;
-            CaminhoAbsoluto = caminhoAbsoluto + IdGuid;
+            CaminhoRelativo = caminhoRelativo + IdGuid + ExtensaoArquivo;
+            CaminhoAbsoluto = caminhoAbsoluto + IdGuid + ExtensaoArquivo;
         }
     }
 }

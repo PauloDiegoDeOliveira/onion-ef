@@ -8,6 +8,26 @@ namespace Empresa.Projeto.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AlunoB64",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Sobrenome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
+                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AlteradoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IdGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
+                    CaminhoRelativo = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
+                    CaminhoAbsoluto = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AlunoB64", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Capitulo",
                 columns: table => new
                 {
@@ -21,6 +41,30 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Capitulo", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClienteForm",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Sobrenome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
+                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AlteradoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IdGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
+                    TamanhoEmBytes = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    ContentType = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    ExtensaoArquivo = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    NomeArquivoOriginal = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
+                    CaminhoRelativo = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
+                    CaminhoAbsoluto = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClienteForm", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -71,6 +115,46 @@ namespace Empresa.Projeto.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Unidade", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UploadB64",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
+                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AlteradoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IdGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
+                    CaminhoRelativo = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
+                    CaminhoAbsoluto = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UploadB64", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UploadForm",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Status = table.Column<int>(type: "int", maxLength: 50, nullable: false, defaultValue: 1),
+                    CriadoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AlteradoEm = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IdGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
+                    TamanhoEmBytes = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    ContentType = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    ExtensaoArquivo = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true),
+                    NomeArquivoOriginal = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
+                    CaminhoRelativo = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true),
+                    CaminhoAbsoluto = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UploadForm", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -196,13 +280,25 @@ namespace Empresa.Projeto.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AlunoB64");
+
+            migrationBuilder.DropTable(
                 name: "CapituloUnidade");
+
+            migrationBuilder.DropTable(
+                name: "ClienteForm");
 
             migrationBuilder.DropTable(
                 name: "EspecialidadeUsuario");
 
             migrationBuilder.DropTable(
                 name: "Progresso");
+
+            migrationBuilder.DropTable(
+                name: "UploadB64");
+
+            migrationBuilder.DropTable(
+                name: "UploadForm");
 
             migrationBuilder.DropTable(
                 name: "Unidade");

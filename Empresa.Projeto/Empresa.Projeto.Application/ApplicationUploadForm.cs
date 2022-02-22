@@ -23,6 +23,7 @@ namespace Empresa.Projeto.Application
         public async Task<ViewUploadFormDto> PostAsync(PostUploadFormDto postUploadForm, string caminhoAbsoluto, string caminhoRelativo)
         {
             UploadForm objeto = mapper.Map<UploadForm>(postUploadForm);
+
             PathCreator pathCreator = new PathCreator();
             objeto.PolulateInformations(objeto, pathCreator.CreateAbsolutePath(caminhoAbsoluto), pathCreator.CreateRelativePath(caminhoRelativo));
             

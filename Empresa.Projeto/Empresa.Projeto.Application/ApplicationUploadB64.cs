@@ -5,7 +5,6 @@ using Empresa.Projeto.Application.Utilities;
 using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace Empresa.Projeto.Application

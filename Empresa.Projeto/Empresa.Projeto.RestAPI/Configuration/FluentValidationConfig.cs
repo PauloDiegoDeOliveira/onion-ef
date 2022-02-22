@@ -1,4 +1,5 @@
-﻿using Empresa.Projeto.Application.Validations.Capitulo;
+﻿using Empresa.Projeto.Application.Validations.AlunoB64;
+using Empresa.Projeto.Application.Validations.Capitulo;
 using Empresa.Projeto.Application.Validations.ClienteForm;
 using Empresa.Projeto.Application.Validations.Especialidade;
 using Empresa.Projeto.Application.Validations.Permissao;
@@ -63,6 +64,9 @@ namespace Empresa.Projeto.RestAPI.Configuration
 
                     p.RegisterValidatorsFromAssemblyContaining<PostClienteFormValidator>();
                     p.RegisterValidatorsFromAssemblyContaining<PutClienteFormValidator>();
+
+                    p.RegisterValidatorsFromAssemblyContaining<PostAlunoB64Valitator>();
+                    p.RegisterValidatorsFromAssemblyContaining<PutAlunoB64Validator>();
 
                     p.ValidatorOptions.LanguageManager.Culture = new CultureInfo("pt-BR");
                 });

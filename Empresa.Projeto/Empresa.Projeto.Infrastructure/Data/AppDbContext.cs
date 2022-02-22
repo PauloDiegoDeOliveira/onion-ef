@@ -22,6 +22,8 @@ namespace Empresa.Projeto.Infrastructure.Data
         public DbSet<Capitulo> Capitulos { get; set; }
         public DbSet<Unidade> Unidades { get; set; }
         public DbSet<ClienteForm> ClientesForm { get; set; }
+        public DbSet<AlunoB64> AlunosB64 { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
