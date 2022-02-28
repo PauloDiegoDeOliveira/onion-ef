@@ -57,6 +57,7 @@ namespace Empresa.Projeto.Application.Validations.Permissao
 
                 .NotEmpty()
                 .WithMessage("O status não pode ser vazio.");
+
         }
 
         private async Task<bool> ExisteNaBaseAsync(long? id)

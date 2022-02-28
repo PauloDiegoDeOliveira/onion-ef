@@ -1,9 +1,9 @@
-﻿using Empresa.Projeto.Application.Dtos.Paginacao;
-using Empresa.Projeto.Application.Dtos.Permissao;
+﻿using Empresa.Projeto.Application.Dtos.Permissao;
 using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Application.Structs;
 using Empresa.Projeto.Domain.Entitys;
 using Empresa.Projeto.Domain.Enums;
+using Empresa.Projeto.Domain.Pagination;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -167,19 +167,13 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// <summary>
         /// Retorna todas as permissões dividindo-as por páginas.
         /// </summary>
-        /// <param name="pageNumber"></param>
-        /// <param name="resultSize"></param>
+        /// <param name="parametersBase"></param>
         /// <returns></returns>
-        [HttpGet("{pageNumber:int}/{resultSize:int}")]
-        [ProducesResponseType(typeof(IEnumerable<ViewPermissaoDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllPaginationAsync(int pageNumber, int resultSize)
+        [HttpGet("paginacao")]
+        [ProducesResponseType(typeof(IEnumerable<ViewPaginationPermissaoDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllPaginationAsync([FromQuery] ParametersBase parametersBase)
         {
-            if (pageNumber <= 0)
-                return NotFound(new { mensagem = "Página não existente" });
-            else if (resultSize <= 0)
-                return NotFound(new { mensagem = "O tamanho de resultados exibidos não pode ser menor ou igual a 0" });
-
-            PermissaoPagination result = await applicationPermissao.GetPaginationAsync(pageNumber, resultSize);
+            ViewPaginationPermissaoDto result = await applicationPermissao.GetPaginationAsync(parametersBase);
 
             if (result.Permissoes.Count <= 0)
                 return NotFound(new { mensagem = "Nenhuma permissão foi encontrada." });

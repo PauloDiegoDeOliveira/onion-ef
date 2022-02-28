@@ -25,8 +25,9 @@ namespace Empresa.Projeto.Domain.Services
             var chave = Encoding.ASCII.GetBytes(configuration.GetSection("JWT:Secret").Value);
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, usuario.Email),
-                //new Claim(ClaimTypes.Role, usuario.PermissaoId.ToString())
+                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+                new Claim(ClaimTypes.Email, usuario.Email),
+                new Claim(ClaimTypes.Role, usuario.PermissaoId.ToString())
             };
             var tokenDescriptor = new SecurityTokenDescriptor
             {

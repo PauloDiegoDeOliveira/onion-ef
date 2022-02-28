@@ -1,8 +1,7 @@
 ﻿using Empresa.Projeto.Domain.Core.Interfaces.Repositorys;
 using Empresa.Projeto.Domain.Entitys;
-using Empresa.Projeto.Domain.Enums;
+using Empresa.Projeto.Domain.Pagination;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,9 +16,15 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
             this.appDbContext = appDbContext;
         }
 
-        public async Task<IEnumerable<Permissao>> GetPaginationAsync(int pageNumber, int resultSize)
+        public async Task<PagedList<Permissao>> GetPaginationAsync(ParametersBase parametersBase)
         {
-            return await appDbContext.Set<Permissao>().Where(p => p.Status != (int)Status.Excluido).AsNoTracking().Skip((pageNumber - 1) * resultSize).Take(resultSize).ToListAsync();
+            return await Task.FromResult(PagedList<Permissao>
+                .ToPagedList(appDbContext.Permissoes
+                .OrderBy(on => on.Id)
+                .Where(x => EF.Functions.Like(x.Nome, $"%{parametersBase.PalavraChave}%"))
+                .Where(x => x.Status == (int)parametersBase.Status)
+                .Where(x => parametersBase.Id == 0 || x.Id == parametersBase.Id),
+                 parametersBase.NumeroPagina, parametersBase.ResultadosExibidos));
         }
 
         public async Task<Permissao> GetByIdDetalhesAsync(long id)
@@ -29,11 +34,6 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
             return obj;
-        }
-
-        public async Task<int> GetCountAsync()
-        {
-            return await appDbContext.Set<Permissao>().Where(p => p.Status != (int)Status.Excluido).AsNoTracking().CountAsync();
         }
 
         public async Task SaveChangesAsync()

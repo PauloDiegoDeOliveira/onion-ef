@@ -1,14 +1,13 @@
 ﻿using Empresa.Projeto.Domain.Entitys;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using Empresa.Projeto.Domain.Pagination;
 
 namespace Empresa.Projeto.Domain.Core.Interfaces.Repositorys
 {
     public interface IRepositoryPermissao : IRepositoryBase<Permissao>
     {
-        Task<IEnumerable<Permissao>> GetPaginationAsync(int pageNumber, int resultSize);
+        Task<PagedList<Permissao>> GetPaginationAsync(ParametersBase parametersBase);
         Task<Permissao> GetByIdDetalhesAsync(long id);
-        Task<int> GetCountAsync();
         Task SaveChangesAsync();
     }
 }
