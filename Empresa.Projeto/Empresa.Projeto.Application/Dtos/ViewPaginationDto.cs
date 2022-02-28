@@ -2,7 +2,7 @@
 
 namespace Empresa.Projeto.Application.Dtos
 {
-    public class ViewPagination<T>
+    public class ViewPaginationDto<T>
     {
         public int PaginaAtual { get; private set; }
         public int TotalPaginas { get; private set; }
@@ -11,7 +11,7 @@ namespace Empresa.Projeto.Application.Dtos
         public bool ExistePaginaAnterior { get; private set; }
         public bool ExistePaginaPosterior { get; private set; }
 
-        public ViewPagination(PagedList<T> pagedList)
+        public ViewPaginationDto(PagedList<T> pagedList)
         {
             ContagemTotalResultados = pagedList.ContagemTotalResultados;
             TamanhoResultadosExibidos = pagedList.TamanhoResultadosExibidos;

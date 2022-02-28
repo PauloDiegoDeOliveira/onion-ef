@@ -1,4 +1,5 @@
-﻿using Empresa.Projeto.Application.Dtos.Permissao;
+﻿using Empresa.Projeto.Application.Dtos;
+using Empresa.Projeto.Application.Dtos.Permissao;
 using Empresa.Projeto.Application.Interfaces;
 using Empresa.Projeto.Application.Structs;
 using Empresa.Projeto.Domain.Entitys;
@@ -170,12 +171,12 @@ namespace Empresa.Projeto.RestAPI.V1.Controllers
         /// <param name="parametersBase"></param>
         /// <returns></returns>
         [HttpGet("paginacao")]
-        [ProducesResponseType(typeof(IEnumerable<ViewPaginationPermissaoDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ViewPagedListDto<Permissao, ViewPermissaoDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllPaginationAsync([FromQuery] ParametersBase parametersBase)
         {
-            ViewPaginationPermissaoDto result = await applicationPermissao.GetPaginationAsync(parametersBase);
+            ViewPagedListDto<Permissao, ViewPermissaoDto> result = await applicationPermissao.GetPaginationAsync(parametersBase);
 
-            if (result.Permissoes.Count <= 0)
+            if (result.Pagina.Count <= 0)
                 return NotFound(new { mensagem = "Nenhuma permissão foi encontrada." });
 
             return Ok(result);
