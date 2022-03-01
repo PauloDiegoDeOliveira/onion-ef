@@ -7,14 +7,10 @@ namespace Empresa.Projeto.Application.Structs
         public TEntity Entity { get; private set; }
         public TDto Dto { get; private set; }
 
-        public void ChangeEntity(TEntity entity)
+        public EntityDtoStruct(TEntity entity, TDto dto)
         {
-            this.Entity = entity;
-        }
-
-        public void ChangeDto(TDto dto)
-        {
-            this.Dto = dto;
+            Entity = entity;
+            Dto = dto;
         }
     }
 }

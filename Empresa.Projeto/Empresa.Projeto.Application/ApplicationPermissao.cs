@@ -37,10 +37,8 @@ namespace Empresa.Projeto.Application
 
         public async Task<EntityDtoStruct<Permissao, PutPermissaoDto>> GetByIdReturnStructDtoAsync(long id)
         {
-            EntityDtoStruct<Permissao, PutPermissaoDto> objetoPermissao = new EntityDtoStruct<Permissao, PutPermissaoDto>();
-            objetoPermissao.ChangeEntity(await servicePermissao.GetByIdAsync(id));
-            objetoPermissao.ChangeDto(mapper.Map<PutPermissaoDto>(objetoPermissao.Entity));
-            return objetoPermissao;
+            Permissao obj = await servicePermissao.GetByIdAsync(id);
+            return new EntityDtoStruct<Permissao, PutPermissaoDto>(obj, mapper.Map<PutPermissaoDto>(obj));
         }
 
         public async Task SaveChangesAsync(EntityDtoStruct<Permissao, PutPermissaoDto> dtoStruct)
