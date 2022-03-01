@@ -4,10 +4,9 @@ namespace Empresa.Projeto.Domain.Pagination
 {
     public class ParametersBase
     {
-
         public long Id { get; set; }
         public string PalavraChave { get; set; }
-        public Status Status { get; set; } = Status.Ativo;
+        public Status Status { get; set; }
 
         private const int tamanhoMaximoResultados = 50;
         private int resultadosExibidos = 10;

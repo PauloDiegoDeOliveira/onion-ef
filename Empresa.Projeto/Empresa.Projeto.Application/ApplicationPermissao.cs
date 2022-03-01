@@ -7,6 +7,7 @@ using Empresa.Projeto.Domain.Core.Interfaces.Services;
 using Empresa.Projeto.Domain.Entitys;
 using System.Threading.Tasks;
 using Empresa.Projeto.Application.Dtos;
+using System.Collections.Generic;
 
 namespace Empresa.Projeto.Application
 {
@@ -25,15 +26,7 @@ namespace Empresa.Projeto.Application
         public async Task<ViewPagedListDto<Permissao, ViewPermissaoDto>> GetPaginationAsync(ParametersBase parametersBase)
         {
             PagedList<Permissao> pagedList = await servicePermissao.GetPaginationAsync(parametersBase);
-
-            ViewPagedListDto<Permissao, ViewPermissaoDto> retorno = new ViewPagedListDto<Permissao, ViewPermissaoDto>(pagedList);
-
-            foreach (Permissao permissaoItem in pagedList)
-            {
-                retorno.Pagina.Add(mapper.Map<ViewPermissaoDto>(permissaoItem));
-            }
-
-            return retorno;
+            return new ViewPagedListDto<Permissao, ViewPermissaoDto>(pagedList, mapper.Map<List<ViewPermissaoDto>>(pagedList));
         }
 
         public async Task<ViewPermissaoUsuarioDto> GetByIdDetalhesAsync(long id)

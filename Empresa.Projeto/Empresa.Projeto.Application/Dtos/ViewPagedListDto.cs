@@ -9,9 +9,9 @@ namespace Empresa.Projeto.Application.Dtos
         public ICollection<TView> Pagina { get; set; }
         public ViewPaginationDto<TEntity> Dados { get; set; }
 
-        public ViewPagedListDto(PagedList<TEntity> pagedList)
+        public ViewPagedListDto(PagedList<TEntity> pagedList, List<TView> list)
         {
-            Pagina = new List<TView>();
+            Pagina = list;
             Dados = new ViewPaginationDto<TEntity>(pagedList);
         }
     }

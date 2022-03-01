@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using Empresa.Projeto.Application.Dtos.Conversor_B64;
 
 namespace Empresa.Projeto.RestAPI.V1.Controllers

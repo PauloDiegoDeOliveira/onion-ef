@@ -30,15 +30,5 @@ namespace Empresa.Projeto.Domain.Pagination
             var items = query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
-
-        public List<T> ReturnList<T>(PagedList<T> pagedList)
-        {
-            List<T> retorno = new List<T>();
-            foreach (T item in pagedList)
-            {
-                retorno.Add(item);
-            }
-            return retorno;
-        }
     }
 }

@@ -22,7 +22,7 @@ namespace Empresa.Projeto.Infrastructure.Data.Repositorys
                 .ToPagedList(appDbContext.Permissoes
                 .OrderBy(on => on.Id)
                 .Where(x => EF.Functions.Like(x.Nome, $"%{parametersBase.PalavraChave}%"))
-                .Where(x => x.Status == (int)parametersBase.Status)
+                .Where(x => (int)parametersBase.Status == 0 ? true : x.Status == (int)parametersBase.Status)
                 .Where(x => parametersBase.Id == 0 || x.Id == parametersBase.Id),
                  parametersBase.NumeroPagina, parametersBase.ResultadosExibidos));
         }
