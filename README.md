@@ -76,3 +76,4 @@ As seguintes ferramentas foram usadas na construção do projeto:
 ## 📝 Licença
 
 Copyright © 2022. Todos os direitos reservados. Política de Privacidade e Termos de Uso
+=======
