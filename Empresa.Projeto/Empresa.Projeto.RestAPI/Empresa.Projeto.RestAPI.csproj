@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <ProjectGuid>CA15F28A-377B-4B86-B625-08DA4BF6489E</ProjectGuid>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>    
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
